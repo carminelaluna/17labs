@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /404.html
-Disallow: /lab/
 
 Sitemap: https://17labs.it/sitemap.xml
