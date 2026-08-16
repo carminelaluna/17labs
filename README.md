@@ -52,8 +52,9 @@ JavaScript vengono bloccati dal CORS, quindi la scena 3D non parte.
 
 ## Pubblicazione
 
-GitHub Pages con dominio personalizzato. I passaggi, DNS compreso, stanno in
-[DEPLOY.md](DEPLOY.md).
+GitHub Pages con dominio personalizzato: `CNAME` contiene il dominio, `.nojekyll`
+disattiva Jekyll. Sul DNS l'apex punta ai record A di GitHub Pages, `www` a
+`carminelaluna.github.io` via CNAME.
 
 ## Licenze
 
