@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="it" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GAME OVER — pagina non trovata | 17Labs</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a12">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230a0a12'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23b98cf5'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%234ec9f5'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23f2f2ff'/%3E%3C/svg%3E">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('dev-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+<style>
+/* Pagina volutamente autonoma: una 404 deve funzionare anche se
+   il resto del sito è rotto, quindi non dipende da nessun altro file. */
+[data-theme="dark"] {
+  --bg:#0a0a12; --surface:#161624; --line:#2c2c46; --line-strong:#45456b;
+  --text:#eaeaf7; --text-dim:#b4b4d4; --text-faint:#9a9ac2;
+  --acc:#7ee787; --acc-3:#f5c451; --shadow:#05050b; --btn-fg:#0a0a12; --btn-bg:#7ee787;
+  --scan:rgba(0,0,0,.55); --scan-op:.34; color-scheme:dark;
+}
+[data-theme="light"] {
+  --bg:#dcdce8; --surface:#f7f7fc; --line:#a9a9c4; --line-strong:#6d6d92;
+  --text:#14141f; --text-dim:#3d3d55; --text-faint:#54546f;
+  --acc:#126536; --acc-3:#84590c; --shadow:#9c9cb8; --btn-fg:#f7f7fc; --btn-bg:#14141f;
+  --scan:rgba(20,20,40,.5); --scan-op:.14; color-scheme:light;
+}
+*,*::before,*::after { box-sizing:border-box; }
+body {
+  margin:0; min-height:100svh; background:var(--bg); color:var(--text);
+  font-family:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:grid; place-items:center; padding:32px 20px;
+}
+.crt {
+  position:fixed; inset:0; z-index:50; pointer-events:none;
+  background:repeating-linear-gradient(to bottom, var(--scan) 0 1px, transparent 1px 3px);
+  opacity:var(--scan-op);
+}
+.box {
+  position:relative; z-index:1; max-width:620px; width:100%; text-align:center;
+  background:var(--surface); border:3px solid var(--line-strong);
+  box-shadow:0 0 0 3px var(--bg), 8px 8px 0 0 var(--shadow);
+}
+.bar {
+  background:var(--surface); border-bottom:3px solid var(--line-strong);
+  padding:10px 14px; display:flex; align-items:center; gap:10px;
+  font-family:"Press Start 2P",monospace; font-size:8px; color:var(--text-faint); text-align:left;
+}
+.body { padding:clamp(28px,5vw,52px) clamp(20px,4vw,42px); display:grid; gap:20px; justify-items:center; }
+canvas { image-rendering:pixelated; image-rendering:crisp-edges; width:104px; height:104px; }
+h1 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(18px,4.4vw,30px); margin:0; color:var(--acc-3); line-height:1.4; }
+.code { font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--text-faint); margin:0; }
+p.msg { font-size:15px; line-height:1.7; color:var(--text-dim); margin:0; max-width:44ch; }
+.row { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:4px; }
+.btn {
+  display:inline-flex; align-items:center; font-family:"Press Start 2P",monospace;
+  font-size:10px; line-height:1; padding:15px 19px; text-decoration:none; cursor:pointer;
+  border:2px solid var(--line-strong); background:var(--surface); color:var(--text);
+  box-shadow:4px 4px 0 0 var(--shadow);
+  transition:transform .1s steps(2), box-shadow .1s steps(2);
+}
+.btn:active { transform:translate(4px,4px); box-shadow:0 0 0 0 var(--shadow); }
+.btn--p { background:var(--btn-bg); color:var(--btn-fg); border-color:var(--btn-bg); }
+.blink { animation:blink 1.1s steps(1) infinite; }
+@keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+@media (prefers-reduced-motion: reduce) { .blink { animation:none; } *{transition-duration:.01ms !important;} }
+</style>
+</head>
+<body>
+<div class="crt" aria-hidden="true"></div>
+
+<main class="box">
+  <p class="bar">ERRORE.EXE</p>
+  <div class="body">
+    <canvas id="s" width="16" height="16" aria-hidden="true"></canvas>
+    <h1>GAME OVER</h1>
+    <p class="code">ERRORE 404 — PAGINA NON TROVATA</p>
+    <p class="msg">
+      Questa schermata non esiste. Può capitare: un link vecchio, un indirizzo
+      scritto a mano, oppure l'abbiamo spostata noi senza avvisare.
+    </p>
+    <div class="row">
+      <a class="btn btn--p" href="/">CONTINUE<span class="blink">?</span></a>
+      <a class="btn" href="/#contatti">SEGNALA IL LINK</a>
+    </div>
+  </div>
+</main>
+
+<script>
+/* sprite "star" disegnato inline: la 404 non deve dipendere da altri file */
+(function () {
+  const PAL = { '1':'#10101a', '6':'#f2f2ff', 'b':'#f5c451' };
+  const ROWS = [
+    '................',
+    '.......11.......',
+    '......1bb1......',
+    '......1bb1......',
+    '.....1bbbb1.....',
+    '.....1bbbb1.....',
+    '.1111bbbbbb1111.',
+    '.1bbbbbbbbbbbb1.',
+    '..1bbbbbbbbbb1..',
+    '...1bbbbbbbb1...',
+    '...1bbbbbbbb1...',
+    '..1bbbb11bbbb1..',
+    '..1bbb1..1bbb1..',
+    '.1bb11....11bb1.',
+    '.111........111.',
+    '................'
+  ];
+  const ctx = document.getElementById('s').getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let tick = 0;
+  function paint() {
+    ctx.clearRect(0, 0, 16, 16);
+    for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) {
+      const c = ROWS[y][x];
+      if (c === '.') continue;
+      ctx.fillStyle = (c === 'b' && tick % 3 === 1) ? PAL['6'] : PAL[c];
+      ctx.fillRect(x, y, 1, 1);
+    }
+  }
+  paint();
+  if (!reduce) setInterval(() => { tick++; paint(); }, 260);
+})();
+</script>
+</body>
+</html>

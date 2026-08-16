@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="it" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- SEGNAPOSTO: nome dello studio e descrizione -->
+<title>17Labs — Sviluppo software e soluzioni IA</title>
+<meta name="description" content="Siti, portali, gestionali su misura e integrazioni basate su intelligenza artificiale. Dall'analisi al rilascio.">
+<meta name="theme-color" content="#0a0a12" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f1f1f3" media="(prefers-color-scheme: light)">
+<!-- SEGNAPOSTO: sostituire il dominio quando il sito è online -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="17Labs">
+<meta property="og:title" content="17Labs — Sviluppo software e soluzioni IA">
+<meta property="og:description" content="Siti, portali, gestionali su misura e integrazioni basate su intelligenza artificiale. Dall'analisi al rilascio.">
+<meta property="og:locale" content="it_IT">
+<!-- og:image richiede un URL assoluto: relativo non funziona su nessuna piattaforma -->
+<meta property="og:image" content="https://17labs.it/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="17Labs — sviluppo software e soluzioni IA">
+<meta property="og:url" content="https://17labs.it/">
+<link rel="canonical" href="https://17labs.it/">
+<link rel="alternate" hreflang="it" href="https://17labs.it/">
+<link rel="alternate" hreflang="en" href="https://17labs.it/en/">
+<link rel="alternate" hreflang="x-default" href="https://17labs.it/">
+<meta name="twitter:image" content="https://17labs.it/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="17Labs — Sviluppo software e soluzioni IA">
+<meta name="twitter:description" content="Siti, portali, gestionali su misura e integrazioni basate su intelligenza artificiale.">
+<!-- Tipo Person, non ProfessionalService: quest'ultimo dichiara un'attività
+     registrata. Passa a ProfessionalService quando apri la partita IVA.
+     SEGNAPOSTO: url, email e sameAs con i profili reali. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Carmine La Luna",
+  "alternateName": "17Labs",
+  "jobTitle": "Sviluppatore software",
+  "description": "Sviluppo siti, portali, gestionali su misura e integrazioni basate su intelligenza artificiale.",
+  "url": "https://17labs.it/",
+  "email": "contact@17labs.it",
+  "knowsLanguage": "it",
+  "knowsAbout": [
+    "Sviluppo software su misura",
+    "Sviluppo siti web",
+    "Portali e aree riservate",
+    "Gestionali aziendali",
+    "Integrazione di modelli linguistici"
+  ]
+}
+</script>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230a0a12'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23b98cf5'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%234ec9f5'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23f2f2ff'/%3E%3C/svg%3E">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('dev-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<a class="skip px" href="#top">SALTA AL CONTENUTO</a>
+<div class="crt" aria-hidden="true"></div>
+
+<!-- Boot screen: una volta per sessione, saltabile con un tasto qualsiasi -->
+<div class="boot" id="boot" hidden>
+  <pixel-icon sprite="chip" aria-hidden="true"></pixel-icon>
+  <p class="boot__name px">17LABS</p>
+  <p class="boot__line" id="boot-line"></p>
+  <p class="boot__press px blink">PREMI UN TASTO</p>
+</div>
+
+<noscript>
+  <p style="padding:80px 20px 20px;max-width:60ch;margin:0 auto;line-height:1.7">
+    Questa pagina usa JavaScript per le animazioni e il menu, ma i contenuti
+    (competenze, stack, metodo, contatti) sono tutti leggibili qui sotto.
+  </p>
+</noscript>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <pixel-icon sprite="trophy" aria-hidden="true"></pixel-icon>
+  <span class="toast__txt">
+    <span class="toast__k">TROFEO SBLOCCATO</span>
+    <span class="toast__n" id="toast-name"></span>
+  </span>
+</div>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <!-- SEGNAPOSTO: nome dello studio -->
+    <a class="brand px" href="#top">
+      <span class="brand__mark"><pixel-icon sprite="chip" style="--px-size:22px"></pixel-icon></span>
+      17Labs
+    </a>
+    <nav class="nav__links px">
+      <a href="#progetti">PROGETTI</a>
+      <a href="#competenze">COMPETENZE</a>
+      <a href="#processo">METODO</a>
+      <a href="#chi-sono">CHI SONO</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav__end">
+      <a class="lang px" href="en/" hreflang="en" lang="en">EN</a>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Cambia tema chiaro/scuro">
+        <svg class="icon-sun" viewBox="0 0 16 16" shape-rendering="crispEdges" fill="currentColor"><path d="M7 1h2v2H7zM7 13h2v2H7zM1 7h2v2H1zM13 7h2v2h-2zM3 3h2v2H3zM11 3h2v2h-2zM3 11h2v2H3zM11 11h2v2h-2zM6 5h4v1H6zM5 6h6v4H5zM6 10h4v1H6z"/></svg>
+        <svg class="icon-moon" viewBox="0 0 16 16" shape-rendering="crispEdges" fill="currentColor"><path d="M5 2h6v1H5zM4 3h5v1H4zM3 4h4v1H3zM3 5h3v1H3zM2 6h4v1H2zM2 7h4v1H2zM2 8h4v1H2zM2 9h4v1H2zM3 10h3v1H3zM3 11h4v1H3zM4 12h5v1H4zM5 13h6v1H5z"/></svg>
+      </button>
+      <a class="btn btn--primary" href="#contatti">PARLIAMONE</a>
+      <button class="icon-btn nav__burger" id="nav-toggle" type="button"
+              aria-expanded="false" aria-controls="nav-menu" aria-label="Apri il menu">
+        <svg viewBox="0 0 16 16" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><path d="M2 3h12v2H2zM2 7h12v2H2zM2 11h12v2H2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <nav class="nav__menu" id="nav-menu" hidden aria-label="Menu principale">
+    <a href="#progetti">PROGETTI</a>
+    <a href="#competenze">COMPETENZE</a>
+    <a href="#processo">METODO</a>
+    <a href="#chi-sono">CHI SONO</a>
+    <a href="#stack">STACK</a>
+    <a href="#faq">FAQ</a>
+    <a href="#arcade">SALA GIOCHI</a>
+    <a class="btn btn--primary btn--lg" href="#contatti">PARLIAMONE</a>
+  </nav>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<main id="top">
+<section class="hero">
+  <div class="hero__gl" id="hero-gl" aria-hidden="true"></div>
+  <div class="hero__intro">
+    <p class="hero__kicker px"><i class="blink"></i>DISPONIBILE PER NUOVI PROGETTI</p>
+    <!-- SEGNAPOSTO: nome dello studio -->
+    <h1>17Labs</h1>
+    <p class="hero__class">&gt; classe: sviluppatore full-stack<br>&gt; specializzazione: soluzioni IA</p>
+    <p class="hero__body">
+      Progetto e realizzo siti, portali, gestionali su misura e automazioni che parlano
+      con i sistemi che usi già. Dall'analisi del processo al rilascio, con codice
+      che resta leggibile anche fra due anni.
+    </p>
+    <div class="hero__cta">
+      <a class="btn btn--primary btn--lg" href="#contatti">PRESS START</a>
+      <a class="btn btn--lg" href="#competenze">INVENTARIO</a>
+    </div>
+  </div>
+
+  <div class="hero__stage">
+    <div class="marquee" id="marquee">
+      <div class="marquee__track" id="track"><!-- generato via JS --></div>
+    </div>
+  </div>
+
+  <p class="scroll-hint px"><i></i> SCORRI</p>
+</section>
+
+<!-- ============================ COMPETENZE ============================ -->
+<section class="section section--alt" id="competenze">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow px"><i></i>INVENTARIO</p>
+      <h2>Cosa so costruire</h2>
+      <p class="section__lede">
+        Lavoro sull'intero ciclo: analisi del processo, architettura, sviluppo, rilascio e
+        manutenzione. Un progetto tipico ne tocca tre o quattro insieme.
+      </p>
+    </div>
+
+    <!-- NOTA: i valori data-level (0-10) sono da tarare, li ho messi come segnaposto -->
+    <div class="skills">
+      <article class="skill">
+        <div class="skill__top">
+          <pixel-icon sprite="chip" aria-hidden="true"></pixel-icon>
+          <h3>Intelligenza<br>artificiale</h3>
+        </div>
+        <p>Modelli linguistici dentro i processi aziendali: assistenti che rispondono sui documenti interni, estrazione dati da PDF e email, classificazione e smistamento automatico delle richieste.</p>
+        <div class="xp" data-level="9"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
+        <ul class="tags"><li>LLM</li><li>RAG</li><li>Embeddings</li><li>Vector DB</li><li>Prompt design</li></ul>
+      </article>
+
+      <article class="skill">
+        <div class="skill__top">
+          <pixel-icon sprite="browser" aria-hidden="true"></pixel-icon>
+          <h3>Siti web</h3>
+        </div>
+        <p>Siti vetrina, landing page e siti istituzionali. Attenzione reale a velocità di caricamento, SEO tecnica e accessibilità: un sito lento o non indicizzato è un sito che non lavora.</p>
+        <div class="xp" data-level="9"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
+        <ul class="tags"><li>Performance</li><li>SEO tecnica</li><li>Responsive</li><li>Accessibilità</li><li>CMS</li></ul>
+      </article>
+
+      <article class="skill">
+        <div class="skill__top">
+          <pixel-icon sprite="key" aria-hidden="true"></pixel-icon>
+          <h3>Portali e<br>aree riservate</h3>
+        </div>
+        <p>Aree clienti, portali fornitori, intranet. Autenticazione, ruoli e permessi granulari, multi-tenant, tracciamento delle operazioni e gestione autonoma dei contenuti.</p>
+        <div class="xp" data-level="8"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
+        <ul class="tags"><li>Auth</li><li>Ruoli</li><li>Multi-tenant</li><li>Audit log</li><li>SSO</li></ul>
+      </article>
+
+      <article class="skill">
+        <div class="skill__top">
+          <pixel-icon sprite="ledger" aria-hidden="true"></pixel-icon>
+          <h3>Gestionali<br>su misura</h3>
+        </div>
+        <p>Quando il software pronto non si adatta al modo in cui lavori davvero. Anagrafiche, magazzino, ordini, fatturazione, flussi di approvazione e reportistica, costruiti sul processo esistente.</p>
+        <div class="xp" data-level="9"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
+        <ul class="tags"><li>Anagrafiche</li><li>Magazzino</li><li>Ordini</li><li>Fatturazione</li><li>Workflow</li></ul>
+      </article>
+
+      <article class="skill">
+        <div class="skill__top">
+          <pixel-icon sprite="bag" aria-hidden="true"></pixel-icon>
+          <h3>E-commerce</h3>
+        </div>
+        <p>Cataloghi con varianti e listini differenziati, pagamenti, spedizioni e — soprattutto — il collegamento con il gestionale, così che giacenze e ordini non si riscrivano a mano due volte.</p>
+        <div class="xp" data-level="7"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
+        <ul class="tags"><li>Catalogo</li><li>Pagamenti</li><li>Spedizioni</li><li>Listini</li><li>Sync</li></ul>
+      </article>
+
+      <article class="skill">
+        <div class="skill__top">
+          <pixel-icon sprite="robot" aria-hidden="true"></pixel-icon>
+          <h3>Automazioni e<br>integrazioni</h3>
+        </div>
+        <p>Far parlare fra loro sistemi nati separati. API, webhook, importazioni programmate, sincronizzazioni notturne e tutte quelle operazioni ripetitive che oggi qualcuno fa a mano.</p>
+        <div class="xp" data-level="8"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
+        <ul class="tags"><li>API REST</li><li>Webhook</li><li>ETL</li><li>Job schedulati</li><li>Code</li></ul>
+      </article>
+
+      <article class="skill">
+        <div class="skill__top">
+          <pixel-icon sprite="chart" aria-hidden="true"></pixel-icon>
+          <h3>Dati e<br>dashboard</h3>
+        </div>
+        <p>Modellazione dei dati, indicatori che contano davvero e cruscotti che si leggono in dieci secondi. Con esportazioni e report programmati per chi preferisce ancora il foglio di calcolo.</p>
+        <div class="xp" data-level="7"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
+        <ul class="tags"><li>Modellazione</li><li>KPI</li><li>Dashboard</li><li>Report</li><li>Export</li></ul>
+      </article>
+
+      <article class="skill">
+        <div class="skill__top">
+          <pixel-icon sprite="server" aria-hidden="true"></pixel-icon>
+          <h3>Infrastruttura<br>e rilascio</h3>
+        </div>
+        <p>Ambienti di test e produzione separati, deploy automatizzato, container, backup verificati e monitoraggio. La parte che non si vede, ma che decide se dormi la notte dopo una messa online.</p>
+        <div class="xp" data-level="7"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
+        <ul class="tags"><li>Docker</li><li>CI/CD</li><li>Linux</li><li>Backup</li><li>Monitoraggio</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ STACK ============================ -->
+<section class="section" id="stack">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow px"><i></i>EQUIPAGGIAMENTO</p>
+      <h2>Strumenti che uso ogni giorno</h2>
+      <p class="section__lede">
+        Scelgo la tecnologia in base al problema, non il contrario. Questo è il terreno su cui mi muovo più velocemente.
+      </p>
+    </div>
+
+    <div class="stack">
+      <div>
+        <p class="stack__title"><pixel-icon sprite="terminal" aria-hidden="true"></pixel-icon>LINGUAGGI</p>
+        <ul class="stack__list"><li>TypeScript</li><li>JavaScript</li><li>Python</li><li>PHP</li><li>SQL</li></ul>
+      </div>
+      <div>
+        <p class="stack__title"><pixel-icon sprite="browser" aria-hidden="true"></pixel-icon>FRONTEND</p>
+        <ul class="stack__list"><li>React</li><li>Next.js</li><li>Vue</li><li>Tailwind</li><li>HTML / CSS</li></ul>
+      </div>
+      <div>
+        <p class="stack__title"><pixel-icon sprite="code" aria-hidden="true"></pixel-icon>BACKEND</p>
+        <ul class="stack__list"><li>Node.js</li><li>FastAPI</li><li>Laravel</li><li>REST</li><li>GraphQL</li></ul>
+      </div>
+      <div>
+        <p class="stack__title"><pixel-icon sprite="db" aria-hidden="true"></pixel-icon>DATI</p>
+        <ul class="stack__list"><li>PostgreSQL</li><li>MySQL</li><li>Redis</li><li>MongoDB</li><li>Elasticsearch</li></ul>
+      </div>
+      <div>
+        <p class="stack__title"><pixel-icon sprite="chip" aria-hidden="true"></pixel-icon>INTELLIGENZA ARTIFICIALE</p>
+        <ul class="stack__list"><li>Claude API</li><li>OpenAI API</li><li>LangChain</li><li>pgvector</li><li>Whisper</li></ul>
+      </div>
+      <div>
+        <p class="stack__title"><pixel-icon sprite="server" aria-hidden="true"></pixel-icon>INFRASTRUTTURA</p>
+        <ul class="stack__list"><li>Docker</li><li>Linux</li><li>Nginx</li><li>GitHub Actions</li><li>AWS</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROCESSO ============================ -->
+<section class="section section--alt" id="processo">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow px"><i></i>QUEST LOG</p>
+      <h2>Quattro passaggi, nessuna sorpresa</h2>
+      <p class="section__lede">
+        Preferisco poche fasi chiare e qualcosa di navigabile presto, invece di un preventivo lungo
+        e tre mesi di silenzio.
+      </p>
+    </div>
+
+    <div class="steps">
+      <article class="step">
+        <div class="step__top"><span class="step__n">01</span><pixel-icon sprite="magnifier" aria-hidden="true"></pixel-icon></div>
+        <h3>Analisi</h3>
+        <p>Guardiamo il processo prima del codice: cosa fa oggi il tuo team, dove si perde tempo, cosa vale davvero la pena automatizzare.</p>
+      </article>
+      <article class="step">
+        <div class="step__top"><span class="step__n">02</span><pixel-icon sprite="blueprint" aria-hidden="true"></pixel-icon></div>
+        <h3>Prototipo</h3>
+        <p>Una versione navigabile in poche settimane, così le decisioni si prendono su qualcosa di reale e non su una descrizione.</p>
+      </article>
+      <article class="step">
+        <div class="step__top"><span class="step__n">03</span><pixel-icon sprite="code" aria-hidden="true"></pixel-icon></div>
+        <h3>Sviluppo</h3>
+        <p>Iterazioni brevi, ambiente di test sempre allineato e aggiornamenti frequenti. Vedi crescere il lavoro mentre procede.</p>
+      </article>
+      <article class="step">
+        <div class="step__top"><span class="step__n">04</span><pixel-icon sprite="rocket" aria-hidden="true"></pixel-icon></div>
+        <h3>Rilascio e cura</h3>
+        <p>Messa online, formazione di chi lo userà, monitoraggio e manutenzione. Il progetto non finisce il giorno della consegna.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROGETTI ============================
+     QUEST 01 è reale e verificabile: descrive questo sito.
+     Le quest successive vanno aggiunte duplicando la scheda, una per
+     ogni progetto vero. Meglio uno documentato bene che tre vaghi.
+================================================================= -->
+<section class="section" id="progetti">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow px"><i></i>PROGETTI</p>
+      <h2>Cosa ho costruito</h2>
+      <p class="section__lede">
+        Problema, scelte tecniche e risultato misurato. Comincio dal progetto che stai
+        già guardando: è il modo più diretto di far vedere come lavoro.
+      </p>
+    </div>
+
+    <div class="cases">
+      <article class="case">
+        <div class="case__bar">
+          <pixel-icon sprite="browser" aria-hidden="true"></pixel-icon>
+          <span class="case__id">QUEST 01</span>
+          <span>PROGETTO PERSONALE</span>
+          <span class="case__who">2026</span>
+        </div>
+        <div class="case__body">
+          <div>
+            <h3>Questo sito</h3>
+            <div class="case__blocks">
+              <div class="case__block">
+                <span class="case__k">PROBLEMA</span>
+                <p>I siti degli sviluppatori si somigliano tutti: stesso template, stesse
+                   animazioni, stesse frasi. Nessuno di loro dimostra niente — raccontano
+                   competenze invece di mostrarle. Volevo un sito che fosse esso stesso
+                   la prova, non la descrizione della prova.</p>
+              </div>
+              <div class="case__block">
+                <span class="case__k">APPROCCIO</span>
+                <p>Nessun framework e nessuna libreria di componenti. Ho scritto da zero un
+                   motore per sprite pixel-art: ogni icona è una griglia 16×16 disegnata a
+                   mano su una palette di 16 colori, esattamente il vincolo di una tile SNES,
+                   renderizzata su canvas e animata con la tecnica del palette cycling.</p>
+                <p>Il 3D usa three.js ma renderizza a un quinto della risoluzione reale,
+                   senza antialiasing, e lascia che sia il CSS a riportarlo in scala: i
+                   poligoni prendono così i bordi duri degli sprite, come sull'hardware a
+                   16 bit. Le due scene girano solo quando sono a schermo.</p>
+                <p>L'accessibilità l'ho verificata misurando, non a occhio: uno script
+                   percorre ogni elemento di testo nei due temi e calcola il rapporto di
+                   contrasto contro lo sfondo reale. Ha trovato tre bug che a vista non si
+                   vedevano, incluso un pulsante illeggibile nel menu mobile.</p>
+              </div>
+              <div class="case__block">
+                <span class="case__k">RISULTATO</span>
+                <p>Una pagina che si spiega da sola a chi sa leggere il codice, e che chi
+                   non lo sa leggere si ricorda comunque. Tutto il sito principale sta in un
+                   solo file HTML, senza processo di build.</p>
+              </div>
+            </div>
+          </div>
+          <div class="case__side">
+            <div class="case__metrics">
+              <div class="metric"><b>552</b><span>elementi di testo verificati contro WCAG AA nei due temi, zero sotto soglia</span></div>
+              <div class="metric"><b>21</b><span>sprite 16×16 disegnati a mano, palette a 16 colori</span></div>
+              <div class="metric"><b>0</b><span>framework, librerie UI, passaggi di build</span></div>
+            </div>
+            <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Canvas 2D</li><li>Web Components</li><li>three.js</li><li>WCAG</li></ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- ▼ DUPLICA QUESTA SCHEDA PER OGNI NUOVO PROGETTO ▼
+      <article class="case">
+        <div class="case__bar">
+          <pixel-icon sprite="ledger" aria-hidden="true"></pixel-icon>
+          <span class="case__id">QUEST 02</span>
+          <span>[TIPO DI PROGETTO]</span>
+          <span class="case__who">[cliente o "progetto personale"] · [anno]</span>
+        </div>
+        <div class="case__body">
+          <div>
+            <h3>[Titolo]</h3>
+            <div class="case__blocks">
+              <div class="case__block"><span class="case__k">PROBLEMA</span><p>[…]</p></div>
+              <div class="case__block"><span class="case__k">APPROCCIO</span><p>[…]</p></div>
+              <div class="case__block"><span class="case__k">RISULTATO</span><p>[…]</p></div>
+            </div>
+          </div>
+          <div class="case__side">
+            <div class="case__metrics">
+              <div class="metric"><b>—</b><span>[metrica]</span></div>
+            </div>
+            <ul class="tags"><li>[stack]</li></ul>
+          </div>
+        </div>
+      </article>
+      ▲ FINE MODELLO ▲ -->
+    </div>
+
+    <div class="soon" style="margin-top:clamp(20px,2.4vw,32px)">
+      <pixel-icon sprite="star" aria-hidden="true"></pixel-icon>
+      <div class="soon__text">
+        <h3>La prossima quest è la tua<span class="blink">_</span></h3>
+        <p>Prendo un progetto per volta, e il portfolio è appena partito. Se il tuo è il
+           prossimo hai la mia attenzione piena, senza dividerla con nessun altro — e in
+           cambio ti chiedo solo di poterlo raccontare qui, con i numeri veri.</p>
+      </div>
+      <a class="btn btn--lg" href="#contatti">PARLIAMONE</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CHI SONO ============================ -->
+<section class="section section--alt" id="chi-sono">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow px"><i></i>PLAYER 1</p>
+      <h2>Chi sono</h2>
+    </div>
+
+    <div class="about">
+      <div class="about__card">
+        <span class="member__face"><pixel-icon sprite="dev1" aria-hidden="true"></pixel-icon></span>
+        <h3>Carmine La Luna</h3>
+        <p class="member__role">17Labs — una persona sola</p>
+      </div>
+      <div class="about__text">
+        <p>17Labs è il nome con cui lavoro, ma dietro non c'è una squadra: ci sono io.
+           Lo scrivo subito perché è la prima cosa che vorrei sapere se fossi dall'altra parte.</p>
+        <p>Scrivo codice da quando ho sedici anni. È iniziata come la cosa che facevo
+           invece di studiare, e non ho più smesso: quello che allora era smanettare adesso
+           è il mestiere, ma la parte che mi diverte è rimasta identica — capire come
+           funziona una cosa, e poi rifarla meglio.</p>
+        <p>Fuori dallo schermo sono un nerd dei giochi di carte: Magic: The Gathering e
+           One Piece. C'entra più di quanto sembri — sono sistemi di regole che
+           interagiscono fra loro, e diventare bravi vuol dire leggere quelle interazioni
+           prima degli altri, tenendo a mente tutto quello che l'avversario potrebbe avere
+           in mano. È esattamente quello che serve quando entri nel processo di un'azienda
+           e devi capire dove si inceppa.</p>
+        <!-- SEGNAPOSTO: verifica il tuo contratto di lavoro prima di pubblicare questa riga.
+             Molti contratti regolano l'attività autonoma parallela. -->
+        <p>Di mestiere sviluppo software per una grande azienda, e continuo a farlo.
+           17Labs è il nome con cui prendo progetti miei, scegliendoli: non è una seconda
+           attività da riempire, è lo spazio per i lavori su cui ho voglia di mettermi.</p>
+        <p>Il che vuol dire una cosa concreta per te: prendo un progetto per volta e ci sono
+           dentro completamente. Niente code, niente clienti che si contendono le stesse ore.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow px"><i></i>DOMANDE FREQUENTI</p>
+      <h2>Le cose che ci chiedono sempre</h2>
+    </div>
+
+    <div class="faq">
+      <details>
+        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>Da quanto tempo lavori?</summary>
+        <div class="faq__a">
+          <p>Scrivo codice da quando ho sedici anni e lo faccio di mestiere: sviluppo
+             software per una grande azienda, a tempo pieno.</p>
+          <p>17Labs è il nome con cui prendo progetti miei, ed è partita da poco. Quindi
+             qui sotto trovi lavoro personale documentato, non un elenco di clienti: è una
+             scelta, non un vuoto da riempire con nomi presi in prestito.</p>
+        </div>
+      </details>
+      <details>
+        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>Quanto costa, e quanto tempo ci vuole?</summary>
+        <div class="faq__a">
+          <p>Dipende davvero dal progetto, e ti risparmio il listino finto: un sito vetrina
+             e un gestionale che tocca cinque reparti non hanno niente in comune né come
+             prezzo né come tempi.</p>
+          <p>Il modo più veloce per saperlo è una chiamata. Ti faccio qualche domanda su
+             cosa succede oggi nel tuo processo e ti do una stima onesta — se il lavoro non
+             ha senso te lo dico, invece di venderti qualcosa.</p>
+        </div>
+      </details>
+      <details>
+        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>Su quanti progetti lavori in parallelo?</summary>
+        <div class="faq__a">
+          <p>Uno. Quando prendo un lavoro ci sono dentro completamente, senza code e senza
+             dividermi fra clienti che si contendono le stesse ore.</p>
+          <p>È il vantaggio concreto di essere una persona sola invece di uno studio: non
+             sei mai il progetto che aspetta.</p>
+        </div>
+      </details>
+      <details>
+        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>Cosa succede dopo la consegna?</summary>
+        <div class="faq__a">
+          <p>La consegna include un periodo di assistenza. È volutamente breve — indicativamente
+             un mese — perché serve a coprire le cose che saltano fuori solo quando il
+             software entra davvero in uso: una correzione, un dettaglio da sistemare,
+             una domanda di chi lo usa tutti i giorni.</p>
+          <p>Se poi vuoi continuare, si estende. Ma preferisco che sia una scelta tua a
+             consegna avvenuta, non una firma messa prima di aver visto come va.</p>
+        </div>
+      </details>
+      <details>
+        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>Lavori da remoto?</summary>
+        <div class="faq__a">
+          <p>Sì, ovunque. Lavoro da remoto senza limiti geografici: quello che serve è una
+             videochiamata ogni tanto e un canale scritto dove trovarmi.</p>
+        </div>
+      </details>
+      <details>
+        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>Di chi è il codice che scrivi?</summary>
+        <div class="faq__a">
+          <p>Il codice del progetto è tuo. Quello che scrivo per te — la logica del tuo
+             processo, il modello dei dati, le interfacce — te lo consegno con accesso
+             completo al repository, e resta tuo. Se un domani vuoi cambiare fornitore o
+             portarti il lavoro dentro casa, non devi chiedermi il permesso.</p>
+          <p>Un'eccezione c'è, ed è giusto dirla subito: le librerie e i componenti generici
+             che mi porto dietro da un progetto all'altro restano miei, e tu ne ricevi una
+             licenza d'uso illimitata e perpetua dentro il tuo progetto. Non serve a legarti
+             — serve a non farmi ripartire da zero ogni volta, e quindi a farti costare meno
+             il lavoro.</p>
+          <p>Mi tengo solo il diritto di citare il progetto nel portfolio. Se preferisci di
+             no, basta dirlo.</p>
+        </div>
+      </details>
+      <details>
+        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>Puoi riprendere un progetto iniziato da altri?</summary>
+        <div class="faq__a">
+          <p>Dipende, e va guardato prima di promettere qualcosa. Mandami il codice e
+             raccontami dove vi siete fermati: faccio una valutazione di quanto è
+             recuperabile, cosa conviene riscrivere e se ha senso proseguire o ripartire.</p>
+          <p>La valutazione te la do comunque, anche se poi decidiamo di non lavorare
+             insieme. Meglio una risposta chiara che un preventivo su qualcosa che non ho
+             ancora visto.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ARCADE / SEGRETI ============================ -->
+<section class="section section--alt" id="arcade">
+  <div class="wrap">
+    <div class="section__head">
+      <p class="eyebrow px"><i></i>SALA GIOCHI</p>
+      <h2>Il nucleo</h2>
+      <p class="section__lede">
+        Poligoni piatti renderizzati a bassissima risoluzione e riportati in scala,
+        come facevano le console a 16 bit quando provavano a fare 3D. Trascina per ruotarlo.
+        E sì, da qualche parte qui dentro ci sono dei segreti.
+      </p>
+    </div>
+
+    <div class="arcade">
+      <div class="screen">
+        <div class="screen__bar">
+          <span>CORE.EXE</span>
+          <span class="screen__hint">TRASCINA PER RUOTARE</span>
+        </div>
+        <div class="screen__gl" id="core-gl">
+          <p class="screen__fallback">Scena 3D non caricata.<br>WebGL non disponibile o libreria irraggiungibile.<br>Il resto della pagina funziona lo stesso.</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="trophies__head"><pixel-icon sprite="trophy" style="--px-size:22px"></pixel-icon>TROFEI<span class="trophies__count" id="tr-count">0/6</span></p>
+        <ul class="trophies" id="trophies"></ul>
+        <p class="trophies__foot">Nessuno di questi serve a niente. È esattamente il punto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONTATTI ============================ -->
+<section class="section section--alt" id="contatti">
+  <div class="wrap">
+    <div class="dialog">
+      <div class="dialog__bar">
+        <span>CONTATTI.EXE</span>
+        <span class="dialog__dots"><i></i><i></i><i></i></span>
+      </div>
+      <div class="dialog__body">
+        <pixel-icon sprite="mail" aria-hidden="true"></pixel-icon>
+        <h2>Raccontami cosa ti serve</h2>
+        <p>Anche solo un'idea confusa va benissimo: spesso la prima mezz'ora serve a capire
+           se il problema è davvero quello che sembra. Rispondo entro un giorno lavorativo.</p>
+
+        <!-- ============================================================
+             Collegato a Web3Forms. L'invio avviene in AJAX, quindi chi
+             scrive resta su questa pagina invece di finire sulla schermata
+             di ringraziamento del servizio.
+
+             La access_key è pubblica per progetto: Web3Forms la lega alla
+             tua casella e la protegge lato loro. Chi guarda il sorgente la
+             vede — è normale, ma se inizia ad arrivare spam rigenerala dal
+             pannello e sostituiscila qui e in en/index.html.
+             ============================================================ -->
+        <form class="form" id="contact-form" method="post"
+              action="https://api.web3forms.com/submit" novalidate>
+          <input type="hidden" name="access_key" value="41769e19-1d47-4e3a-b365-0332cb65e37b">
+          <input type="hidden" name="subject" value="Nuovo messaggio dal sito 17labs.it">
+          <input type="hidden" name="from_name" value="17Labs — sito">
+          <input type="hidden" name="lingua" value="it">
+          <!-- trappola anti-bot: i bot riempiono tutto, le persone non la vedono -->
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true">
+          <div class="field" id="f-nome">
+            <label for="i-nome">NOME *</label>
+            <input id="i-nome" name="nome" type="text" autocomplete="name" required>
+            <span class="field__err" id="e-nome" role="alert"></span>
+          </div>
+          <div class="field" id="f-email">
+            <label for="i-email">EMAIL *</label>
+            <input id="i-email" name="email" type="email" autocomplete="email" required>
+            <span class="field__err" id="e-email" role="alert"></span>
+          </div>
+          <div class="field" id="f-tel">
+            <label for="i-tel">TELEFONO</label>
+            <input id="i-tel" name="telefono" type="tel" autocomplete="tel">
+            <span class="field__err" id="e-tel" role="alert"></span>
+          </div>
+          <div class="field" id="f-msg">
+            <label for="i-msg">COSA TI SERVE *</label>
+            <textarea id="i-msg" name="messaggio" required></textarea>
+            <span class="field__err" id="e-msg" role="alert"></span>
+          </div>
+          <div class="field consent" id="f-ok">
+            <input id="i-ok" name="consenso" type="checkbox" required>
+            <label for="i-ok">Ho letto la <a href="privacy.html">privacy policy</a> e acconsento
+              al trattamento dei dati per essere ricontattato. *</label>
+          </div>
+          <span class="field__err" id="e-ok" role="alert"></span>
+          <button class="btn btn--primary btn--lg" type="submit" style="justify-content:center">INVIA</button>
+          <p class="form__note">* campi obbligatori. Niente newsletter, niente liste: i dati servono solo a risponderti.</p>
+        </form>
+
+        <div class="dialog__row">
+          <a class="btn" href="mailto:contact@17labs.it">CONTACT@17LABS.IT</a>
+        </div>
+        <p class="wip">LinkedIn e GitHub: work in progress<span class="blink">_</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <span class="brand__mark" aria-hidden="true"><pixel-icon sprite="heart" style="--px-size:22px"></pixel-icon></span>
+    <!-- La P. IVA va aggiunta qui SOLO quando esiste davvero. -->
+    <p class="footer__note">17Labs — Carmine La Luna<br>contact@17labs.it</p>
+    <nav class="footer__links">
+      <a href="#progetti">PROGETTI</a><a href="#stack">STACK</a><a href="#arcade">SALA GIOCHI</a><a href="privacy.html">PRIVACY</a><a href="#contatti">CONTATTI</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/app.js" defer></script>
+
+<script type="module" src="assets/scene.js"></script>
+</body>
+</html>

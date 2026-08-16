@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy policy | 17Labs</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a12">
+<link rel="alternate" hreflang="it" href="https://17labs.it/privacy.html">
+<link rel="alternate" hreflang="en" href="https://17labs.it/en/privacy.html">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230a0a12'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23b98cf5'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%234ec9f5'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23f2f2ff'/%3E%3C/svg%3E">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('dev-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+<style>
+[data-theme="dark"] {
+  --bg:#0a0a12; --bg-elev:#10101c; --surface:#161624; --line:#2c2c46; --line-strong:#45456b;
+  --text:#eaeaf7; --text-dim:#b4b4d4; --text-faint:#9a9ac2;
+  --acc:#7ee787; --acc-3:#f5c451; --shadow:#05050b;
+  --scan:rgba(0,0,0,.55); --scan-op:.34; color-scheme:dark;
+}
+[data-theme="light"] {
+  --bg:#dcdce8; --bg-elev:#eaeaf3; --surface:#f7f7fc; --line:#a9a9c4; --line-strong:#6d6d92;
+  --text:#14141f; --text-dim:#3d3d55; --text-faint:#54546f;
+  --acc:#126536; --acc-3:#84590c; --shadow:#9c9cb8;
+  --scan:rgba(20,20,40,.5); --scan-op:.14; color-scheme:light;
+}
+*,*::before,*::after { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.7;
+}
+.crt {
+  position:fixed; inset:0; z-index:50; pointer-events:none;
+  background:repeating-linear-gradient(to bottom, var(--scan) 0 1px, transparent 1px 3px);
+  opacity:var(--scan-op);
+}
+.wrap { max-width:760px; margin:0 auto; padding:clamp(60px,9vw,110px) clamp(20px,5vw,40px) 90px; position:relative; z-index:1; }
+a { color:var(--acc); }
+.back {
+  display:inline-flex; font-family:"Press Start 2P",monospace; font-size:9px;
+  text-decoration:none; color:var(--text); padding:13px 16px;
+  border:2px solid var(--line-strong); background:var(--surface);
+  box-shadow:4px 4px 0 0 var(--shadow); margin-bottom:36px;
+}
+h1 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(17px,3vw,26px); line-height:1.5; margin:0 0 10px; }
+h2 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(11px,1.6vw,14px); line-height:1.6; margin:44px 0 14px; color:var(--acc); }
+p, li { color:var(--text-dim); font-size:15px; margin:0 0 14px; }
+ul { padding-left:22px; }
+.updated { font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--text-faint); margin-bottom:34px; }
+.warn {
+  border:3px dashed var(--acc-3); background:var(--bg-elev);
+  padding:20px 22px; margin:0 0 40px;
+}
+.warn strong { color:var(--acc-3); font-family:"Press Start 2P",monospace; font-size:10px; display:block; margin-bottom:12px; line-height:1.6; }
+.warn p { margin:0 0 10px; font-size:14px; }
+.warn p:last-child { margin:0; }
+/* fixed colours, not theme-bound: --acc-3 is dark in the light theme and black
+   text on it dropped to 3.07:1. A highlighter can stay the same in both. */
+mark { background:#f5c451; color:#10101a; padding:1px 5px; font-weight:600; }
+p strong { color:var(--text); font-weight:600; }
+</style>
+</head>
+<body>
+<div class="crt" aria-hidden="true"></div>
+
+<main class="wrap">
+  <a class="back" href="index.html">&lt; BACK TO THE SITE</a>
+
+  <h1>Privacy policy</h1>
+  <p class="updated">Last updated: 16 August 2026</p>
+
+  <div class="warn">
+    <strong>⚠ THIS IS AN OUTLINE, NOT A VALID DOCUMENT</strong>
+    <p>The structure and the sections the GDPR requires are here, but everything in
+       <mark>square brackets</mark> is a placeholder: controller details, suppliers,
+       retention periods.</p>
+    <p>A wrong privacy policy creates liability and is worth less than nothing. Before
+       publishing, have this completed and reviewed by someone who handles data protection
+       for your business. Delete this box once it is ready.</p>
+  </div>
+
+  <h2>Data controller</h2>
+  <p>
+    Carmine La Luna (17Labs), reachable at
+    <a href="mailto:contact@17labs.it">contact@17labs.it</a>.
+  </p>
+
+  <h2>What data I collect</h2>
+  <p>From this site I only collect what you send me voluntarily through the contact form:</p>
+  <ul>
+    <li>name</li>
+    <li>email address</li>
+    <li>phone number (optional)</li>
+    <li>the content of your message</li>
+  </ul>
+
+  <h2>Why I use it</h2>
+  <p>
+    Solely to reply to your enquiry and, if it goes further, to handle the quote and the
+    project. Legal basis: your consent and pre-contractual steps taken at your request
+    (art. 6 GDPR). I work outside Italy as well, so the data may relate to people in other
+    countries — the GDPR applies regardless.
+  </p>
+  <p>I send no newsletters, do no profiling, and never pass data to third parties for marketing.</p>
+
+  <h2>Cookies and local storage</h2>
+  <p>
+    This site uses no profiling cookies. It stores exactly two preferences in your browser
+    via <em>localStorage</em>: the theme you picked and the trophies you unlocked. These are
+    technical values that stay on your device, are never transmitted anywhere, and can be
+    removed by clearing this site's data in your browser.
+  </p>
+  <p>
+    No third-party services load alongside the page: the typefaces and the 3D graphics
+    library are hosted on this same site rather than pulled from Google or any content
+    delivery network. Opening these pages, your browser contacts no other domain.
+  </p>
+
+  <h2>Who processes data on my behalf</h2>
+  <p>
+    <strong>Web3Forms</strong> — receives whatever you send through the contact form
+    (name, email address, phone if you fill it in, message text) and delivers it to me by
+    email. It is the only service that sees the content of your enquiries.
+  </p>
+  <p>
+    The service is run by Web3Creative, which operates from India and relies on Amazon
+    Web Services servers in the United States. Your data therefore leaves the European
+    Union. Web3Creative acts as a data processor and makes an art. 28 GDPR data
+    processing agreement available.
+  </p>
+  <p>
+    <mark>[Two things to do about the Web3Forms DPA at web3forms.com/dpa: accept it from
+    the dashboard (it is not automatic) and read which mechanism covers the transfer to
+    the United States — usually Standard Contractual Clauses. It must be stated here in
+    full.]</mark>
+  </p>
+  <p>
+    <strong>GitHub Pages</strong> — hosts and serves the pages you are reading. It never
+    receives form data, but like any web server it records the visitor's IP address and
+    browser type in its technical logs. The service is provided by GitHub, Inc. (a
+    Microsoft company), based in the United States.
+  </p>
+  <p>
+    <strong>Register.it</strong> — runs the mailbox the messages arrive in, and therefore
+    stores their content. It is an Italian provider and processes the data within the
+    European Union.
+  </p>
+
+  <h2>How long I keep it</h2>
+  <p>
+    Enquiries that do not turn into projects are deleted after 24 months. If a contact
+    does become a project, the correspondence is kept for as long as the work requires
+    and for the periods accounting and legal obligations impose.
+  </p>
+  <p>
+    A copy of each submission also stays on Web3Forms' systems, which retain it for up
+    to three years on their side.
+  </p>
+
+  <h2>Your rights</h2>
+  <p>
+    At any time you can ask to access your data, correct it, delete it, restrict its
+    processing, receive it in a portable format, or object to the processing. Write to
+    <a href="mailto:contact@17labs.it">contact@17labs.it</a>: I reply within 30 days.
+  </p>
+  <p>
+    If you believe the processing breaches the Regulation, you can lodge a complaint with the
+    <a href="https://www.garanteprivacy.it" rel="noopener">Italian Data Protection Authority</a>
+    or the supervisory authority in your country.
+  </p>
+
+  <h2>Changes</h2>
+  <p>If anything changes, I update this page and the date at the top.</p>
+</main>
+</body>
+</html>

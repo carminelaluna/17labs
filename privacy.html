@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="it" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy policy | 17Labs</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a12">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230a0a12'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23b98cf5'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%234ec9f5'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23f2f2ff'/%3E%3C/svg%3E">
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('dev-theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+<style>
+[data-theme="dark"] {
+  --bg:#0a0a12; --bg-elev:#10101c; --surface:#161624; --line:#2c2c46; --line-strong:#45456b;
+  --text:#eaeaf7; --text-dim:#b4b4d4; --text-faint:#9a9ac2;
+  --acc:#7ee787; --acc-3:#f5c451; --shadow:#05050b;
+  --scan:rgba(0,0,0,.55); --scan-op:.34; color-scheme:dark;
+}
+[data-theme="light"] {
+  --bg:#dcdce8; --bg-elev:#eaeaf3; --surface:#f7f7fc; --line:#a9a9c4; --line-strong:#6d6d92;
+  --text:#14141f; --text-dim:#3d3d55; --text-faint:#54546f;
+  --acc:#126536; --acc-3:#84590c; --shadow:#9c9cb8;
+  --scan:rgba(20,20,40,.5); --scan-op:.14; color-scheme:light;
+}
+*,*::before,*::after { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased; line-height:1.7;
+}
+.crt {
+  position:fixed; inset:0; z-index:50; pointer-events:none;
+  background:repeating-linear-gradient(to bottom, var(--scan) 0 1px, transparent 1px 3px);
+  opacity:var(--scan-op);
+}
+.wrap { max-width:760px; margin:0 auto; padding:clamp(60px,9vw,110px) clamp(20px,5vw,40px) 90px; position:relative; z-index:1; }
+a { color:var(--acc); }
+.back {
+  display:inline-flex; font-family:"Press Start 2P",monospace; font-size:9px;
+  text-decoration:none; color:var(--text); padding:13px 16px;
+  border:2px solid var(--line-strong); background:var(--surface);
+  box-shadow:4px 4px 0 0 var(--shadow); margin-bottom:36px;
+}
+h1 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(17px,3vw,26px); line-height:1.5; margin:0 0 10px; }
+h2 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(11px,1.6vw,14px); line-height:1.6; margin:44px 0 14px; color:var(--acc); }
+p, li { color:var(--text-dim); font-size:15px; margin:0 0 14px; }
+ul { padding-left:22px; }
+.updated { font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--text-faint); margin-bottom:34px; }
+.warn {
+  border:3px dashed var(--acc-3); background:var(--bg-elev);
+  padding:20px 22px; margin:0 0 40px;
+}
+.warn strong { color:var(--acc-3); font-family:"Press Start 2P",monospace; font-size:10px; display:block; margin-bottom:12px; line-height:1.6; }
+.warn p { margin:0 0 10px; font-size:14px; }
+.warn p:last-child { margin:0; }
+/* colori fissi, non legati al tema: --acc-3 in chiaro e' scuro e su quello
+   il testo nero scendeva a 3.07:1. Un evidenziatore puo' restare uguale sempre. */
+mark { background:#f5c451; color:#10101a; padding:1px 5px; font-weight:600; }
+p strong { color:var(--text); font-weight:600; }
+</style>
+</head>
+<body>
+<div class="crt" aria-hidden="true"></div>
+
+<main class="wrap">
+  <a class="back" href="index.html">&lt; TORNA AL SITO</a>
+
+  <h1>Privacy policy</h1>
+  <p class="updated">Ultimo aggiornamento: 16 agosto 2026</p>
+
+  <div class="warn">
+    <strong>⚠ QUESTA È UNA TRACCIA, NON UN DOCUMENTO VALIDO</strong>
+    <p>Ho preparato la struttura e le sezioni che il GDPR richiede, ma i contenuti fra
+       <mark>parentesi quadre</mark> sono segnaposto: nome del titolare, dati di contatto,
+       fornitori usati, tempi di conservazione.</p>
+    <p>Una privacy policy sbagliata espone a sanzioni e vale meno di zero. Prima di
+       pubblicare, fai completare e verificare questo testo da chi si occupa di protezione
+       dei dati per la tua attività. Elimina questo riquadro quando è pronto.</p>
+  </div>
+
+  <h2>Titolare del trattamento</h2>
+  <p>
+    Carmine La Luna (17Labs), contattabile a
+    <a href="mailto:contact@17labs.it">contact@17labs.it</a>.
+  </p>
+
+  <h2>Quali dati raccolgo</h2>
+  <p>Da questo sito raccolgo solo i dati che mi invii volontariamente tramite il modulo di contatto:</p>
+  <ul>
+    <li>nome</li>
+    <li>indirizzo email</li>
+    <li>numero di telefono (facoltativo)</li>
+    <li>il contenuto del messaggio che scrivi</li>
+  </ul>
+
+  <h2>Perché li uso</h2>
+  <p>
+    Esclusivamente per rispondere alla tua richiesta e, se il rapporto prosegue, per gestire
+    il preventivo e il progetto. Base giuridica: il tuo consenso e l'esecuzione di misure
+    precontrattuali richieste da te (art. 6 GDPR). Lavorando anche fuori dall'Italia, i dati
+    possono riguardare persone in altri paesi: il GDPR si applica comunque.
+  </p>
+  <p>Non invio newsletter, non profilo e non cedo i dati a terzi per finalità commerciali.</p>
+
+  <h2>Cookie e archiviazione locale</h2>
+  <p>
+    Il sito non usa cookie di profilazione. Salva nel tuo browser due sole preferenze,
+    tramite <em>localStorage</em>: il tema chiaro o scuro che hai scelto e i trofei che hai
+    sbloccato. Sono dati tecnici che restano sul tuo dispositivo, non vengono trasmessi a
+    nessuno e puoi cancellarli svuotando i dati del sito dal browser.
+  </p>
+  <p>
+    Non ci sono servizi di terze parti che si caricano insieme alla pagina: i caratteri
+    tipografici e la libreria per la grafica 3D sono ospitati sullo stesso sito, non
+    prelevati da Google o da altre reti di distribuzione. Aprendo queste pagine il tuo
+    browser non contatta nessun altro dominio.
+  </p>
+
+  <h2>Chi tratta i dati per me</h2>
+  <p>
+    <strong>Web3Forms</strong> — riceve quello che invii dal modulo di contatto (nome,
+    indirizzo email, telefono se lo compili, testo del messaggio) e me lo recapita via
+    posta elettronica. È l'unico servizio che vede il contenuto delle tue richieste.
+  </p>
+  <p>
+    Il servizio è gestito da Web3Creative, che opera dall'India e si appoggia a server
+    Amazon Web Services negli Stati Uniti. I tuoi dati escono quindi dall'Unione europea.
+    Web3Creative agisce come responsabile del trattamento e mette a disposizione un
+    accordo ai sensi dell'art. 28 GDPR.
+  </p>
+  <p>
+    <mark>[Due cose da fare sulla DPA di Web3Forms, web3forms.com/dpa: accettarla dal
+    pannello (non è automatica) e leggere quale meccanismo copre il trasferimento verso
+    gli Stati Uniti — di norma clausole contrattuali tipo. Va citato qui per esteso.]</mark>
+  </p>
+  <p>
+    <strong>GitHub Pages</strong> — ospita e distribuisce le pagine che stai leggendo.
+    Non riceve i dati del modulo, ma come ogni server web registra nei propri log
+    tecnici l'indirizzo IP e il tipo di browser di chi visita. Il servizio è di
+    GitHub, Inc. (gruppo Microsoft), con sede negli Stati Uniti.
+  </p>
+  <p>
+    <strong>Register.it</strong> — gestisce la casella di posta su cui arrivano i
+    messaggi, quindi ne conserva il contenuto. È un fornitore italiano e tratta i dati
+    all'interno dell'Unione europea.
+  </p>
+
+  <h2>Per quanto tempo li conservo</h2>
+  <p>
+    I messaggi che non diventano progetti li cancello dopo 24 mesi. Se dal contatto nasce
+    un lavoro, la corrispondenza resta per il tempo necessario a gestirlo e per i termini
+    previsti dagli obblighi contabili e di legge.
+  </p>
+  <p>
+    Una copia degli invii resta anche sui sistemi di Web3Forms, che li conserva fino a
+    tre anni dalla sua parte.
+  </p>
+
+  <h2>I tuoi diritti</h2>
+  <p>
+    Puoi in ogni momento chiedere di accedere ai tuoi dati, correggerli, cancellarli,
+    limitarne il trattamento, riceverli in formato leggibile o opporti al trattamento.
+    Scrivi a <a href="mailto:contact@17labs.it">contact@17labs.it</a>: rispondo entro 30 giorni.
+  </p>
+  <p>
+    Se ritieni che il trattamento violi il Regolamento, puoi presentare reclamo al
+    <a href="https://www.garanteprivacy.it" rel="noopener">Garante per la protezione dei dati personali</a>.
+  </p>
+
+  <h2>Modifiche</h2>
+  <p>Se cambio qualcosa aggiorno questa pagina e la data in alto.</p>
+</main>
+</body>
+</html>
