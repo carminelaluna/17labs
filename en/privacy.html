@@ -55,16 +55,6 @@ h2 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(11
 p, li { color:var(--text-dim); font-size:15px; margin:0 0 14px; }
 ul { padding-left:22px; }
 .updated { font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--text-faint); margin-bottom:34px; }
-.warn {
-  border:3px dashed var(--acc-3); background:var(--bg-elev);
-  padding:20px 22px; margin:0 0 40px;
-}
-.warn strong { color:var(--acc-3); font-family:"Press Start 2P",monospace; font-size:10px; display:block; margin-bottom:12px; line-height:1.6; }
-.warn p { margin:0 0 10px; font-size:14px; }
-.warn p:last-child { margin:0; }
-/* fixed colours, not theme-bound: --acc-3 is dark in the light theme and black
-   text on it dropped to 3.07:1. A highlighter can stay the same in both. */
-mark { background:#f5c451; color:#10101a; padding:1px 5px; font-weight:600; }
 p strong { color:var(--text); font-weight:600; }
 </style>
 </head>
@@ -75,17 +65,7 @@ p strong { color:var(--text); font-weight:600; }
   <a class="back" href="index.html">&lt; BACK TO THE SITE</a>
 
   <h1>Privacy policy</h1>
-  <p class="updated">Last updated: 16 August 2026</p>
-
-  <div class="warn">
-    <strong>⚠ THIS IS AN OUTLINE, NOT A VALID DOCUMENT</strong>
-    <p>The structure and the sections the GDPR requires are here, but everything in
-       <mark>square brackets</mark> is a placeholder: controller details, suppliers,
-       retention periods.</p>
-    <p>A wrong privacy policy creates liability and is worth less than nothing. Before
-       publishing, have this completed and reviewed by someone who handles data protection
-       for your business. Delete this box once it is ready.</p>
-  </div>
+  <p class="updated">Last updated: 17 August 2026</p>
 
   <h2>Data controller</h2>
   <p>
@@ -126,21 +106,25 @@ p strong { color:var(--text); font-weight:600; }
 
   <h2>Who processes data on my behalf</h2>
   <p>
-    <strong>Web3Forms</strong> — receives whatever you send through the contact form
-    (name, email address, phone if you fill it in, message text) and delivers it to me by
-    email. It is the only service that sees the content of your enquiries.
+    <strong>Web3Forms</strong>, run by Web3Creative and based in India — receives whatever
+    you send through the contact form (name, email address, phone if you fill it in,
+    message text) and delivers it to me by email. It acts as a data processor under an
+    art. 28 GDPR data processing agreement.
   </p>
   <p>
-    The service is run by Web3Creative, which operates from India and relies on Amazon
-    Web Services servers in the United States. Your data therefore leaves the European
-    Union. Web3Creative acts as a data processor and makes an art. 28 GDPR data
-    processing agreement available.
+    Web3Creative in turn relies on further providers, which therefore also process the
+    form data: <strong>Amazon Web Services</strong> for infrastructure, storage and email
+    delivery; <strong>Cloudflare</strong> for protection of the submission endpoints;
+    <strong>Hetzner</strong> (Germany and Finland) for part of the servers; and two
+    anti-spam services, <strong>CleanTalk</strong> and <strong>Akismet</strong> by
+    Automattic, which receive your IP address and email address in order to assess whether
+    a submission is legitimate.
   </p>
   <p>
-    <mark>[Two things to do about the Web3Forms DPA at web3forms.com/dpa: accept it from
-    the dashboard (it is not automatic) and read which mechanism covers the transfer to
-    the United States — usually Standard Contractual Clauses. It must be stated here in
-    full.]</mark>
+    Several of these operate outside the European Union. The transfer is covered by the
+    <strong>Standard Contractual Clauses</strong> approved by the European Commission in
+    Implementing Decision (EU) 2021/914, incorporated into the agreement with
+    Web3Creative: I act as data exporter, Web3Creative as data importer.
   </p>
   <p>
     <strong>GitHub Pages</strong> — hosts and serves the pages you are reading. It never

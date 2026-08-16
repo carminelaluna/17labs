@@ -53,16 +53,6 @@ h2 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(11
 p, li { color:var(--text-dim); font-size:15px; margin:0 0 14px; }
 ul { padding-left:22px; }
 .updated { font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--text-faint); margin-bottom:34px; }
-.warn {
-  border:3px dashed var(--acc-3); background:var(--bg-elev);
-  padding:20px 22px; margin:0 0 40px;
-}
-.warn strong { color:var(--acc-3); font-family:"Press Start 2P",monospace; font-size:10px; display:block; margin-bottom:12px; line-height:1.6; }
-.warn p { margin:0 0 10px; font-size:14px; }
-.warn p:last-child { margin:0; }
-/* colori fissi, non legati al tema: --acc-3 in chiaro e' scuro e su quello
-   il testo nero scendeva a 3.07:1. Un evidenziatore puo' restare uguale sempre. */
-mark { background:#f5c451; color:#10101a; padding:1px 5px; font-weight:600; }
 p strong { color:var(--text); font-weight:600; }
 </style>
 </head>
@@ -73,17 +63,7 @@ p strong { color:var(--text); font-weight:600; }
   <a class="back" href="index.html">&lt; TORNA AL SITO</a>
 
   <h1>Privacy policy</h1>
-  <p class="updated">Ultimo aggiornamento: 16 agosto 2026</p>
-
-  <div class="warn">
-    <strong>⚠ QUESTA È UNA TRACCIA, NON UN DOCUMENTO VALIDO</strong>
-    <p>Ho preparato la struttura e le sezioni che il GDPR richiede, ma i contenuti fra
-       <mark>parentesi quadre</mark> sono segnaposto: nome del titolare, dati di contatto,
-       fornitori usati, tempi di conservazione.</p>
-    <p>Una privacy policy sbagliata espone a sanzioni e vale meno di zero. Prima di
-       pubblicare, fai completare e verificare questo testo da chi si occupa di protezione
-       dei dati per la tua attività. Elimina questo riquadro quando è pronto.</p>
-  </div>
+  <p class="updated">Ultimo aggiornamento: 17 agosto 2026</p>
 
   <h2>Titolare del trattamento</h2>
   <p>
@@ -125,20 +105,24 @@ p strong { color:var(--text); font-weight:600; }
 
   <h2>Chi tratta i dati per me</h2>
   <p>
-    <strong>Web3Forms</strong> — riceve quello che invii dal modulo di contatto (nome,
-    indirizzo email, telefono se lo compili, testo del messaggio) e me lo recapita via
-    posta elettronica. È l'unico servizio che vede il contenuto delle tue richieste.
+    <strong>Web3Forms</strong>, gestito da Web3Creative con sede in India — riceve quello
+    che invii dal modulo di contatto (nome, indirizzo email, telefono se lo compili, testo
+    del messaggio) e me lo recapita via posta elettronica. Agisce come responsabile del
+    trattamento sulla base di un accordo ai sensi dell'art. 28 GDPR.
   </p>
   <p>
-    Il servizio è gestito da Web3Creative, che opera dall'India e si appoggia a server
-    Amazon Web Services negli Stati Uniti. I tuoi dati escono quindi dall'Unione europea.
-    Web3Creative agisce come responsabile del trattamento e mette a disposizione un
-    accordo ai sensi dell'art. 28 GDPR.
+    Web3Creative si avvale a sua volta di altri fornitori, che trattano quindi anche loro
+    i dati del modulo: <strong>Amazon Web Services</strong> per infrastruttura, archiviazione
+    e invio delle email; <strong>Cloudflare</strong> per la protezione degli endpoint di
+    invio; <strong>Hetzner</strong> (Germania e Finlandia) per parte dei server; e due
+    servizi antispam, <strong>CleanTalk</strong> e <strong>Akismet</strong> di Automattic,
+    che ricevono il tuo indirizzo IP e la tua email per valutare se l'invio è legittimo.
   </p>
   <p>
-    <mark>[Due cose da fare sulla DPA di Web3Forms, web3forms.com/dpa: accettarla dal
-    pannello (non è automatica) e leggere quale meccanismo copre il trasferimento verso
-    gli Stati Uniti — di norma clausole contrattuali tipo. Va citato qui per esteso.]</mark>
+    Diversi di questi operano fuori dall'Unione europea. Il trasferimento è coperto dalle
+    <strong>clausole contrattuali tipo</strong> approvate dalla Commissione europea con
+    decisione di esecuzione (UE) 2021/914, incorporate nell'accordo con Web3Creative: io
+    agisco come esportatore dei dati, Web3Creative come importatore.
   </p>
   <p>
     <strong>GitHub Pages</strong> — ospita e distribuisce le pagine che stai leggendo.
