@@ -1,7 +1,0 @@
-* text=auto eol=lf
-
-*.woff2 binary
-*.png   binary
-
-# gli script batch di Windows vogliono CRLF o non partono
-*.cmd text eol=crlf
