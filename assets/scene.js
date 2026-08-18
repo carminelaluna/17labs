@@ -1,257 +1,455 @@
 /* ============================================================
-   three.js — 3D come lo facevano le console a 16 bit.
-   Il trucco è tutto qui: si renderizza a un quinto della
-   risoluzione reale, senza antialiasing, e si lascia che il CSS
-   riporti l'immagine in scala con image-rendering: pixelated.
-   I poligoni prendono così gli stessi bordi duri degli sprite.
-   three.js e' ospitato in proprio: nessuna chiamata a CDN esterne.
+   17Labs — V3 · scene.js
+   three.js ospitato in proprio: nessuna chiamata a CDN esterne.
+
+   Due scene, due lavori diversi:
+
+   HERO — un reticolo geodetico che si monta davanti a chi apre
+   la pagina. I nodi partono sparsi e convergono nelle loro
+   posizioni esatte in poco piu' di un secondo. E' letteralmente
+   il mestiere: prendere pezzi sparsi e farne una struttura.
+   Niente bagliori, niente colori acidi: filo sottile, un ottone
+   solo, nebbia che spegne la profondita'.
+
+   MODULO — il nucleo interattivo dentro il caso studio. Si
+   trascina per ruotarlo. Serve da prova di quello che il testo
+   accanto sostiene.
+
+   Qui, al contrario di Master, si renderizza a piena risoluzione
+   e con antialiasing: la resa netta e' parte del registro sobrio.
    ============================================================ */
 import * as THREE from './three.module.js';
 
-const SB = window.SB || { on() {}, unlock() {} };
+const SB = window.SB || { on() {}, emit() {} };
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const css = (n, f) => (getComputedStyle(document.documentElement).getPropertyValue(n).trim() || f);
+/* ---- palette: viene dal CSS, cosi' i due temi restano allineati ---------- */
+const cssVar = (n, fallback) =>
+  (getComputedStyle(document.documentElement).getPropertyValue(n).trim() || fallback);
+
 const palette = () => ({
-  acc:  new THREE.Color(css('--acc', '#7ee787')),
-  acc2: new THREE.Color(css('--acc-2', '#4ec9f5')),
-  acc3: new THREE.Color(css('--acc-3', '#f5c451')),
-  line: new THREE.Color(css('--line-strong', '#45456b'))
+  acc:   new THREE.Color(cssVar('--acc', '#d9a441')),
+  steel: new THREE.Color(cssVar('--steel', '#7fa8d4')),
+  line:  new THREE.Color(cssVar('--line-2', '#333c4b')),
+  faint: new THREE.Color(cssVar('--text-faint', '#79828f')),
+  bg:    new THREE.Color(cssVar('--bg', '#0b0d11'))
 });
 
 const scenes = [];
-let godMode = false, wireframe = false;
+let schematic = false;
 
-function makeRenderer(host, scale) {
+/* punto rotondo invece del quadrato di default: un dettaglio, ma i
+   quadrati fanno "particellare anni Duemila" e qui non serve */
+function dotTexture() {
+  const S = 64;
+  const c = document.createElement('canvas');
+  c.width = c.height = S;
+  const g = c.getContext('2d');
+  const grad = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+  grad.addColorStop(0, 'rgba(255,255,255,1)');
+  grad.addColorStop(.45, 'rgba(255,255,255,.95)');
+  grad.addColorStop(.75, 'rgba(255,255,255,.18)');
+  grad.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = grad;
+  g.fillRect(0, 0, S, S);
+  const t = new THREE.CanvasTexture(c);
+  t.needsUpdate = true;
+  return t;
+}
+const DOT = dotTexture();
+
+function makeRenderer(host) {
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'low-power' });
-  } catch (e) { return null; }
-  renderer.setPixelRatio(1);           // never oversample: the chunk is the point
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+  } catch (e) {
+    return null;
+  }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.domElement.setAttribute('aria-hidden', 'true');
   host.appendChild(renderer.domElement);
-  renderer.userData = { scale };
   return renderer;
 }
 
 function fit(renderer, cam, host) {
-  const w = Math.max(1, host.clientWidth), h = Math.max(1, host.clientHeight);
-  const s = renderer.userData.scale;
-  renderer.setSize(Math.max(24, Math.round(w / s)), Math.max(24, Math.round(h / s)), false);
+  const w = Math.max(1, host.clientWidth);
+  const h = Math.max(1, host.clientHeight);
+  renderer.setSize(w, h, false);
   cam.aspect = w / h;
   cam.updateProjectionMatrix();
 }
 
-/* ---------------- hero: griglia che scorre + solidi che ruzzolano ------------- */
+/* ============================================================
+   Geodetica: l'icosaedro suddiviso di three.js e' non indicizzato,
+   quindi ogni vertice compare piu' volte — con detail 3 sono 960
+   posizioni per 162 punti reali. Qui si de-duplica a mano
+   arrotondando le coordinate al millesimo, e da li' si ricavano
+   gli spigoli unici.
+
+   Nota sul parametro: in three.js detail non e' un numero di
+   raddoppi, e' il numero di suddivisioni per lato meno uno. Ogni
+   faccia viene divisa in (detail+1)^2 triangoli, quindi detail 3
+   da' 320 facce, 162 nodi e 480 spigoli. Verificato, non dedotto.
+   ============================================================ */
+function geodesic(radius, detail) {
+  const geo = new THREE.IcosahedronGeometry(radius, detail);
+  const pos = geo.attributes.position;
+  const map = new Map();
+  const nodes = [];
+  const index = [];
+
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i);
+    const key = `${Math.round(x * 1e3)},${Math.round(y * 1e3)},${Math.round(z * 1e3)}`;
+    let j = map.get(key);
+    if (j === undefined) {
+      j = nodes.length;
+      map.set(key, j);
+      nodes.push(new THREE.Vector3(x, y, z));
+    }
+    index.push(j);
+  }
+
+  const seen = new Set();
+  const edges = [];
+  for (let f = 0; f < index.length; f += 3) {
+    const tri = [index[f], index[f + 1], index[f + 2]];
+    for (let k = 0; k < 3; k++) {
+      const a = tri[k], b = tri[(k + 1) % 3];
+      const key = a < b ? `${a}_${b}` : `${b}_${a}`;
+      if (!seen.has(key)) { seen.add(key); edges.push([a, b]); }
+    }
+  }
+
+  geo.dispose();
+  return { nodes, edges };
+}
+
+const easeOutQuint = x => 1 - Math.pow(1 - x, 5);
+const clamp01 = x => (x < 0 ? 0 : x > 1 ? 1 : x);
+
+/* ============================================================
+   HERO — reticolo che si assembla
+   ============================================================ */
 function buildHero(host) {
-  const renderer = makeRenderer(host, 5);
+  const renderer = makeRenderer(host);
   if (!renderer) return null;
 
   const scene = new THREE.Scene();
-  const cam = new THREE.PerspectiveCamera(60, 1, 0.1, 140);
-  cam.position.set(0, 2.6, 10);
-  cam.lookAt(0, 3.4, -10);   // tilt up so the grid stays in the lower third
+  const cam = new THREE.PerspectiveCamera(38, 1, 0.1, 90);
+  cam.position.set(0, 0, 13.6);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
-  const key = new THREE.DirectionalLight(0xffffff, 1.5);
-  key.position.set(4, 8, 6);
-  scene.add(key);
+  const p0 = palette();
+  scene.fog = new THREE.Fog(p0.bg, 11, 30);
 
-  const STEP = 4;
-  let grid = null;
-  function buildGrid(p) {
-    if (grid) { scene.remove(grid); grid.geometry.dispose(); grid.material.dispose(); }
-    grid = new THREE.GridHelper(120, 120 / STEP, p.acc, p.line);
-    grid.position.y = -2.6;
-    grid.material.transparent = true;
-    grid.material.opacity = 0.42;
-    scene.add(grid);
+  const group = new THREE.Group();
+  scene.add(group);
+
+  const R = 3.35;
+  const { nodes, edges } = geodesic(R, 3);   // 162 nodi, 480 spigoli
+  const N = nodes.length;
+
+  /* posizione di partenza: fuori dal riquadro, lungo la direzione
+     del nodo. Cosi' la struttura "collassa" verso il centro invece
+     di apparire, e l'occhio segue il movimento. */
+  const start = new Float32Array(N * 3);
+  const delay = new Float32Array(N);
+  const phase = new Float32Array(N);
+
+  for (let i = 0; i < N; i++) {
+    const n = nodes[i];
+    const dist = 4.2 + Math.random() * 9;
+    start[i * 3]     = n.x / R * dist + (Math.random() - .5) * 5;
+    start[i * 3 + 1] = n.y / R * dist + (Math.random() - .5) * 5;
+    start[i * 3 + 2] = n.z / R * dist + (Math.random() - .5) * 5;
+    // i nodi bassi partono per primi: la struttura cresce dal basso
+    delay[i] = (1 - (n.y + R) / (2 * R)) * 0.52 + Math.random() * 0.16;
+    phase[i] = Math.random() * Math.PI * 2;
   }
 
-  const shapes = [];
-  const geos = [
-    new THREE.IcosahedronGeometry(1.5, 0),
-    new THREE.OctahedronGeometry(1.5, 0),
-    new THREE.TorusGeometry(1.1, 0.42, 6, 9),
-    new THREE.TetrahedronGeometry(1.7, 0),
-    new THREE.DodecahedronGeometry(1.35, 0)
-  ];
-  for (let i = 0; i < 5; i++) {
-    const mat = new THREE.MeshPhongMaterial({ flatShading: true, shininess: 0 });
-    const mesh = new THREE.Mesh(geos[i], mat);
-    mesh.position.set((i % 2 ? -1 : 1) * (2.5 + Math.random() * 4), 1 + Math.random() * 5, -6 - i * 9);
-    mesh.userData = {
-      spin: new THREE.Vector3((Math.random() - .5) * .5, (Math.random() - .5) * .5, (Math.random() - .5) * .3),
-      speed: 1.1 + Math.random() * 0.9
-    };
-    shapes.push(mesh);
-    scene.add(mesh);
+  const live = new Float32Array(N * 3);
+
+  const nodeGeo = new THREE.BufferGeometry();
+  nodeGeo.setAttribute('position', new THREE.BufferAttribute(live, 3));
+  const nodeMat = new THREE.PointsMaterial({
+    size: 0.088, map: DOT, transparent: true, opacity: .95,
+    depthWrite: false, sizeAttenuation: true, fog: true
+  });
+  const points = new THREE.Points(nodeGeo, nodeMat);
+  group.add(points);
+
+  const edgePos = new Float32Array(edges.length * 6);
+  const edgeGeo = new THREE.BufferGeometry();
+  edgeGeo.setAttribute('position', new THREE.BufferAttribute(edgePos, 3));
+  const edgeMat = new THREE.LineBasicMaterial({ transparent: true, opacity: 0, fog: true });
+  const mesh = new THREE.LineSegments(edgeGeo, edgeMat);
+  group.add(mesh);
+
+  /* tre anelli su assi diversi: strumento, non orbita spaziale */
+  const rings = [];
+  const ringMat = new THREE.LineBasicMaterial({ transparent: true, opacity: 0, fog: true });
+  [[4.55, .95, .2], [5.15, -.4, 1.15], [5.75, 1.5, -.6]].forEach(([r, rx, rz], i) => {
+    const pts = [];
+    const SEG = 168;
+    for (let s = 0; s <= SEG; s++) {
+      const a = (s / SEG) * Math.PI * 2;
+      pts.push(new THREE.Vector3(Math.cos(a) * r, 0, Math.sin(a) * r));
+    }
+    const g = new THREE.BufferGeometry().setFromPoints(pts);
+    const line = new THREE.Line(g, ringMat);
+    line.rotation.set(rx, 0, rz);
+    line.userData = { spin: (i % 2 ? -1 : 1) * (0.045 + i * 0.02) };
+    rings.push(line);
+    group.add(line);
+  });
+
+  /* pulviscolo: profondita' a costo zero */
+  const DUST = 700;
+  const dustPos = new Float32Array(DUST * 3);
+  for (let i = 0; i < DUST; i++) {
+    const r = 7 + Math.random() * 15;
+    const th = Math.random() * Math.PI * 2;
+    const ph = Math.acos(2 * Math.random() - 1);
+    dustPos[i * 3]     = r * Math.sin(ph) * Math.cos(th);
+    dustPos[i * 3 + 1] = r * Math.cos(ph) * .55;
+    dustPos[i * 3 + 2] = r * Math.sin(ph) * Math.sin(th);
   }
+  const dustGeo = new THREE.BufferGeometry();
+  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+  const dustMat = new THREE.PointsMaterial({
+    size: 0.055, map: DOT, transparent: true, opacity: .34,
+    depthWrite: false, sizeAttenuation: true, fog: true
+  });
+  const dust = new THREE.Points(dustGeo, dustMat);
+  scene.add(dust);
 
   function recolor() {
     const p = palette();
-    buildGrid(p);
-    const cols = [p.acc, p.acc2, p.acc3, p.acc, p.acc2];
-    shapes.forEach((m, i) => { m.material.color.copy(cols[i]); m.material.wireframe = wireframe; });
+    scene.fog.color.copy(p.bg);
+    nodeMat.color.copy(schematic ? p.steel : p.acc);
+    edgeMat.color.copy(schematic ? p.acc : p.line);
+    ringMat.color.copy(schematic ? p.acc : p.steel);
+    dustMat.color.copy(p.faint);
   }
   recolor();
 
+  /* parallasse: il puntatore inclina appena la struttura.
+     Poco: deve sembrare stabile, non un giocattolo. */
+  const aim = { x: 0, y: 0 };
+  const cur = { x: 0, y: 0 };
+  window.addEventListener('pointermove', e => {
+    aim.x = (e.clientX / window.innerWidth - .5) * 2;
+    aim.y = (e.clientY / window.innerHeight - .5) * 2;
+  }, { passive: true });
+
+  const t0 = performance.now() / 1000;
+  const DUR = 1.15;
+
+  function layout() {
+    // su desktop la struttura sta a destra, lasciando la colonna di testo pulita
+    const wide = host.clientWidth / Math.max(1, host.clientHeight) > 1.15;
+    group.position.x = wide ? 2.6 : 0;
+    group.position.y = wide ? 0 : 0.4;
+    dust.position.x = group.position.x * .6;
+  }
+  layout();
+
   function frame(t, dt) {
-    const boost = godMode ? 3.4 : 1;
-    grid.position.z = ((t * 3.2 * boost) % STEP);
-    shapes.forEach(m => {
-      const u = m.userData;
-      m.rotation.x += u.spin.x * dt * boost;
-      m.rotation.y += u.spin.y * dt * boost;
-      m.rotation.z += u.spin.z * dt * boost;
-      m.position.z += u.speed * dt * boost;
-      if (m.position.z > 12) {           // recycle past the camera
-        m.position.z = -48;
-        m.position.x = (Math.random() - .5) * 13;
-        m.position.y = 0.5 + Math.random() * 5.5;
-      }
-    });
+    const age = reduce ? 99 : t - t0;
+
+    let assembled = 0;
+    for (let i = 0; i < N; i++) {
+      const k = easeOutQuint(clamp01((age - delay[i]) / DUR));
+      if (k >= 1) assembled++;
+      const n = nodes[i];
+      // respiro: appena percettibile, tiene viva la struttura a regime
+      const br = 1 + Math.sin(t * .55 + phase[i]) * .012 * k;
+      live[i * 3]     = start[i * 3]     + (n.x * br - start[i * 3])     * k;
+      live[i * 3 + 1] = start[i * 3 + 1] + (n.y * br - start[i * 3 + 1]) * k;
+      live[i * 3 + 2] = start[i * 3 + 2] + (n.z * br - start[i * 3 + 2]) * k;
+    }
+    nodeGeo.attributes.position.needsUpdate = true;
+
+    for (let e = 0; e < edges.length; e++) {
+      const a = edges[e][0] * 3, b = edges[e][1] * 3, o = e * 6;
+      edgePos[o]     = live[a];
+      edgePos[o + 1] = live[a + 1];
+      edgePos[o + 2] = live[a + 2];
+      edgePos[o + 3] = live[b];
+      edgePos[o + 4] = live[b + 1];
+      edgePos[o + 5] = live[b + 2];
+    }
+    edgeGeo.attributes.position.needsUpdate = true;
+
+    const ratio = assembled / N;
+    edgeMat.opacity = ratio * (schematic ? .85 : .55);
+    ringMat.opacity = clamp01((age - 1.25) / .9) * (schematic ? .6 : .3);
+    nodeMat.opacity = schematic ? .25 : .95;
+
+    cur.x += (aim.x - cur.x) * .045;
+    cur.y += (aim.y - cur.y) * .045;
+
+    group.rotation.y += dt * .085;
+    group.rotation.x = -cur.y * .18;
+    group.rotation.z = cur.x * .05;
+    rings.forEach(r => { r.rotation.y += dt * r.userData.spin; });
+    dust.rotation.y -= dt * .012;
+
+    cam.position.x = cur.x * .55;
+    cam.position.y = -cur.y * .35;
+    cam.lookAt(group.position.x * .35, 0, 0);
+
     renderer.render(scene, cam);
   }
 
-  return { renderer, cam, host, frame, recolor,
-           setWire: w => shapes.forEach(m => { m.material.wireframe = w; }) };
+  return { renderer, cam, host, frame, recolor, layout, always: true };
 }
 
-/* ---------------- core: solido interattivo ------------------------------------ */
-function buildCore(host) {
-  const renderer = makeRenderer(host, 4);
+/* ============================================================
+   MODULO — nucleo interattivo dentro il caso studio
+   ============================================================ */
+function buildModule(host) {
+  const renderer = makeRenderer(host);
   if (!renderer) return null;
-  host.closest('.screen').classList.add('gl-ok');   // hides the fallback message
+  host.closest('.module').classList.add('gl-ok');
 
   const scene = new THREE.Scene();
-  const cam = new THREE.PerspectiveCamera(46, 4 / 3, 0.1, 60);
-  cam.position.set(0, 0, 7.4);
+  const cam = new THREE.PerspectiveCamera(42, 16 / 9, 0.1, 60);
+  cam.position.set(0, 0, 8.2);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-  const key = new THREE.DirectionalLight(0xffffff, 1.7);
-  key.position.set(3, 5, 5);
+  const p0 = palette();
+  scene.fog = new THREE.Fog(p0.bg, 8, 22);
+
+  scene.add(new THREE.AmbientLight(0xffffff, .75));
+  const key = new THREE.DirectionalLight(0xffffff, 1.5);
+  key.position.set(4, 6, 5);
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0xffffff, 0.7);
-  rim.position.set(-5, -2, -3);
+  const rim = new THREE.DirectionalLight(0xffffff, .55);
+  rim.position.set(-5, -3, -4);
   scene.add(rim);
 
   const group = new THREE.Group();
   scene.add(group);
 
-  const coreMat = new THREE.MeshPhongMaterial({ flatShading: true, shininess: 0 });
-  const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.85, 1), coreMat);
+  const coreMat = new THREE.MeshPhongMaterial({ flatShading: true, shininess: 6 });
+  const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.7, 1), coreMat);
   group.add(core);
 
-  const shellMat = new THREE.MeshBasicMaterial({ wireframe: true, transparent: true, opacity: .38 });
-  const shell = new THREE.Mesh(new THREE.IcosahedronGeometry(2.65, 0), shellMat);
+  const shellMat = new THREE.LineBasicMaterial({ transparent: true, opacity: .42, fog: true });
+  const shell = new THREE.LineSegments(
+    new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(2.5, 1)), shellMat
+  );
   group.add(shell);
 
+  /* diciassette satelliti. Il numero non e' casuale, ma non lo dice
+     nessuno: chi lo conta ha trovato la battuta da solo. */
   const bits = [];
-  const bitGeo = new THREE.BoxGeometry(.34, .34, .34);
-  for (let i = 0; i < 17; i++) {                     // diciassette, ovviamente
+  const bitGeo = new THREE.OctahedronGeometry(.16, 0);
+  for (let i = 0; i < 17; i++) {
     const m = new THREE.Mesh(bitGeo, new THREE.MeshPhongMaterial({ flatShading: true, shininess: 0 }));
-    const a = (i / 17) * Math.PI * 2;
-    m.userData = { a, r: 3.5, y: Math.sin(i * 1.7) * 1.5 };
+    m.userData = { a: (i / 17) * Math.PI * 2, r: 3.3, y: Math.sin(i * 1.7) * 1.25 };
     bits.push(m);
     group.add(m);
   }
 
   function recolor() {
     const p = palette();
+    scene.fog.color.copy(p.bg);
     coreMat.color.copy(p.acc);
-    shellMat.color.copy(p.acc2);
-    bits.forEach((m, i) => m.material.color.copy(i % 3 === 0 ? p.acc3 : (i % 3 === 1 ? p.acc2 : p.acc)));
+    coreMat.wireframe = schematic;
+    shellMat.color.copy(schematic ? p.acc : p.steel);
+    bits.forEach((m, i) => m.material.color.copy(i % 3 === 0 ? p.steel : p.acc));
   }
   recolor();
 
-  /* drag to spin, with a bit of inertia */
-  let vx = 0.32, vy = 0.16, dragging = false, lx = 0, ly = 0;
+  /* trascinamento con un po' d'inerzia */
+  let vx = .0022, vy = .0055, dragging = false, lx = 0, ly = 0;
   host.addEventListener('pointerdown', e => {
     dragging = true; lx = e.clientX; ly = e.clientY;
     host.setPointerCapture(e.pointerId);
-    SB.unlock('core');
   });
   host.addEventListener('pointermove', e => {
     if (!dragging) return;
-    vy = (e.clientX - lx) * 0.012;
-    vx = (e.clientY - ly) * 0.012;
-    group.rotation.y += vy;
-    group.rotation.x += vx;
+    vy = (e.clientX - lx) * .0045;
+    vx = (e.clientY - ly) * .0045;
+    group.rotation.y += vy * 2.4;
+    group.rotation.x += vx * 2.4;
     lx = e.clientX; ly = e.clientY;
   });
   const stop = () => { dragging = false; };
   host.addEventListener('pointerup', stop);
   host.addEventListener('pointercancel', stop);
+  host.addEventListener('lostpointercapture', stop);
 
   function frame(t, dt) {
-    const boost = godMode ? 3 : 1;
     if (!dragging) {
-      group.rotation.y += vy * dt * 2.2 * boost;
-      group.rotation.x += vx * dt * 2.2 * boost;
-      vy += (0.32 - vy) * 0.02;                      // ease back to the idle spin
-      vx += (0.16 - vx) * 0.02;
+      group.rotation.y += vy * dt * 40;
+      group.rotation.x += vx * dt * 40;
+      vy += (.0055 - vy) * .022;   // torna al giro lento a riposo
+      vx += (.0022 - vx) * .022;
     }
-    shell.rotation.y -= dt * 0.35 * boost;
-    shell.rotation.z += dt * 0.18 * boost;
+    shell.rotation.y -= dt * .16;
+    shell.rotation.z += dt * .07;
     bits.forEach((m, i) => {
       const u = m.userData;
-      const a = u.a + t * 0.45 * boost;
-      m.position.set(Math.cos(a) * u.r, u.y + Math.sin(t * 1.3 + i) * 0.25, Math.sin(a) * u.r);
-      m.rotation.x += dt * 1.2 * boost;
-      m.rotation.y += dt * 0.9 * boost;
+      const a = u.a + t * .22;
+      m.position.set(Math.cos(a) * u.r, u.y + Math.sin(t * .8 + i) * .16, Math.sin(a) * u.r);
+      m.rotation.x += dt * .6;
+      m.rotation.y += dt * .45;
     });
     renderer.render(scene, cam);
   }
 
-  return { renderer, cam, host, frame, recolor,
-           setWire: w => { coreMat.wireframe = w; bits.forEach(m => { m.material.wireframe = w; }); } };
+  return { renderer, cam, host, frame, recolor, layout() {} };
 }
 
-/* ---------------- avvio ------------------------------------------------------- */
+/* ============================================================
+   Avvio
+   ============================================================ */
 const heroHost = document.getElementById('hero-gl');
-const coreHost = document.getElementById('core-gl');
+const modHost = document.getElementById('module-gl');
 
 const hero = heroHost ? buildHero(heroHost) : null;
-const core = coreHost ? buildCore(coreHost) : null;
-[hero, core].forEach(s => { if (s) scenes.push(s); });
+const mod = modHost ? buildModule(modHost) : null;
+[hero, mod].forEach(s => { if (s) scenes.push(s); });
 
 if (scenes.length) {
+  // si disegna solo quello che si vede: fuori schermo la GPU sta ferma
   const visible = new Set();
-  const io = new IntersectionObserver(es => {
-    es.forEach(e => {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
       const s = scenes.find(x => x.host === e.target);
       if (!s) return;
       if (e.isIntersecting) visible.add(s); else visible.delete(s);
     });
-  }, { rootMargin: '80px' });
-  scenes.forEach(s => io.observe(s.host));
+  }, { rootMargin: '120px' });
 
   scenes.forEach(s => {
+    io.observe(s.host);
     fit(s.renderer, s.cam, s.host);
-    new ResizeObserver(() => fit(s.renderer, s.cam, s.host)).observe(s.host);
+    s.layout();
+    new ResizeObserver(() => { fit(s.renderer, s.cam, s.host); s.layout(); }).observe(s.host);
   });
 
   let last = performance.now() / 1000;
   function loop(now) {
     const t = now / 1000;
-    const dt = Math.min(0.05, t - last);
+    const dt = Math.min(.05, t - last);
     last = t;
     visible.forEach(s => s.frame(t, dt));
     requestAnimationFrame(loop);
   }
+
   if (reduce) {
-    scenes.forEach(s => s.frame(0, 0));               // one still frame, no motion
+    // un fotogramma solo, con la struttura gia' montata
+    scenes.forEach(s => s.frame(performance.now() / 1000, 0));
   } else {
     requestAnimationFrame(loop);
   }
 
   SB.on('theme', () => scenes.forEach(s => s.recolor()));
-  SB.on('wireframe', w => { wireframe = w; scenes.forEach(s => s.setWire(w)); });
-  SB.on('godmode', () => {
-    if (godMode) return;
-    godMode = true;
-    // only now start following the cycling accent — no idle timer before this
-    setInterval(() => scenes.forEach(s => s.recolor()), 200);
+  SB.on('schematic', on => {
+    schematic = on;
+    scenes.forEach(s => s.recolor());
   });
 }

@@ -5,65 +5,30 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Privacy policy | 17Labs</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#0a0a12">
+<meta name="theme-color" content="#0b0d11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
 <link rel="stylesheet" href="assets/fonts.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230a0a12'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23b98cf5'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%234ec9f5'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23f2f2ff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%230b0d11'/%3E%3Crect x='3.5' y='3.5' width='25' height='25' rx='1.5' fill='none' stroke='%23333c4b'/%3E%3Cg fill='%23d9a441'%3E%3Crect x='9' y='10' width='2.5' height='12'/%3E%3Crect x='9' y='10' width='6' height='2.5'/%3E%3Crect x='17' y='10' width='7' height='2.5'/%3E%3Crect x='19' y='12.5' width='2.5' height='9.5'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
     try {
-      var t = localStorage.getItem('dev-theme');
-      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      var t = localStorage.getItem('v3-theme');
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
     } catch (e) {}
   })();
 </script>
-<style>
-[data-theme="dark"] {
-  --bg:#0a0a12; --bg-elev:#10101c; --surface:#161624; --line:#2c2c46; --line-strong:#45456b;
-  --text:#eaeaf7; --text-dim:#b4b4d4; --text-faint:#9a9ac2;
-  --acc:#7ee787; --acc-3:#f5c451; --shadow:#05050b;
-  --scan:rgba(0,0,0,.55); --scan-op:.34; color-scheme:dark;
-}
-[data-theme="light"] {
-  --bg:#dcdce8; --bg-elev:#eaeaf3; --surface:#f7f7fc; --line:#a9a9c4; --line-strong:#6d6d92;
-  --text:#14141f; --text-dim:#3d3d55; --text-faint:#54546f;
-  --acc:#126536; --acc-3:#84590c; --shadow:#9c9cb8;
-  --scan:rgba(20,20,40,.5); --scan-op:.14; color-scheme:light;
-}
-*,*::before,*::after { box-sizing:border-box; }
-body {
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
-  -webkit-font-smoothing:antialiased; line-height:1.7;
-}
-.crt {
-  position:fixed; inset:0; z-index:50; pointer-events:none;
-  background:repeating-linear-gradient(to bottom, var(--scan) 0 1px, transparent 1px 3px);
-  opacity:var(--scan-op);
-}
-.wrap { max-width:760px; margin:0 auto; padding:clamp(60px,9vw,110px) clamp(20px,5vw,40px) 90px; position:relative; z-index:1; }
-a { color:var(--acc); }
-.back {
-  display:inline-flex; font-family:"Press Start 2P",monospace; font-size:9px;
-  text-decoration:none; color:var(--text); padding:13px 16px;
-  border:2px solid var(--line-strong); background:var(--surface);
-  box-shadow:4px 4px 0 0 var(--shadow); margin-bottom:36px;
-}
-h1 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(17px,3vw,26px); line-height:1.5; margin:0 0 10px; }
-h2 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(11px,1.6vw,14px); line-height:1.6; margin:44px 0 14px; color:var(--acc); }
-p, li { color:var(--text-dim); font-size:15px; margin:0 0 14px; }
-ul { padding-left:22px; }
-.updated { font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--text-faint); margin-bottom:34px; }
-p strong { color:var(--text); font-weight:600; }
-</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<div class="crt" aria-hidden="true"></div>
+<div class="gridlines" aria-hidden="true"></div>
 
-<main class="wrap">
-  <a class="back" href="index.html">&lt; TORNA AL SITO</a>
+<main class="wrap doc">
+  <a class="back" href="index.html">&larr; Torna al sito</a>
 
   <h1>Privacy policy</h1>
-  <p class="updated">Ultimo aggiornamento: 17 agosto 2026</p>
+  <p class="updated">Ultimo aggiornamento: 18 agosto 2026</p>
 
   <h2>Titolare del trattamento</h2>
   <p>
@@ -80,21 +45,21 @@ p strong { color:var(--text); font-weight:600; }
     <li>il contenuto del messaggio che scrivi</li>
   </ul>
 
-  <h2>Perché li uso</h2>
+  <h2>Perche' li uso</h2>
   <p>
     Esclusivamente per rispondere alla tua richiesta e, se il rapporto prosegue, per gestire
     il preventivo e il progetto. Base giuridica: il tuo consenso e l'esecuzione di misure
     precontrattuali richieste da te (art. 6 GDPR). Lavorando anche fuori dall'Italia, i dati
     possono riguardare persone in altri paesi: il GDPR si applica comunque.
   </p>
-  <p>Non invio newsletter, non profilo e non cedo i dati a terzi per finalità commerciali.</p>
+  <p>Non invio newsletter, non profilo e non cedo i dati a terzi per finalita' commerciali.</p>
 
   <h2>Cookie e archiviazione locale</h2>
   <p>
-    Il sito non usa cookie di profilazione. Salva nel tuo browser due sole preferenze,
-    tramite <em>localStorage</em>: il tema chiaro o scuro che hai scelto e i trofei che hai
-    sbloccato. Sono dati tecnici che restano sul tuo dispositivo, non vengono trasmessi a
-    nessuno e puoi cancellarli svuotando i dati del sito dal browser.
+    Il sito non usa cookie di profilazione. Salva nel tuo browser una sola preferenza,
+    tramite <em>localStorage</em>: il tema chiaro o scuro che hai scelto. E' un dato tecnico
+    che resta sul tuo dispositivo, non viene trasmesso a nessuno e puoi cancellarlo
+    svuotando i dati del sito dal browser.
   </p>
   <p>
     Non ci sono servizi di terze parti che si caricano insieme alla pagina: i caratteri
@@ -116,24 +81,24 @@ p strong { color:var(--text); font-weight:600; }
     e invio delle email; <strong>Cloudflare</strong> per la protezione degli endpoint di
     invio; <strong>Hetzner</strong> (Germania e Finlandia) per parte dei server; e due
     servizi antispam, <strong>CleanTalk</strong> e <strong>Akismet</strong> di Automattic,
-    che ricevono il tuo indirizzo IP e la tua email per valutare se l'invio è legittimo.
+    che ricevono il tuo indirizzo IP e la tua email per valutare se l'invio e' legittimo.
   </p>
   <p>
-    Diversi di questi operano fuori dall'Unione europea. Il trasferimento è coperto dalle
+    Diversi di questi operano fuori dall'Unione europea. Il trasferimento e' coperto dalle
     <strong>clausole contrattuali tipo</strong> approvate dalla Commissione europea con
     decisione di esecuzione (UE) 2021/914, incorporate nell'accordo con Web3Creative: io
     agisco come esportatore dei dati, Web3Creative come importatore.
   </p>
   <p>
     <strong>GitHub Pages</strong> — ospita e distribuisce le pagine che stai leggendo.
-    Non riceve i dati del modulo, ma come ogni server web registra nei propri log
-    tecnici l'indirizzo IP e il tipo di browser di chi visita. Il servizio è di
-    GitHub, Inc. (gruppo Microsoft), con sede negli Stati Uniti.
+    Non riceve i dati del modulo, ma come ogni server web registra nei propri log tecnici
+    l'indirizzo IP e il tipo di browser di chi visita. Il servizio e' di GitHub, Inc.
+    (gruppo Microsoft), con sede negli Stati Uniti.
   </p>
   <p>
-    <strong>Register.it</strong> — gestisce la casella di posta su cui arrivano i
-    messaggi, quindi ne conserva il contenuto. È un fornitore italiano e tratta i dati
-    all'interno dell'Unione europea.
+    <strong>Register.it</strong> — gestisce la casella di posta su cui arrivano i messaggi,
+    quindi ne conserva il contenuto. E' un fornitore italiano e tratta i dati all'interno
+    dell'Unione europea.
   </p>
 
   <h2>Per quanto tempo li conservo</h2>

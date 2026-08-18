@@ -3,29 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>17Labs — Software development and AI solutions</title>
-<meta name="description" content="Websites, portals, custom business software and AI-powered integrations. From process analysis to release.">
-<meta name="theme-color" content="#0a0a12" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f1f1f3" media="(prefers-color-scheme: light)">
+<title>17Labs — Custom software for businesses | Carmine La Luna</title>
+<meta name="description" content="Websites, portals, custom business software and language-model integrations. From process analysis to release, with code that still reads well two years later.">
+<meta name="theme-color" content="#0b0d11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
+
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="17Labs">
-<meta property="og:title" content="17Labs — Software development and AI solutions">
-<meta property="og:description" content="Websites, portals, custom business software and AI-powered integrations. From process analysis to release.">
+<meta property="og:title" content="17Labs — Custom software for businesses">
+<meta property="og:description" content="Websites, portals, custom business software and language-model integrations. From process analysis to release.">
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="it_IT">
+<!-- og:image needs an absolute URL: relative paths work on no platform.
+     PLACEHOLDER: og.png is still the one from Master, redraw it for V3. -->
 <meta property="og:image" content="https://17labs.it/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="17Labs — software development and AI solutions">
+<meta property="og:image:alt" content="17Labs — custom software development">
 <meta property="og:url" content="https://17labs.it/en/">
 <link rel="canonical" href="https://17labs.it/en/">
 <link rel="alternate" hreflang="it" href="https://17labs.it/">
 <link rel="alternate" hreflang="en" href="https://17labs.it/en/">
 <link rel="alternate" hreflang="x-default" href="https://17labs.it/">
-<meta name="twitter:image" content="https://17labs.it/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="17Labs — Software development and AI solutions">
-<meta name="twitter:description" content="Websites, portals, custom business software and AI-powered integrations.">
+<meta name="twitter:title" content="17Labs — Custom software for businesses">
+<meta name="twitter:description" content="Websites, portals, custom business software and language-model integrations.">
+<meta name="twitter:image" content="https://17labs.it/og.png">
+
+<!-- Person, not ProfessionalService: the latter declares a registered
+     business. Switch to ProfessionalService once the VAT number exists. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -36,6 +42,7 @@
   "description": "I build websites, portals, custom business software and AI-powered integrations.",
   "url": "https://17labs.it/en/",
   "email": "contact@17labs.it",
+  "knowsLanguage": ["it", "en"],
   "knowsAbout": [
     "Custom software development",
     "Web development",
@@ -45,13 +52,22 @@
   ]
 }
 </script>
+
 <link rel="stylesheet" href="../assets/fonts.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230a0a12'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23b98cf5'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%234ec9f5'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23f2f2ff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%230b0d11'/%3E%3Crect x='3.5' y='3.5' width='25' height='25' rx='1.5' fill='none' stroke='%23333c4b'/%3E%3Cg fill='%23d9a441'%3E%3Crect x='9' y='10' width='2.5' height='12'/%3E%3Crect x='9' y='10' width='6' height='2.5'/%3E%3Crect x='17' y='10' width='7' height='2.5'/%3E%3Crect x='19' y='12.5' width='2.5' height='9.5'/%3E%3C/g%3E%3C/svg%3E">
+
+<!-- Two things, before the first paint.
+     1. The saved theme, so there is no white flash.
+     2. The .js class: the scroll reveals stay hidden only when there is
+        JavaScript to reveal them. Without this line a browser with JS
+        turned off would show an empty page. -->
 <script>
   (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
     try {
-      var t = localStorage.getItem('dev-theme');
-      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      var t = localStorage.getItem('v3-theme');
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
     } catch (e) {}
   })();
 </script>
@@ -59,189 +75,233 @@
 </head>
 <body>
 
-<a class="skip px" href="#top">SKIP TO CONTENT</a>
-<div class="crt" aria-hidden="true"></div>
+<a class="skip" href="#top">Skip to content</a>
+<div class="gridlines" aria-hidden="true"></div>
+<div class="readout" id="readout" role="status" aria-live="polite"></div>
 
-<div class="boot" id="boot" hidden>
-  <pixel-icon sprite="chip" aria-hidden="true"></pixel-icon>
-  <p class="boot__name px">17LABS</p>
-  <p class="boot__line" id="boot-line"></p>
-  <p class="boot__press px blink">PRESS ANY KEY</p>
-</div>
+<!-- ============================================================
+     Icons: an inline symbol sheet, drawn as strokes on a 24 grid.
+     No library, no extra request, and they inherit the text colour
+     in both themes.
+     ============================================================ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-chip" viewBox="0 0 24 24"><rect x="4.5" y="4.5" width="15" height="15" rx="1"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1.5V4.5M15 1.5V4.5M9 19.5v3M15 19.5v3M1.5 9h3M1.5 15h3M19.5 9h3M19.5 15h3"/></symbol>
+    <symbol id="i-browser" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="16" rx="1.5"/><path d="M2.5 9h19M5.5 6.5h.01M8 6.5h.01"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="16.5" r="3.6"/><path d="M10.1 13.9 20.5 3.5M17.2 6.8l2.6 2.6M14.6 9.4l2.3 2.3"/></symbol>
+    <symbol id="i-ledger" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 3v18M11 8h6M11 12h6M11 16h4"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M4 8h16l-1.2 12.1a1 1 0 0 1-1 .9H6.2a1 1 0 0 1-1-.9L4 8Z"/><path d="M8.6 10.5V6.6a3.4 3.4 0 0 1 6.8 0v3.9"/></symbol>
+    <symbol id="i-flow" viewBox="0 0 24 24"><rect x="2.5" y="3.5" width="7" height="6" rx="1"/><rect x="14.5" y="14.5" width="7" height="6" rx="1"/><path d="M9.5 6.5h4.5a4 4 0 0 1 4 4v4"/><path d="M15.8 12.2 18 14.4l2.2-2.2"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3.5 3.5v17h17"/><path d="M7.5 16.5v-3.5M12 16.5v-8M16.5 16.5v-5.5"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="6" rx="1"/><rect x="3" y="14.5" width="18" height="6" rx="1"/><path d="M6.5 6.5h.01M6.5 17.5h.01"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 21 21"/></symbol>
+    <symbol id="i-draft" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="1"/><path d="M3.5 8.5h17M9 8.5v12"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="M9 6.5 3.5 12 9 17.5M15 6.5 20.5 12 15 17.5"/></symbol>
+    <symbol id="i-live" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.4"/><path d="M7.9 7.9a5.8 5.8 0 0 0 0 8.2M16.1 7.9a5.8 5.8 0 0 1 0 8.2M5 5a9.9 9.9 0 0 0 0 14M19 5a9.9 9.9 0 0 1 0 14"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3.6 6 8.4 6.4L20.4 6"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6.5V12l3.6 2.1"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.2 14 9.9l6.7 2-6.7 2-2 6.7-2-6.7-6.7-2 6.7-2Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13.5 6.5 20 12l-6.5 5.5"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M19.1 4.9l-1.7 1.7M6.6 17.4l-1.7 1.7"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"/></symbol>
+  </defs>
+</svg>
 
 <noscript>
-  <p style="padding:80px 20px 20px;max-width:60ch;margin:0 auto;line-height:1.7">
-    This page uses JavaScript for animation and the menu, but all the content
-    (skills, stack, method, contact) is readable below.
+  <p style="padding:90px 20px 20px;max-width:62ch;margin:0 auto;line-height:1.7">
+    This page uses JavaScript for the header animation and the compact menu, but
+    all of the content — skills, stack, method, work, contact — is readable below
+    without it.
   </p>
 </noscript>
 
-<div class="toast" id="toast" role="status" aria-live="polite">
-  <pixel-icon sprite="trophy" aria-hidden="true"></pixel-icon>
-  <span class="toast__txt">
-    <span class="toast__k">TROPHY UNLOCKED</span>
-    <span class="toast__n" id="toast-name"></span>
-  </span>
-</div>
-
-<!-- ============================ NAV ============================ -->
+<!-- ============================ NAVIGATION ============================ -->
 <header class="nav" id="nav">
   <div class="wrap nav__inner">
-    <a class="brand px" href="#top">
-      <span class="brand__mark"><pixel-icon sprite="chip" style="--px-size:22px"></pixel-icon></span>
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true">17</span>
       17Labs
     </a>
-    <nav class="nav__links px">
-      <a href="#work">WORK</a>
-      <a href="#skills">SKILLS</a>
-      <a href="#method">METHOD</a>
-      <a href="#about">ABOUT</a>
+
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#skills">Skills</a>
+      <a href="#method">Method</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
       <a href="#faq">FAQ</a>
     </nav>
+
     <div class="nav__end">
-      <a class="lang px" href="../" hreflang="it" lang="it">IT</a>
-      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle light/dark theme">
-        <svg class="icon-sun" viewBox="0 0 16 16" shape-rendering="crispEdges" fill="currentColor"><path d="M7 1h2v2H7zM7 13h2v2H7zM1 7h2v2H1zM13 7h2v2h-2zM3 3h2v2H3zM11 3h2v2h-2zM3 11h2v2H3zM11 11h2v2h-2zM6 5h4v1H6zM5 6h6v4H5zM6 10h4v1H6z"/></svg>
-        <svg class="icon-moon" viewBox="0 0 16 16" shape-rendering="crispEdges" fill="currentColor"><path d="M5 2h6v1H5zM4 3h5v1H4zM3 4h4v1H3zM3 5h3v1H3zM2 6h4v1H2zM2 7h4v1H2zM2 8h4v1H2zM2 9h4v1H2zM3 10h3v1H3zM3 11h4v1H3zM4 12h5v1H4zM5 13h6v1H5z"/></svg>
+      <a class="lang" href="../" hreflang="it" lang="it">IT</a>
+      <button class="iconbtn" id="theme-toggle" type="button" aria-label="Switch between light and dark theme">
+        <svg class="i-sun" aria-hidden="true"><use href="#i-sun"></use></svg>
+        <svg class="i-moon" aria-hidden="true"><use href="#i-moon"></use></svg>
       </button>
-      <a class="btn btn--primary" href="#contact">GET IN TOUCH</a>
-      <button class="icon-btn nav__burger" id="nav-toggle" type="button"
-              aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
-        <svg viewBox="0 0 16 16" shape-rendering="crispEdges" fill="currentColor" aria-hidden="true"><path d="M2 3h12v2H2zM2 7h12v2H2zM2 11h12v2H2z"/></svg>
+      <a class="btn btn--primary" href="#contact">Let's talk</a>
+      <button class="iconbtn nav__burger" id="nav-toggle" type="button"
+              aria-expanded="false" aria-controls="nav-menu" aria-label="Open the menu">
+        <svg aria-hidden="true"><use href="#i-menu"></use></svg>
       </button>
     </div>
   </div>
 
-  <nav class="nav__menu" id="nav-menu" hidden aria-label="Main menu">
-    <a href="#work">WORK</a>
-    <a href="#skills">SKILLS</a>
-    <a href="#method">METHOD</a>
-    <a href="#about">ABOUT</a>
-    <a href="#stack">STACK</a>
+  <nav class="nav__panel" id="nav-menu" hidden aria-label="Main menu">
+    <a href="#skills">Skills</a>
+    <a href="#stack">Stack</a>
+    <a href="#method">Method</a>
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
     <a href="#faq">FAQ</a>
-    <a href="#arcade">ARCADE</a>
-    <a class="btn btn--primary btn--lg" href="#contact">GET IN TOUCH</a>
+    <a class="btn btn--primary" href="#contact">Let's talk</a>
   </nav>
 </header>
 
-<!-- ============================ HERO ============================ -->
 <main id="top">
+
+<!-- ============================ HERO ============================ -->
 <section class="hero">
   <div class="hero__gl" id="hero-gl" aria-hidden="true"></div>
-  <div class="hero__intro">
-    <p class="hero__kicker px"><i class="blink"></i>AVAILABLE FOR NEW PROJECTS</p>
-    <h1>17Labs</h1>
-    <p class="hero__class">&gt; class: full-stack developer<br>&gt; specialisation: AI solutions</p>
-    <p class="hero__body">
-      I design and build websites, portals, custom business software and automations
-      that talk to the systems you already run. From process analysis to release,
-      with code that still reads well two years later.
-    </p>
-    <div class="hero__cta">
-      <a class="btn btn--primary btn--lg" href="#contact">PRESS START</a>
-      <a class="btn btn--lg" href="#skills">INVENTORY</a>
+  <div class="hero__veil" aria-hidden="true"></div>
+
+  <div class="wrap hero__inner">
+    <div class="hero__grid">
+      <div>
+        <p class="status"><i aria-hidden="true"></i>Available for new projects</p>
+
+        <h1>Custom software for the way you <em>actually work</em>.</h1>
+
+        <p class="hero__body">
+          I design and build websites, portals, custom business software and automations
+          that talk to the systems you already run. From process analysis to release, with
+          code that still reads well two years later.
+        </p>
+
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" href="#contact">
+            Let's talk
+            <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+          </a>
+          <a class="btn btn--ghost" href="#skills">What I can build</a>
+        </div>
+
+        <!-- The same information that would elsewhere be a bullet list,
+             laid out as a spec sheet: it is the register of the whole site. -->
+        <dl class="specs">
+          <div>
+            <dt>Role</dt>
+            <dd>Full-stack developer</dd>
+          </div>
+          <div>
+            <dt>Specialisation</dt>
+            <dd>AI inside business processes</dd>
+          </div>
+          <div>
+            <dt>Capacity</dt>
+            <dd>One project at a time</dd>
+          </div>
+        </dl>
+      </div>
+      <div aria-hidden="true"></div>
     </div>
   </div>
 
-  <div class="hero__stage">
-    <div class="marquee" id="marquee">
-      <div class="marquee__track" id="track"><!-- generated in JS --></div>
-    </div>
-  </div>
-
-  <p class="scroll-hint px"><i></i> SCROLL</p>
+  <a class="hero__scroll" href="#skills"><i aria-hidden="true"></i>Scroll</a>
 </section>
 
 <!-- ============================ SKILLS ============================ -->
-<section class="section section--alt" id="skills">
+<section class="section" id="skills">
   <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow px"><i></i>INVENTORY</p>
-      <h2>What I can build</h2>
-      <p class="section__lede">
-        I work across the whole cycle: process analysis, architecture, development, release
-        and maintenance. A typical project touches three or four of these at once.
-      </p>
+    <div class="sec__head reveal">
+      <p class="eyebrow"><b>01</b>Skills</p>
+      <div>
+        <h2>What I can build</h2>
+        <p class="lede">
+          I work across the whole cycle: process analysis, architecture, development,
+          release and maintenance. A typical project touches three or four of these at once.
+        </p>
+      </div>
     </div>
 
-    <div class="skills">
-      <article class="skill">
-        <div class="skill__top">
-          <pixel-icon sprite="chip" aria-hidden="true"></pixel-icon>
-          <h3>Artificial<br>intelligence</h3>
+    <div class="cards reveal">
+      <article class="card">
+        <div class="card__top">
+          <svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg>
+          <h3>Artificial intelligence</h3>
+          <span class="card__n">01</span>
         </div>
         <p>Language models inside real business processes: assistants that answer from your internal documents, data extraction from PDFs and email, automatic classification and routing of incoming requests.</p>
-        <div class="xp" data-level="9"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
         <ul class="tags"><li>LLM</li><li>RAG</li><li>Embeddings</li><li>Vector DB</li><li>Prompt design</li></ul>
       </article>
 
-      <article class="skill">
-        <div class="skill__top">
-          <pixel-icon sprite="browser" aria-hidden="true"></pixel-icon>
+      <article class="card">
+        <div class="card__top">
+          <svg class="ico" aria-hidden="true"><use href="#i-browser"></use></svg>
           <h3>Websites</h3>
+          <span class="card__n">02</span>
         </div>
         <p>Marketing sites, landing pages and institutional websites. Real attention to loading speed, technical SEO and accessibility: a site that is slow or unindexed is a site that does no work.</p>
-        <div class="xp" data-level="9"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
         <ul class="tags"><li>Performance</li><li>Technical SEO</li><li>Responsive</li><li>Accessibility</li><li>CMS</li></ul>
       </article>
 
-      <article class="skill">
-        <div class="skill__top">
-          <pixel-icon sprite="key" aria-hidden="true"></pixel-icon>
-          <h3>Portals and<br>restricted areas</h3>
+      <article class="card">
+        <div class="card__top">
+          <svg class="ico" aria-hidden="true"><use href="#i-key"></use></svg>
+          <h3>Portals and restricted areas</h3>
+          <span class="card__n">03</span>
         </div>
         <p>Client portals, supplier areas, intranets. Authentication, granular roles and permissions, multi-tenancy, audit trails and content the client can manage without calling me.</p>
-        <div class="xp" data-level="8"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
         <ul class="tags"><li>Auth</li><li>Roles</li><li>Multi-tenant</li><li>Audit log</li><li>SSO</li></ul>
       </article>
 
-      <article class="skill">
-        <div class="skill__top">
-          <pixel-icon sprite="ledger" aria-hidden="true"></pixel-icon>
-          <h3>Custom business<br>software</h3>
+      <article class="card">
+        <div class="card__top">
+          <svg class="ico" aria-hidden="true"><use href="#i-ledger"></use></svg>
+          <h3>Custom business software</h3>
+          <span class="card__n">04</span>
         </div>
         <p>For when off-the-shelf software does not fit how you actually work. Records, inventory, orders, invoicing, approval flows and reporting, built around the process you already have.</p>
-        <div class="xp" data-level="9"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
         <ul class="tags"><li>Records</li><li>Inventory</li><li>Orders</li><li>Invoicing</li><li>Workflow</li></ul>
       </article>
 
-      <article class="skill">
-        <div class="skill__top">
-          <pixel-icon sprite="bag" aria-hidden="true"></pixel-icon>
+      <article class="card">
+        <div class="card__top">
+          <svg class="ico" aria-hidden="true"><use href="#i-bag"></use></svg>
           <h3>E-commerce</h3>
+          <span class="card__n">05</span>
         </div>
         <p>Catalogues with variants and tiered pricing, payments, shipping and — above all — the link back to your business software, so stock and orders are not typed in twice by hand.</p>
-        <div class="xp" data-level="7"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
         <ul class="tags"><li>Catalogue</li><li>Payments</li><li>Shipping</li><li>Pricing</li><li>Sync</li></ul>
       </article>
 
-      <article class="skill">
-        <div class="skill__top">
-          <pixel-icon sprite="robot" aria-hidden="true"></pixel-icon>
-          <h3>Automation and<br>integrations</h3>
+      <article class="card">
+        <div class="card__top">
+          <svg class="ico" aria-hidden="true"><use href="#i-flow"></use></svg>
+          <h3>Automation and integrations</h3>
+          <span class="card__n">06</span>
         </div>
         <p>Getting systems that were never meant to meet to talk to each other. APIs, webhooks, scheduled imports, overnight syncs, and all the repetitive work somebody is doing by hand right now.</p>
-        <div class="xp" data-level="8"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
         <ul class="tags"><li>REST API</li><li>Webhooks</li><li>ETL</li><li>Scheduled jobs</li><li>Queues</li></ul>
       </article>
 
-      <article class="skill">
-        <div class="skill__top">
-          <pixel-icon sprite="chart" aria-hidden="true"></pixel-icon>
-          <h3>Data and<br>dashboards</h3>
+      <article class="card">
+        <div class="card__top">
+          <svg class="ico" aria-hidden="true"><use href="#i-chart"></use></svg>
+          <h3>Data and dashboards</h3>
+          <span class="card__n">07</span>
         </div>
         <p>Data modelling, the numbers that actually matter, and dashboards you can read in ten seconds. With exports and scheduled reports for the people who still prefer a spreadsheet.</p>
-        <div class="xp" data-level="7"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
         <ul class="tags"><li>Modelling</li><li>KPIs</li><li>Dashboards</li><li>Reports</li><li>Export</li></ul>
       </article>
 
-      <article class="skill">
-        <div class="skill__top">
-          <pixel-icon sprite="server" aria-hidden="true"></pixel-icon>
-          <h3>Infrastructure<br>and release</h3>
+      <article class="card">
+        <div class="card__top">
+          <svg class="ico" aria-hidden="true"><use href="#i-server"></use></svg>
+          <h3>Infrastructure and release</h3>
+          <span class="card__n">08</span>
         </div>
         <p>Separate staging and production, automated deploys, containers, verified backups and monitoring. The part nobody sees, and the part that decides whether you sleep after go-live.</p>
-        <div class="xp" data-level="7"><span class="xp__label px">LV</span><span class="xp__bar"></span></div>
         <ul class="tags"><li>Docker</li><li>CI/CD</li><li>Linux</li><li>Backups</li><li>Monitoring</li></ul>
       </article>
     </div>
@@ -249,75 +309,92 @@
 </section>
 
 <!-- ============================ STACK ============================ -->
-<section class="section" id="stack">
+<section class="section section--alt" id="stack">
   <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow px"><i></i>EQUIPMENT</p>
-      <h2>Tools I use every day</h2>
-      <p class="section__lede">
-        I pick the technology to fit the problem, not the other way round. This is the ground I move fastest on.
-      </p>
+    <div class="sec__head reveal">
+      <p class="eyebrow"><b>02</b>Stack</p>
+      <div>
+        <h2>Tools I use every day</h2>
+        <p class="lede">
+          I pick the technology to fit the problem, not the other way round. This is the
+          ground I move fastest on.
+        </p>
+      </div>
     </div>
 
-    <div class="stack">
-      <div>
-        <p class="stack__title"><pixel-icon sprite="terminal" aria-hidden="true"></pixel-icon>LANGUAGES</p>
-        <ul class="stack__list"><li>TypeScript</li><li>JavaScript</li><li>Python</li><li>PHP</li><li>SQL</li></ul>
+    <div class="stack reveal">
+      <div class="stack__col">
+        <p class="stack__title"><svg class="ico" aria-hidden="true"><use href="#i-code"></use></svg>Languages</p>
+        <ul><li>TypeScript</li><li>JavaScript</li><li>Python</li><li>PHP</li><li>SQL</li></ul>
       </div>
-      <div>
-        <p class="stack__title"><pixel-icon sprite="browser" aria-hidden="true"></pixel-icon>FRONTEND</p>
-        <ul class="stack__list"><li>React</li><li>Next.js</li><li>Vue</li><li>Tailwind</li><li>HTML / CSS</li></ul>
+      <div class="stack__col">
+        <p class="stack__title"><svg class="ico" aria-hidden="true"><use href="#i-browser"></use></svg>Frontend</p>
+        <ul><li>React</li><li>Next.js</li><li>Vue</li><li>Tailwind</li><li>HTML / CSS</li></ul>
       </div>
-      <div>
-        <p class="stack__title"><pixel-icon sprite="code" aria-hidden="true"></pixel-icon>BACKEND</p>
-        <ul class="stack__list"><li>Node.js</li><li>FastAPI</li><li>Laravel</li><li>REST</li><li>GraphQL</li></ul>
+      <div class="stack__col">
+        <p class="stack__title"><svg class="ico" aria-hidden="true"><use href="#i-flow"></use></svg>Backend</p>
+        <ul><li>Node.js</li><li>FastAPI</li><li>Laravel</li><li>REST</li><li>GraphQL</li></ul>
       </div>
-      <div>
-        <p class="stack__title"><pixel-icon sprite="db" aria-hidden="true"></pixel-icon>DATA</p>
-        <ul class="stack__list"><li>PostgreSQL</li><li>MySQL</li><li>Redis</li><li>MongoDB</li><li>Elasticsearch</li></ul>
+      <div class="stack__col">
+        <p class="stack__title"><svg class="ico" aria-hidden="true"><use href="#i-ledger"></use></svg>Data</p>
+        <ul><li>PostgreSQL</li><li>MySQL</li><li>Redis</li><li>MongoDB</li><li>Elasticsearch</li></ul>
       </div>
-      <div>
-        <p class="stack__title"><pixel-icon sprite="chip" aria-hidden="true"></pixel-icon>ARTIFICIAL INTELLIGENCE</p>
-        <ul class="stack__list"><li>Claude API</li><li>OpenAI API</li><li>LangChain</li><li>pgvector</li><li>Whisper</li></ul>
+      <div class="stack__col">
+        <p class="stack__title"><svg class="ico" aria-hidden="true"><use href="#i-chip"></use></svg>Artificial intelligence</p>
+        <ul><li>Claude API</li><li>OpenAI API</li><li>LangChain</li><li>pgvector</li><li>Whisper</li></ul>
       </div>
-      <div>
-        <p class="stack__title"><pixel-icon sprite="server" aria-hidden="true"></pixel-icon>INFRASTRUCTURE</p>
-        <ul class="stack__list"><li>Docker</li><li>Linux</li><li>Nginx</li><li>GitHub Actions</li><li>AWS</li></ul>
+      <div class="stack__col">
+        <p class="stack__title"><svg class="ico" aria-hidden="true"><use href="#i-server"></use></svg>Infrastructure</p>
+        <ul><li>Docker</li><li>Linux</li><li>Nginx</li><li>GitHub Actions</li><li>AWS</li></ul>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============================ METHOD ============================ -->
-<section class="section section--alt" id="method">
+<section class="section" id="method">
   <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow px"><i></i>QUEST LOG</p>
-      <h2>Four steps, no surprises</h2>
-      <p class="section__lede">
-        I would rather have a few clear phases and something you can click through early,
-        than a long quote followed by three months of silence.
-      </p>
+    <div class="sec__head reveal">
+      <p class="eyebrow"><b>03</b>Method</p>
+      <div>
+        <h2>Four steps, no surprises</h2>
+        <p class="lede">
+          I would rather have a few clear phases and something you can click through early,
+          than a long quote followed by three months of silence.
+        </p>
+      </div>
     </div>
 
-    <div class="steps">
+    <div class="steps reveal">
       <article class="step">
-        <div class="step__top"><span class="step__n">01</span><pixel-icon sprite="magnifier" aria-hidden="true"></pixel-icon></div>
+        <div class="step__top">
+          <span class="step__n">01</span>
+          <svg class="ico" aria-hidden="true"><use href="#i-search"></use></svg>
+        </div>
         <h3>Analysis</h3>
         <p>We look at the process before the code: what your team does today, where the time goes, and what is actually worth automating.</p>
       </article>
       <article class="step">
-        <div class="step__top"><span class="step__n">02</span><pixel-icon sprite="blueprint" aria-hidden="true"></pixel-icon></div>
+        <div class="step__top">
+          <span class="step__n">02</span>
+          <svg class="ico" aria-hidden="true"><use href="#i-draft"></use></svg>
+        </div>
         <h3>Prototype</h3>
         <p>Something you can click through within a few weeks, so decisions get made on a real thing instead of a description of one.</p>
       </article>
       <article class="step">
-        <div class="step__top"><span class="step__n">03</span><pixel-icon sprite="code" aria-hidden="true"></pixel-icon></div>
+        <div class="step__top">
+          <span class="step__n">03</span>
+          <svg class="ico" aria-hidden="true"><use href="#i-code"></use></svg>
+        </div>
         <h3>Build</h3>
         <p>Short iterations, a staging environment that stays current, and frequent updates. You watch it grow instead of waiting for it.</p>
       </article>
       <article class="step">
-        <div class="step__top"><span class="step__n">04</span><pixel-icon sprite="rocket" aria-hidden="true"></pixel-icon></div>
+        <div class="step__top">
+          <span class="step__n">04</span>
+          <svg class="ico" aria-hidden="true"><use href="#i-live"></use></svg>
+        </div>
         <h3>Release and care</h3>
         <p>Go-live, training for the people who will use it, monitoring and maintenance. The project does not end on delivery day.</p>
       </article>
@@ -325,111 +402,158 @@
   </div>
 </section>
 
-<!-- ============================ WORK ============================ -->
-<section class="section" id="work">
+<!-- ============================ WORK ============================
+     CASE 01 is real and checkable: it describes this website, and
+     every number quoted can be verified by opening the source.
+     Further cases are added by duplicating <article class="case">,
+     one per real project. Better one documented well than three vague.
+================================================================= -->
+<section class="section section--alt" id="work">
   <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow px"><i></i>WORK</p>
-      <h2>What I have built</h2>
-      <p class="section__lede">
-        Problem, technical decisions, measured result. Starting with the project you are
-        already looking at — it is the most direct way to show how I work.
-      </p>
-    </div>
-
-    <div class="cases">
-      <article class="case">
-        <div class="case__bar">
-          <pixel-icon sprite="browser" aria-hidden="true"></pixel-icon>
-          <span class="case__id">QUEST 01</span>
-          <span>PERSONAL PROJECT</span>
-          <span class="case__who">2026</span>
-        </div>
-        <div class="case__body">
-          <div>
-            <h3>This website</h3>
-            <div class="case__blocks">
-              <div class="case__block">
-                <span class="case__k">PROBLEM</span>
-                <p>Developer websites all look the same: same template, same animations,
-                   same sentences. None of them prove anything — they describe skills
-                   instead of showing them. I wanted a site that was the evidence, not a
-                   description of the evidence.</p>
-              </div>
-              <div class="case__block">
-                <span class="case__k">APPROACH</span>
-                <p>No framework and no component library. I wrote a pixel-art sprite engine
-                   from scratch: every icon is a 16×16 grid drawn by hand on a 16-colour
-                   palette — exactly the constraint of a SNES tile — rendered to canvas and
-                   animated with palette cycling.</p>
-                <p>The 3D uses three.js but renders at a fifth of the real resolution with
-                   antialiasing off, and lets CSS scale it back up: the polygons pick up the
-                   same hard edges as the sprites, the way they did on 16-bit hardware. Both
-                   scenes only run while they are on screen.</p>
-                <p>Accessibility was verified by measurement, not by eye: a script walks
-                   every text element in both themes and computes its contrast ratio against
-                   the real background. It caught three bugs that were invisible to the eye,
-                   including an unreadable button in the mobile menu.</p>
-              </div>
-              <div class="case__block">
-                <span class="case__k">RESULT</span>
-                <p>A page that explains itself to anyone who can read the source, and that
-                   the people who cannot still remember. No build step anywhere.</p>
-              </div>
-            </div>
-          </div>
-          <div class="case__side">
-            <div class="case__metrics">
-              <div class="metric"><b>556</b><span>text elements checked against WCAG AA in both themes, none below threshold</span></div>
-              <div class="metric"><b>21</b><span>hand-drawn 16×16 sprites on a 16-colour palette</span></div>
-              <div class="metric"><b>0</b><span>frameworks, UI libraries, build steps</span></div>
-            </div>
-            <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Canvas 2D</li><li>Web Components</li><li>three.js</li><li>WCAG</li></ul>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <div class="soon" style="margin-top:clamp(20px,2.4vw,32px)">
-      <pixel-icon sprite="star" aria-hidden="true"></pixel-icon>
-      <div class="soon__text">
-        <h3>The next quest is yours<span class="blink">_</span></h3>
-        <p>I take one project at a time, and the portfolio has just started. If yours is
-           next you get my full attention, undivided — and in exchange all I ask is to write
-           it up here, with the real numbers.</p>
+    <div class="sec__head reveal">
+      <p class="eyebrow"><b>04</b>Work</p>
+      <div>
+        <h2>What I have built</h2>
+        <p class="lede">
+          Problem, technical decisions, measured result. Starting with the project you are
+          already looking at — it is the most direct way to show how I work.
+        </p>
       </div>
-      <a class="btn btn--lg" href="#contact">LET'S TALK</a>
+    </div>
+
+    <article class="case reveal">
+      <div class="case__bar">
+        <svg class="ico" aria-hidden="true"><use href="#i-browser"></use></svg>
+        <b>Case 01</b>
+        <span>Personal project</span>
+        <span>2026</span>
+      </div>
+
+      <div class="case__body">
+        <div>
+          <h3>This website</h3>
+
+          <div class="block">
+            <span class="block__k">Problem</span>
+            <p>Developer websites all look the same: same template, same animations, same
+               sentences. None of them prove anything — they describe skills instead of
+               showing them. I wanted a site that was the evidence rather than a description
+               of the evidence, and one I could open in front of a procurement manager
+               without having to explain it.</p>
+          </div>
+
+          <div class="block">
+            <span class="block__k">Approach</span>
+            <p>No framework and no component library: one HTML file per language, one
+               stylesheet, two JavaScript files. You open it, you read it, you change it —
+               and there is no build step to repair a year from now.</p>
+            <p>The header is a three.js scene. The structure you see is a geodesic derived
+               from a subdivided icosahedron: 162 nodes and 480 edges, obtained by
+               de-duplicating by hand the vertices the library returns repeated. The nodes
+               start scattered off-screen and converge on their exact positions in a little
+               over a second — it is what I do for a living, drawn.</p>
+            <p>The scene has no palette of its own: it reads its colours from the CSS. When
+               the theme changes, the 3D re-reads the same variables as the page, so the two
+               cannot drift apart. It stops when it leaves the screen, and under
+               <em>prefers-reduced-motion</em> it draws a single frame with the structure
+               already assembled.</p>
+            <p>Accessibility was verified by measurement, not by eye: a script walks every
+               text element in both themes and computes its contrast ratio against the real
+               background — the one you get after climbing back up the ancestors. 270
+               elements, none below the WCAG AA threshold. It found an error that was
+               invisible to the eye: inside the compact menu the button inherited the list
+               colour and ended up grey on brass, 1.01:1.</p>
+            <p>No calls to external domains to render the page: the typefaces and three.js
+               are hosted here. The only outbound request happens when somebody submits the
+               contact form.</p>
+          </div>
+
+          <div class="block">
+            <span class="block__k">Result</span>
+            <p>A page that explains itself to anyone who can read the source, and that the
+               people who cannot still remember. Sober enough to send to a company, technical
+               enough not to look bought.</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="metrics">
+            <div class="metric"><b>270</b><span>text elements checked against WCAG AA in both themes, none below threshold</span></div>
+            <div class="metric"><b>162</b><span>nodes and 480 edges computed in the browser every frame</span></div>
+            <div class="metric"><b>0</b><span>frameworks, component libraries, build steps</span></div>
+            <div class="metric"><b>0</b><span>external domains contacted to render the page</span></div>
+          </div>
+          <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>three.js</li><li>WebGL</li><li>WCAG AA</li></ul>
+        </div>
+      </div>
+
+      <!-- The interactive module lives inside the case study, not in a
+           section of its own: here it is evidence, not a pastime. -->
+      <div class="module">
+        <div class="module__bar">
+          <span>3D module</span>
+          <span>Drag to rotate</span>
+        </div>
+        <div class="module__gl" id="module-gl">
+          <p class="module__fallback">
+            3D scene not loaded.<br>
+            WebGL unavailable on this device.<br>
+            The rest of the page works regardless.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div class="next reveal">
+      <svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg>
+      <div>
+        <h3>The next project is yours</h3>
+        <p>I take one project at a time, and the portfolio has just started. If yours is next
+           you get my full attention, undivided — and in exchange all I ask is to write it up
+           here, with the real numbers.</p>
+      </div>
+      <a class="btn" href="#contact">Let's talk</a>
     </div>
   </div>
 </section>
 
 <!-- ============================ ABOUT ============================ -->
-<section class="section section--alt" id="about">
+<section class="section" id="about">
   <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow px"><i></i>PLAYER 1</p>
-      <h2>About me</h2>
+    <div class="sec__head reveal">
+      <p class="eyebrow"><b>05</b>Profile</p>
+      <div>
+        <h2>About me</h2>
+      </div>
     </div>
 
-    <div class="about">
+    <div class="about reveal">
       <div class="about__card">
-        <span class="member__face"><pixel-icon sprite="dev1" aria-hidden="true"></pixel-icon></span>
+        <span class="monogram" aria-hidden="true">CL</span>
         <h3>Carmine La Luna</h3>
-        <p class="member__role">17Labs — one person</p>
+        <p class="about__role">17Labs — one person</p>
+        <dl class="about__meta">
+          <div><dt>Based</dt><dd>Italy — remote</dd></div>
+          <div><dt>Languages</dt><dd>Italian, English</dd></div>
+          <div><dt>Projects</dt><dd>One at a time</dd></div>
+          <div><dt>Reply</dt><dd>One working day</dd></div>
+        </dl>
       </div>
+
       <div class="about__text">
-        <p>17Labs is the name I work under, but there is no team behind it: there is me.
-           I am saying that up front because it is the first thing I would want to know
-           if I were on your side of this page.</p>
+        <p><strong>17Labs is the name I work under, but there is no team behind it: there is
+           me.</strong> I am saying that up front because it is the first thing I would want
+           to know if I were on your side of this page.</p>
         <p>I have been writing code since I was sixteen. It started as the thing I did
-           instead of studying and I never stopped: what used to be tinkering is the job
-           now, but the part I enjoy has not changed — working out how something works,
-           then building it better.</p>
-        <p>Away from the screen I am a card game nerd: Magic: The Gathering and One Piece.
-           It is more relevant than it sounds — they are sets of rules interacting with each
+           instead of studying and I never stopped: what used to be tinkering is the job now,
+           but the part I enjoy has not changed — working out how something works, then
+           building it better.</p>
+        <p>Away from the screen I am into card games: Magic: The Gathering and One Piece. It
+           is more relevant than it sounds — they are sets of rules interacting with each
            other, and getting good means reading those interactions before anyone else does,
            while keeping track of everything your opponent might be holding. That is exactly
-           what you need when you step into a company's process and have to find where it jams.</p>
+           what you need when you step into a company's process and have to find where it
+           jams.</p>
         <!-- PLACEHOLDER: check your employment contract before publishing this line.
              Many contracts regulate parallel freelance activity. -->
         <p>My day job is building software for a large company, and I am staying there.
@@ -443,26 +567,29 @@
 </section>
 
 <!-- ============================ FAQ ============================ -->
-<section class="section" id="faq">
+<section class="section section--alt" id="faq">
   <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow px"><i></i>FREQUENTLY ASKED</p>
-      <h2>The things people always ask</h2>
+    <div class="sec__head reveal">
+      <p class="eyebrow"><b>06</b>Frequently asked</p>
+      <div>
+        <h2>The things people always ask</h2>
+      </div>
     </div>
 
-    <div class="faq">
+    <div class="faq reveal">
       <details>
-        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>How long have you been doing this?</summary>
+        <summary><span class="faq__q">01</span>How long have you been doing this?</summary>
         <div class="faq__a">
           <p>I have been writing code since I was sixteen and I do it for a living: I build
              software full time for a large company.</p>
           <p>17Labs is the name I take my own projects under, and it has just started. So
-             what you will find below is documented personal work rather than a client list —
+             what you will find above is documented personal work rather than a client list —
              that is a choice, not a gap papered over with borrowed names.</p>
         </div>
       </details>
+
       <details>
-        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>What does it cost, and how long does it take?</summary>
+        <summary><span class="faq__q">02</span>What does it cost, and how long does it take?</summary>
         <div class="faq__a">
           <p>It genuinely depends on the project, and I will spare you the invented price
              list: a marketing site and a system covering five departments have nothing in
@@ -472,17 +599,19 @@
              does not make sense, I will tell you instead of selling it to you.</p>
         </div>
       </details>
+
       <details>
-        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>How many projects do you run at once?</summary>
+        <summary><span class="faq__q">03</span>How many projects do you run at once?</summary>
         <div class="faq__a">
           <p>One. When I take a job I am fully in it, with no queue and no splitting myself
              between clients competing for the same hours.</p>
-          <p>That is the concrete advantage of hiring one person instead of a studio: you
-             are never the project that waits.</p>
+          <p>That is the concrete advantage of hiring one person instead of a studio: you are
+             never the project that waits.</p>
         </div>
       </details>
+
       <details>
-        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>What happens after delivery?</summary>
+        <summary><span class="faq__q">04</span>What happens after delivery?</summary>
         <div class="faq__a">
           <p>Delivery includes a support period. It is deliberately short — roughly a month —
              because its job is to cover the things that only surface once the software is
@@ -492,16 +621,18 @@
              choice once you have seen how it goes, than a signature collected beforehand.</p>
         </div>
       </details>
+
       <details>
-        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>Do you work remotely?</summary>
+        <summary><span class="faq__q">05</span>Do you work remotely?</summary>
         <div class="faq__a">
           <p>Yes, anywhere. I work fully remotely with no geographic limits: what it takes is
              a video call now and then and a written channel where you can reach me.</p>
           <p>I work in English and Italian.</p>
         </div>
       </details>
+
       <details>
-        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>Who owns the code you write?</summary>
+        <summary><span class="faq__q">06</span>Who owns the code you write?</summary>
         <div class="faq__a">
           <p>The project code is yours. What I write for you — your process logic, your data
              model, your interfaces — is handed over with full repository access and stays
@@ -512,12 +643,13 @@
              get an unlimited, perpetual licence to use them within your project. That is not
              there to lock you in — it is what lets me avoid starting from zero every time,
              which is what makes the work cost you less.</p>
-          <p>The only thing I keep is the right to write the project up in my portfolio.
-             If you would rather I did not, just say so.</p>
+          <p>The only thing I keep is the right to write the project up in my portfolio. If
+             you would rather I did not, just say so.</p>
         </div>
       </details>
+
       <details>
-        <summary><pixel-icon sprite="qblock" aria-hidden="true"></pixel-icon>Can you take over a project someone else started?</summary>
+        <summary><span class="faq__q">07</span>Can you take over a project someone else started?</summary>
         <div class="faq__a">
           <p>It depends, and it needs looking at before anyone promises anything. Send me the
              code and tell me where things stopped: I will assess how much is salvageable,
@@ -530,119 +662,124 @@
   </div>
 </section>
 
-<!-- ============================ ARCADE ============================ -->
-<section class="section section--alt" id="arcade">
-  <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow px"><i></i>ARCADE</p>
-      <h2>The core</h2>
-      <p class="section__lede">
-        Flat polygons rendered at very low resolution and scaled back up, the way 16-bit
-        consoles did it when they attempted 3D. Drag it to rotate. And yes, there are
-        secrets hidden around here.
-      </p>
-    </div>
-
-    <div class="arcade">
-      <div class="screen">
-        <div class="screen__bar">
-          <span>CORE.EXE</span>
-          <span class="screen__hint">DRAG TO ROTATE</span>
-        </div>
-        <div class="screen__gl" id="core-gl">
-          <p class="screen__fallback">3D scene not loaded.<br>WebGL unavailable or library unreachable.<br>The rest of the page works regardless.</p>
-        </div>
-      </div>
-
-      <div>
-        <p class="trophies__head"><pixel-icon sprite="trophy" style="--px-size:22px"></pixel-icon>TROPHIES<span class="trophies__count" id="tr-count">0/6</span></p>
-        <ul class="trophies" id="trophies"></ul>
-        <p class="trophies__foot">None of these are good for anything. That is exactly the point.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============================ CONTACT ============================ -->
 <section class="section" id="contact">
   <div class="wrap">
-    <div class="dialog">
-      <div class="dialog__bar">
-        <span>CONTACT.EXE</span>
-        <span class="dialog__dots"><i></i><i></i><i></i></span>
-      </div>
-      <div class="dialog__body">
-        <pixel-icon sprite="mail" aria-hidden="true"></pixel-icon>
+    <div class="sec__head reveal">
+      <p class="eyebrow"><b>07</b>Contact</p>
+      <div>
         <h2>Tell me what you need</h2>
-        <p>Even a half-formed idea is fine: the first half hour is usually about working out
-           whether the problem is really the one it looks like. I reply within one working day.</p>
-
-        <!-- ============================================================
-             Wired to Web3Forms. Submission goes over AJAX, so whoever writes
-             stays on this page instead of landing on the service's thank-you
-             screen.
-
-             The access_key is public by design: Web3Forms ties it to your
-             mailbox and protects it on their side. Anyone reading the source
-             can see it — that is normal, but if spam starts arriving,
-             regenerate it in the dashboard and replace it here and in
-             ../index.html.
-             ============================================================ -->
-        <form class="form" id="contact-form" method="post"
-              action="https://api.web3forms.com/submit" novalidate>
-          <input type="hidden" name="access_key" value="41769e19-1d47-4e3a-b365-0332cb65e37b">
-          <input type="hidden" name="subject" value="New message from 17labs.it (EN)">
-          <input type="hidden" name="from_name" value="17Labs — website">
-          <input type="hidden" name="lingua" value="en">
-          <!-- bot trap: bots fill everything in, people never see it -->
-          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true">
-          <div class="field" id="f-nome">
-            <label for="i-nome">NAME *</label>
-            <input id="i-nome" name="nome" type="text" autocomplete="name" required>
-            <span class="field__err" id="e-nome" role="alert"></span>
-          </div>
-          <div class="field" id="f-email">
-            <label for="i-email">EMAIL *</label>
-            <input id="i-email" name="email" type="email" autocomplete="email" required>
-            <span class="field__err" id="e-email" role="alert"></span>
-          </div>
-          <div class="field" id="f-tel">
-            <label for="i-tel">PHONE</label>
-            <input id="i-tel" name="telefono" type="tel" autocomplete="tel">
-            <span class="field__err" id="e-tel" role="alert"></span>
-          </div>
-          <div class="field" id="f-msg">
-            <label for="i-msg">WHAT DO YOU NEED *</label>
-            <textarea id="i-msg" name="messaggio" required></textarea>
-            <span class="field__err" id="e-msg" role="alert"></span>
-          </div>
-          <div class="field consent" id="f-ok">
-            <input id="i-ok" name="consenso" type="checkbox" required>
-            <label for="i-ok">I have read the <a href="privacy.html">privacy policy</a> and consent
-              to my data being processed so you can get back to me. *</label>
-          </div>
-          <span class="field__err" id="e-ok" role="alert"></span>
-          <button class="btn btn--primary btn--lg" type="submit" style="justify-content:center">SEND</button>
-          <p class="form__note">* required. No newsletter, no lists: the data is only used to reply to you.</p>
-        </form>
-
-        <div class="dialog__row">
-          <a class="btn" href="mailto:contact@17labs.it">CONTACT@17LABS.IT</a>
-        </div>
-        <p class="wip">LinkedIn and GitHub: work in progress<span class="blink">_</span></p>
       </div>
+    </div>
+
+    <div class="contact reveal">
+      <div class="contact__side">
+        <p>
+          Even a half-formed idea is fine: the first half hour is usually about working out
+          whether the problem is really the one it looks like. I reply within one working day.
+        </p>
+        <ul class="contact__list">
+          <li>
+            <a href="mailto:contact@17labs.it">
+              <svg class="ico" aria-hidden="true"><use href="#i-mail"></use></svg>
+              contact@17labs.it
+              <em>Email</em>
+            </a>
+          </li>
+          <li>
+            <span>
+              <svg class="ico" aria-hidden="true"><use href="#i-globe"></use></svg>
+              Remote, anywhere
+              <em>Based</em>
+            </span>
+          </li>
+          <li>
+            <span>
+              <svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg>
+              Within one working day
+              <em>Reply</em>
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ============================================================
+           Wired to Web3Forms. Submission goes over AJAX, so whoever
+           writes stays on this page instead of landing on the service's
+           thank-you screen.
+
+           The access_key is public by design: Web3Forms ties it to your
+           mailbox and protects it on their side. Anyone reading the source
+           can see it — that is normal, but if spam starts arriving,
+           regenerate it in the dashboard and replace it here and in
+           ../index.html.
+           ============================================================ -->
+      <form class="form" id="contact-form" method="post"
+            action="https://api.web3forms.com/submit" novalidate>
+        <input type="hidden" name="access_key" value="41769e19-1d47-4e3a-b365-0332cb65e37b">
+        <input type="hidden" name="subject" value="New message from 17labs.it (EN)">
+        <input type="hidden" name="from_name" value="17Labs — website">
+        <input type="hidden" name="lingua" value="en">
+        <!-- bot trap: bots fill everything in, people never see it -->
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true">
+
+        <div class="field" id="f-nome">
+          <label for="i-nome">Name *</label>
+          <input id="i-nome" name="nome" type="text" autocomplete="name" required>
+          <span class="err" id="e-nome" role="alert"></span>
+        </div>
+
+        <div class="field" id="f-email">
+          <label for="i-email">Email *</label>
+          <input id="i-email" name="email" type="email" autocomplete="email" required>
+          <span class="err" id="e-email" role="alert"></span>
+        </div>
+
+        <div class="field" id="f-tel">
+          <label for="i-tel">Phone</label>
+          <input id="i-tel" name="telefono" type="tel" autocomplete="tel">
+        </div>
+
+        <div class="field" id="f-msg">
+          <label for="i-msg">What do you need *</label>
+          <textarea id="i-msg" name="messaggio" required></textarea>
+          <span class="err" id="e-msg" role="alert"></span>
+        </div>
+
+        <div class="field consent" id="f-ok">
+          <input id="i-ok" name="consenso" type="checkbox" required>
+          <label for="i-ok">I have read the <a href="privacy.html">privacy policy</a> and consent
+            to my data being processed so you can get back to me. *</label>
+        </div>
+        <span class="err" id="e-ok" role="alert"></span>
+
+        <button class="btn btn--primary" type="submit">
+          Send the message
+          <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+        </button>
+        <p class="form__out" id="form-out" role="status" aria-live="polite"></p>
+        <p class="form__note">* required. No newsletter, no lists: the data is only used to reply to you.</p>
+      </form>
     </div>
   </div>
 </section>
+
 </main>
 
 <!-- ============================ FOOTER ============================ -->
 <footer class="footer">
   <div class="wrap footer__inner">
-    <span class="brand__mark" aria-hidden="true"><pixel-icon sprite="heart" style="--px-size:22px"></pixel-icon></span>
-    <p class="footer__note">17Labs — Carmine La Luna<br>contact@17labs.it</p>
-    <nav class="footer__links">
-      <a href="#work">WORK</a><a href="#stack">STACK</a><a href="#arcade">ARCADE</a><a href="privacy.html">PRIVACY</a><a href="#contact">CONTACT</a>
+    <!-- The VAT number goes here ONLY once it actually exists. -->
+    <p class="footer__note">
+      <b>17Labs — Carmine La Luna</b><br>
+      contact@17labs.it · © <span data-year>2026</span>
+    </p>
+    <nav class="footer__links" aria-label="Secondary links">
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="../" hreflang="it" lang="it">Italiano</a>
     </nav>
   </div>
 </footer>

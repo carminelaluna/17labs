@@ -5,67 +5,30 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Privacy policy | 17Labs</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#0a0a12">
-<link rel="alternate" hreflang="it" href="https://17labs.it/privacy.html">
-<link rel="alternate" hreflang="en" href="https://17labs.it/en/privacy.html">
+<meta name="theme-color" content="#0b0d11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
 <link rel="stylesheet" href="../assets/fonts.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%230a0a12'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23b98cf5'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%234ec9f5'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23f2f2ff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%230b0d11'/%3E%3Crect x='3.5' y='3.5' width='25' height='25' rx='1.5' fill='none' stroke='%23333c4b'/%3E%3Cg fill='%23d9a441'%3E%3Crect x='9' y='10' width='2.5' height='12'/%3E%3Crect x='9' y='10' width='6' height='2.5'/%3E%3Crect x='17' y='10' width='7' height='2.5'/%3E%3Crect x='19' y='12.5' width='2.5' height='9.5'/%3E%3C/g%3E%3C/svg%3E">
 <script>
   (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
     try {
-      var t = localStorage.getItem('dev-theme');
-      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      var t = localStorage.getItem('v3-theme');
+      if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
     } catch (e) {}
   })();
 </script>
-<style>
-[data-theme="dark"] {
-  --bg:#0a0a12; --bg-elev:#10101c; --surface:#161624; --line:#2c2c46; --line-strong:#45456b;
-  --text:#eaeaf7; --text-dim:#b4b4d4; --text-faint:#9a9ac2;
-  --acc:#7ee787; --acc-3:#f5c451; --shadow:#05050b;
-  --scan:rgba(0,0,0,.55); --scan-op:.34; color-scheme:dark;
-}
-[data-theme="light"] {
-  --bg:#dcdce8; --bg-elev:#eaeaf3; --surface:#f7f7fc; --line:#a9a9c4; --line-strong:#6d6d92;
-  --text:#14141f; --text-dim:#3d3d55; --text-faint:#54546f;
-  --acc:#126536; --acc-3:#84590c; --shadow:#9c9cb8;
-  --scan:rgba(20,20,40,.5); --scan-op:.14; color-scheme:light;
-}
-*,*::before,*::after { box-sizing:border-box; }
-body {
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
-  -webkit-font-smoothing:antialiased; line-height:1.7;
-}
-.crt {
-  position:fixed; inset:0; z-index:50; pointer-events:none;
-  background:repeating-linear-gradient(to bottom, var(--scan) 0 1px, transparent 1px 3px);
-  opacity:var(--scan-op);
-}
-.wrap { max-width:760px; margin:0 auto; padding:clamp(60px,9vw,110px) clamp(20px,5vw,40px) 90px; position:relative; z-index:1; }
-a { color:var(--acc); }
-.back {
-  display:inline-flex; font-family:"Press Start 2P",monospace; font-size:9px;
-  text-decoration:none; color:var(--text); padding:13px 16px;
-  border:2px solid var(--line-strong); background:var(--surface);
-  box-shadow:4px 4px 0 0 var(--shadow); margin-bottom:36px;
-}
-h1 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(17px,3vw,26px); line-height:1.5; margin:0 0 10px; }
-h2 { font-family:"Press Start 2P",monospace; font-weight:400; font-size:clamp(11px,1.6vw,14px); line-height:1.6; margin:44px 0 14px; color:var(--acc); }
-p, li { color:var(--text-dim); font-size:15px; margin:0 0 14px; }
-ul { padding-left:22px; }
-.updated { font-family:"JetBrains Mono",monospace; font-size:12.5px; color:var(--text-faint); margin-bottom:34px; }
-p strong { color:var(--text); font-weight:600; }
-</style>
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-<div class="crt" aria-hidden="true"></div>
+<div class="gridlines" aria-hidden="true"></div>
 
-<main class="wrap">
-  <a class="back" href="index.html">&lt; BACK TO THE SITE</a>
+<main class="wrap doc">
+  <a class="back" href="index.html">&larr; Back to the site</a>
 
   <h1>Privacy policy</h1>
-  <p class="updated">Last updated: 17 August 2026</p>
+  <p class="updated">Last updated: 18 August 2026</p>
 
   <h2>Data controller</h2>
   <p>
@@ -93,10 +56,10 @@ p strong { color:var(--text); font-weight:600; }
 
   <h2>Cookies and local storage</h2>
   <p>
-    This site uses no profiling cookies. It stores exactly two preferences in your browser
-    via <em>localStorage</em>: the theme you picked and the trophies you unlocked. These are
-    technical values that stay on your device, are never transmitted anywhere, and can be
-    removed by clearing this site's data in your browser.
+    This site uses no profiling cookies. It stores exactly one preference in your browser
+    via <em>localStorage</em>: the theme you picked. It is a technical value that stays on
+    your device, is never transmitted anywhere, and can be removed by clearing this site's
+    data in your browser.
   </p>
   <p>
     No third-party services load alongside the page: the typefaces and the 3D graphics
