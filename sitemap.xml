@@ -6,7 +6,7 @@
     <xhtml:link rel="alternate" hreflang="it" href="https://17labs.it/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://17labs.it/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://17labs.it/"/>
-    <lastmod>2026-08-18</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,8 +15,26 @@
     <xhtml:link rel="alternate" hreflang="it" href="https://17labs.it/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://17labs.it/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://17labs.it/"/>
-    <lastmod>2026-08-18</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://17labs.it/progetti.html</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://17labs.it/progetti.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://17labs.it/en/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://17labs.it/progetti.html"/>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://17labs.it/en/projects.html</loc>
+    <xhtml:link rel="alternate" hreflang="it" href="https://17labs.it/progetti.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://17labs.it/en/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://17labs.it/progetti.html"/>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

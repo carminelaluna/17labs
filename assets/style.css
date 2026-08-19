@@ -876,10 +876,28 @@ html[data-theme="light"] .i-moon { display: block; }
 .next h3 { margin-bottom: 6px; }
 .next p { color: var(--text-dim); font-size: 14.5px; margin: 0; }
 
+/* ---- rimando alla pagina dei progetti -----------------------------------
+   Sta fra le due schede in home e il riquadro di contatto, ed e'
+   volutamente piu' leggero del blocco .next: due riquadri pieni uno
+   dietro l'altro si leggono come un doppio invito, e quello che deve
+   vincere e' il secondo. Qui basta un filetto. */
+.altri {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+}
+.altri p { margin: 0; max-width: 64ch; color: var(--text-dim); font-size: 14.5px; }
+.altri .btn { margin-left: auto; }
+
 @media (max-width: 900px) {
   .case__body { grid-template-columns: 1fr; }
   .next { grid-template-columns: 1fr; }
   .next .btn { justify-self: start; }
+  .altri .btn { margin-left: 0; }
 }
 
 /* ---- profilo ----------------------------------------------------------- */

@@ -404,10 +404,11 @@
 </section>
 
 <!-- ============================ WORK ============================
-     CASE 01 is real and checkable: it describes this website, and
-     every number quoted can be verified by opening the source.
-     Further cases are added by duplicating <article class="case">,
-     one per real project. Better one documented well than three vague.
+     The TWO most recent cards live here. All six are in
+     projects.html: six case studies in a row were a wall, and
+     nobody arriving from search read any of them.
+     A new card goes there; here you swap in the latest two and
+     update the lede that says how many the others are.
 ================================================================= -->
 <section class="section section--alt" id="work">
   <div class="wrap">
@@ -416,259 +417,15 @@
       <div>
         <h2>What I have built</h2>
         <p class="lede">
-          Problem, technical decisions, measured result. Starting with the project you are
-          already looking at — it is the most direct way to show how I work.
+          Problem, technical decisions, measured result. Here are the two most recent ones;
+          the other four &mdash; this site, the GDPR search, e-invoices and the configurator
+          &mdash; are on the projects page.
         </p>
       </div>
     </div>
 
-    <article class="case reveal">
-      <div class="case__bar">
-        <svg class="ico" aria-hidden="true"><use href="#i-browser"></use></svg>
-        <b>Case 01</b>
-        <span>Personal project</span>
-        <span>2026</span>
-      </div>
-
-      <div class="case__body">
-        <div>
-          <h3>This website</h3>
-
-          <div class="block">
-            <span class="block__k">Problem</span>
-            <p>Developer websites all look the same: same template, same animations, same
-               sentences. None of them prove anything — they describe skills instead of
-               showing them. I wanted a site that was the evidence rather than a description
-               of the evidence, and one I could open in front of a procurement manager
-               without having to explain it.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Approach</span>
-            <p>No framework and no component library: one HTML file per language, one
-               stylesheet, two JavaScript files. You open it, you read it, you change it —
-               and there is no build step to repair a year from now.</p>
-            <p>The header is a three.js scene. The structure you see is a geodesic derived
-               from a subdivided icosahedron: 162 nodes and 480 edges, obtained by
-               de-duplicating by hand the vertices the library returns repeated. The nodes
-               start scattered off-screen and converge on their exact positions in a little
-               over a second — it is what I do for a living, drawn.</p>
-            <p>The scene has no palette of its own: it reads its colours from the CSS. When
-               the theme changes, the 3D re-reads the same variables as the page, so the two
-               cannot drift apart. It stops when it leaves the screen, and under
-               <em>prefers-reduced-motion</em> it draws a single frame with the structure
-               already assembled.</p>
-            <p>Accessibility was verified by measurement, not by eye: a script walks every
-               text element in both themes and computes its contrast ratio against the real
-               background — the one you get after climbing back up the ancestors. 356
-               elements, none below the WCAG AA threshold. It found an error that was
-               invisible to the eye: inside the compact menu the button inherited the list
-               colour and ended up grey on brass, 1.01:1.</p>
-            <p>No calls to external domains to render the page: the typefaces and three.js
-               are hosted here. The only outbound request happens when somebody submits the
-               contact form.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Result</span>
-            <p>A page that explains itself to anyone who can read the source, and that the
-               people who cannot still remember. Sober enough to send to a company, technical
-               enough not to look bought.</p>
-          </div>
-        </div>
-
-        <div>
-          <div class="metrics">
-            <div class="metric"><b>356</b><span>text elements checked against WCAG AA in both themes, none below threshold</span></div>
-            <div class="metric"><b>162</b><span>nodes and 480 edges computed in the browser every frame</span></div>
-            <div class="metric"><b>0</b><span>frameworks, component libraries, build steps</span></div>
-            <div class="metric"><b>0</b><span>external domains contacted to render the page</span></div>
-          </div>
-          <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>three.js</li><li>WebGL</li><li>WCAG AA</li></ul>
-        </div>
-      </div>
-    </article>
-
-
-    <!-- ============================================================
-         The only reference to Norma on the site. The project lives on
-         its own, on its own domain: this is the card and the outbound
-         link, nothing else.
-         PLACEHOLDER: update the address once it is published.
-         ============================================================ -->
-    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
-      <div class="case__bar">
-        <svg class="ico" aria-hidden="true"><use href="#i-search"></use></svg>
-        <b>Case 02</b>
-        <span>Personal project</span>
-        <span>2026</span>
-      </div>
-
-      <div class="case__body">
-        <div>
-          <h3>Norma — citation search over a legal corpus</h3>
-
-          <div class="block">
-            <span class="block__k">Problem</span>
-            <p>An assistant answering from a company's internal documents has a
-               constraint generic assistants do not: it has to <em>cite</em>, not
-               paraphrase. If you cannot trace the exact paragraph, the answer is not
-               verifiable — and an answer nobody can verify is one nobody can act on.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Approach</span>
-            <p>Exact-citation search over the GDPR, entirely in the browser: no server,
-               no model, no API key. The retrieval unit is the paragraph rather than the
-               article, so the answer is "Article 33(1)" instead of two pages of text.</p>
-            <p>Not using an embedding model was measured, not assumed: 45 questions
-               written before looking at any results, and an ablation that switches off
-               one correction at a time. The lexical engine reaches 56 % where bare BM25
-               stops at 18 %, and costs 156 KB instead of 30 MB.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Result</span>
-            <p>A tool you can try in ten seconds and check line by line — and a costed
-               estimate for the next step, rather than a guessed one.</p>
-          </div>
-
-          <div style="margin-top:clamp(18px,2vw,26px)">
-            <a class="btn btn--primary" href="https://norma.17labs.it/" rel="noopener">
-              Try it
-              <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <div class="metrics">
-            <div class="metric"><b>56 %</b><span>of questions put the right article first</span></div>
-            <div class="metric"><b>586</b><span>passages indexed: 413 paragraphs and 173 recitals</span></div>
-            <div class="metric"><b>156 KB</b><span>over the wire, against roughly 30 MB for an embedding model</span></div>
-          </div>
-          <ul class="tags"><li>JavaScript</li><li>Python</li><li>BM25</li><li>NLP</li><li>Information retrieval</li></ul>
-        </div>
-      </div>
-    </article>
-
-
-    <!-- The only reference to Estratto. The project lives on its own,
-         at estratto.17labs.it: this is the card and the outbound link. -->
-    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
-      <div class="case__bar">
-        <svg class="ico" aria-hidden="true"><use href="#i-ledger"></use></svg>
-        <b>Case 03</b>
-        <span>Personal project</span>
-        <span>2026</span>
-      </div>
-
-      <div class="case__body">
-        <div>
-          <h3>Estratto — Italian e-invoices, readable in the browser</h3>
-
-          <div class="block">
-            <span class="block__k">Problem</span>
-            <p>Since 2019 business-to-business invoicing in Italy is an XML file, and
-               the company receiving it cannot read it: it is markup, not a document.
-               For a quick check people end up uploading it to whatever site they
-               find — a document containing their own clients' data.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Approach</span>
-            <p>Drop the file and read it in plain language, with the codes translated
-               and a CSV export. Everything in the browser: no request leaves the page,
-               and that is not a promise — you can check it in the network panel.</p>
-            <p>Beyond displaying it, it checks the arithmetic: the tax authority's
-               schema verifies that fields exist, not that 22 % of 100 is 22. The
-               subtlest check is on the instalments, because under split payment and
-               withholding tax they are legitimately lower than the total. Flagging
-               those as anomalies would have made the tool unusable: the difference
-               between "fine", "note" and "warning" is the product.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Result</span>
-            <p>Nine fixtures with hand-computed expectations, two deliberately broken.
-               The suite was itself tested by breaking the reader three different ways:
-               all three mutations are caught.</p>
-          </div>
-
-          <div style="margin-top:clamp(18px,2vw,26px)">
-            <a class="btn btn--primary" href="https://estratto.17labs.it/" rel="noopener">
-              Try it
-              <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <div class="metrics">
-            <div class="metric"><b>0</b><span>bytes sent: the document never leaves the reader's machine</span></div>
-            <div class="metric"><b>113</b><span>assertions over 9 fixtures, expectations computed by hand</span></div>
-            <div class="metric"><b>26 KB</b><span>over the wire, samples included, with no dependencies</span></div>
-          </div>
-          <ul class="tags"><li>JavaScript</li><li>XML</li><li>FatturaPA</li><li>Parsing</li><li>Validation</li></ul>
-        </div>
-      </div>
-    </article>
-
-
-    <!-- Reference to Distinta. The project lives on its own. -->
-    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
-      <div class="case__bar">
-        <svg class="ico" aria-hidden="true"><use href="#i-draft"></use></svg>
-        <b>Case 04</b><span>Personal project</span><span>2026</span>
-      </div>
-      <div class="case__body">
-        <div>
-          <h3>Distinta &mdash; made-to-measure product configurator</h3>
-          <div class="block">
-            <span class="block__k">Problem</span>
-            <p>It is the thing Italian manufacturing SMEs ask for most and find least.
-               Anyone selling made-to-measure windows or furniture rebuilds the same quote by
-               hand every day, and every impossible combination caught late is an order that
-               comes back from the workshop.</p>
-          </div>
-          <div class="block">
-            <span class="block__k">Approach</span>
-            <p>Incompatibilities are symmetric: pick triple glazing first and the thin frame
-               disappears; pick the thin frame first and the glazing does. A configurator that
-               handles one direction only forces you to backtrack and guess. And every disabled
-               option states its reason &mdash; a grey box with no explanation reads as a broken
-               site.</p>
-            <p>The product is not in the code: options, prices, rules and constraints live in a
-               data file. The technical drawing is to true scale &mdash; the units are
-               millimetres &mdash; and redraws with its dimension lines on every change.</p>
-          </div>
-          <div class="block">
-            <span class="block__k">Result</span>
-            <p>All 2,560 combinations enumerated, and a full walk of the reachable space
-               proving that <em>nobody, by clicking, can compose a product that cannot be
-               manufactured</em>. The check immediately found a real defect: the
-               catalogue&rsquo;s own default violated one of the catalogue&rsquo;s
-               constraints.</p>
-          </div>
-          <div style="margin-top:clamp(18px,2vw,26px)">
-            <a class="btn btn--primary" href="https://distinta.17labs.it/" rel="noopener">
-              Try it <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-            </a>
-          </div>
-        </div>
-        <div>
-          <div class="metrics">
-            <div class="metric"><b>0</b><span>impossible configurations reachable, across 664 states and 10,616 moves</span></div>
-            <div class="metric"><b>2,560</b><span>option combinations, every one enumerated</span></div>
-            <div class="metric"><b>19 KB</b><span>over the wire, with no dependencies</span></div>
-          </div>
-          <ul class="tags"><li>JavaScript</li><li>SVG</li><li>Rule engine</li><li>Quoting</li></ul>
-        </div>
-      </div>
-    </article>
-
     <!-- Reference to Quadro. -->
-    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
+    <article class="case reveal">
       <div class="case__bar">
         <svg class="ico" aria-hidden="true"><use href="#i-chart"></use></svg>
         <b>Case 05</b><span>Personal project</span><span>2026</span>
@@ -776,6 +533,17 @@
         </div>
       </div>
     </article>
+
+    <div class="altri reveal">
+      <p>There are four more projects: this site, citation search over the GDPR, XML e-invoices
+         and a window configurator. Same structure &mdash; problem, technical decisions,
+         measured numbers.</p>
+      <a class="btn btn--ghost" href="projects.html">
+        All projects
+        <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+      </a>
+    </div>
+
 
     <div class="next reveal">
       <svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg>
@@ -1050,6 +818,7 @@
     <nav class="footer__links" aria-label="Secondary links">
       <a href="#skills">Skills</a>
       <a href="#work">Work</a>
+      <a href="projects.html">Projects</a>
       <a href="#contact">Contact</a>
       <a href="privacy.html">Privacy</a>
       <a href="../" hreflang="it" lang="it">Italiano</a>

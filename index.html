@@ -404,10 +404,11 @@
 </section>
 
 <!-- ============================ LAVORI ============================
-     CASO 01 e' reale e verificabile: descrive questo sito, e ogni
-     numero citato si controlla aprendo i sorgenti.
-     I casi successivi si aggiungono duplicando <article class="case">,
-     uno per progetto vero. Meglio uno documentato bene che tre vaghi.
+     Qui stanno le DUE schede piu' recenti. Tutte e sei sono in
+     progetti.html: sei casi studio di fila erano un muro, e chi
+     arrivava dalla ricerca non ne leggeva nessuno.
+     Una scheda nuova si aggiunge di la'; qui si spostano le due
+     ultime, e si aggiorna il sommario che dice quante sono le altre.
 ================================================================= -->
 <section class="section section--alt" id="lavori">
   <div class="wrap">
@@ -416,262 +417,15 @@
       <div>
         <h2>Cosa ho costruito</h2>
         <p class="lede">
-          Problema, scelte tecniche e risultato misurato. Comincio dal progetto che state
-          gia' guardando: e' il modo piu' diretto di far vedere come lavoro.
+          Problema, scelte tecniche e risultato misurato. Qui ci sono i due pi&ugrave; recenti;
+          gli altri quattro &mdash; questo sito, la ricerca sul GDPR, le fatture elettroniche e il
+          configuratore &mdash; stanno nella pagina dei progetti.
         </p>
       </div>
     </div>
 
-    <article class="case reveal">
-      <div class="case__bar">
-        <svg class="ico" aria-hidden="true"><use href="#i-browser"></use></svg>
-        <b>Caso 01</b>
-        <span>Progetto personale</span>
-        <span>2026</span>
-      </div>
-
-      <div class="case__body">
-        <div>
-          <h3>Questo sito</h3>
-
-          <div class="block">
-            <span class="block__k">Problema</span>
-            <p>I siti degli sviluppatori si somigliano tutti: stesso template, stesse
-               animazioni, stesse frasi. Nessuno di loro dimostra niente — raccontano
-               competenze invece di mostrarle. Volevo un sito che fosse esso stesso la
-               prova, non la descrizione della prova, e che si potesse aprire davanti a
-               un responsabile acquisti senza doverlo spiegare.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Approccio</span>
-            <p>Nessun framework e nessuna libreria di componenti: un file HTML per lingua,
-               un foglio di stile, due file JavaScript. Si apre, si legge, si modifica —
-               e non c'e' nessun passaggio di build da rifare fra un anno.</p>
-            <p>L'intestazione e' una scena three.js. La struttura che vedete e' una
-               geodetica ricavata da un icosaedro suddiviso: 162 nodi e 480 spigoli,
-               ottenuti de-duplicando a mano i vertici che la libreria restituisce ripetuti.
-               I nodi partono sparsi fuori campo e convergono nella posizione esatta in poco
-               piu' di un secondo — e' la cosa che faccio di mestiere, messa in figura.</p>
-            <p>La scena non ha una palette propria: legge i colori dal CSS. Quando si cambia
-               tema, il 3D rilegge le stesse variabili della pagina, quindi non possono
-               andare fuori sincrono. Si ferma quando esce dallo schermo, e con
-               <em>prefers-reduced-motion</em> disegna un fotogramma solo, con la struttura
-               gia' montata.</p>
-            <p>L'accessibilita' l'ho verificata misurando, non a occhio: uno script percorre
-               ogni elemento di testo nei due temi e calcola il rapporto di contrasto contro
-               lo sfondo reale, quello che risulta dopo aver risalito gli antenati. 356
-               elementi, nessuno sotto la soglia WCAG AA. Ha trovato un errore che a vista
-               non si vedeva: nel menu compatto il pulsante ereditava il colore della lista
-               e finiva grigio su ottone, 1.01:1.</p>
-            <p>Nessuna chiamata a domini esterni per rendere la pagina: caratteri tipografici
-               e three.js sono ospitati qui dentro. L'unica richiesta in uscita parte quando
-               qualcuno invia il modulo di contatto.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Risultato</span>
-            <p>Una pagina che si spiega da sola a chi sa leggere il codice, e che chi non lo
-               sa leggere si ricorda comunque. Sobria abbastanza da mandarla a un'azienda,
-               tecnica abbastanza da non sembrare comprata.</p>
-          </div>
-        </div>
-
-        <div>
-          <div class="metrics">
-            <div class="metric"><b>356</b><span>elementi di testo verificati contro WCAG AA nei due temi, zero sotto soglia</span></div>
-            <div class="metric"><b>162</b><span>nodi e 480 spigoli calcolati nel browser a ogni fotogramma</span></div>
-            <div class="metric"><b>0</b><span>framework, librerie di componenti, passaggi di build</span></div>
-            <div class="metric"><b>0</b><span>chiamate a domini esterni per rendere la pagina</span></div>
-          </div>
-          <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>three.js</li><li>WebGL</li><li>WCAG AA</li></ul>
-        </div>
-      </div>
-    </article>
-
-
-    <!-- ============================================================
-         Unica referenza a Norma dentro il sito. Il progetto vive per
-         conto suo, su un dominio suo: qui c'e' solo la scheda e il
-         collegamento in uscita.
-         SEGNAPOSTO: aggiorna l'indirizzo quando lo pubblichi.
-         ============================================================ -->
-    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
-      <div class="case__bar">
-        <svg class="ico" aria-hidden="true"><use href="#i-search"></use></svg>
-        <b>Caso 02</b>
-        <span>Progetto personale</span>
-        <span>2026</span>
-      </div>
-
-      <div class="case__body">
-        <div>
-          <h3>Norma — ricerca per citazione su un corpus giuridico</h3>
-
-          <div class="block">
-            <span class="block__k">Problema</span>
-            <p>Un assistente che risponde sui documenti interni di un'azienda ha un
-               vincolo che gli assistenti generici non hanno: deve <em>citare</em>, non
-               parafrasare. Se non si puo' risalire al paragrafo esatto, la risposta non
-               e' verificabile, e una risposta non verificabile in azienda non si puo'
-               usare.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Approccio</span>
-            <p>Ricerca a citazione esatta sul GDPR, interamente nel browser: nessun
-               server, nessun modello, nessuna chiave. L'unita' di recupero e' il comma,
-               non l'articolo, cosi' la risposta e' "Articolo 33, paragrafo 1" e non due
-               pagine di testo.</p>
-            <p>La scelta di non usare un modello a embedding e' misurata, non assunta:
-               45 domande scritte prima di guardare i risultati, e un'ablazione che
-               spegne una correzione per volta. Il motore lessicale arriva al 56 % dove
-               BM25 nudo si ferma al 18 %, e costa 156 KB invece di 30 MB.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Risultato</span>
-            <p>Uno strumento che si prova in dieci secondi e si verifica riga per riga —
-               e un preventivo quantificato per il passo successivo, invece che
-               immaginato.</p>
-          </div>
-
-          <div style="margin-top:clamp(18px,2vw,26px)">
-            <a class="btn btn--primary" href="https://norma.17labs.it/" rel="noopener">
-              Provalo
-              <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <div class="metrics">
-            <div class="metric"><b>56 %</b><span>delle domande hanno l'articolo giusto al primo posto</span></div>
-            <div class="metric"><b>586</b><span>brani indicizzati: 413 commi e 173 considerando</span></div>
-            <div class="metric"><b>156 KB</b><span>sul filo, contro i circa 30 MB di un modello a embedding</span></div>
-          </div>
-          <ul class="tags"><li>JavaScript</li><li>Python</li><li>BM25</li><li>NLP</li><li>Recupero informazioni</li></ul>
-        </div>
-      </div>
-    </article>
-
-
-    <!-- Unica referenza a Estratto. Il progetto vive per conto suo,
-         su estratto.17labs.it: qui c'e' la scheda e il collegamento. -->
-    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
-      <div class="case__bar">
-        <svg class="ico" aria-hidden="true"><use href="#i-ledger"></use></svg>
-        <b>Caso 03</b>
-        <span>Progetto personale</span>
-        <span>2026</span>
-      </div>
-
-      <div class="case__body">
-        <div>
-          <h3>Estratto — fatture elettroniche leggibili nel browser</h3>
-
-          <div class="block">
-            <span class="block__k">Problema</span>
-            <p>Dal 2019 la fattura fra imprese in Italia e' un file XML, e chi la
-               riceve non riesce a leggerla: e' marcatura, non un documento. Per una
-               verifica veloce si finisce a caricarla su un sito qualsiasi — un
-               documento che contiene i dati dei propri clienti.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Approccio</span>
-            <p>Si trascina il file e lo si legge in chiaro, con i codici tradotti e
-               l'esportazione in CSV. Tutto nel browser: nessuna richiesta parte, e non
-               e' una promessa — si verifica aprendo il pannello di rete.</p>
-            <p>Oltre a mostrarla, controlla i conti: lo schema dello Sdi verifica che i
-               campi ci siano, non che il 22 % di 100 faccia 22. Il controllo piu'
-               delicato e' quello sulle rate, perche' con la scissione dei pagamenti e
-               con la ritenuta d'acconto sono legittimamente piu' basse del totale.
-               Segnalarle come anomalie avrebbe reso lo strumento inservibile: la
-               differenza fra «torna», «nota» e «attenzione» e' il prodotto.</p>
-          </div>
-
-          <div class="block">
-            <span class="block__k">Risultato</span>
-            <p>Nove casi di prova con l'esito calcolato a mano, due dei quali rotti di
-               proposito. La suite e' stata provata rompendo il lettore in tre modi
-               diversi: tutte e tre le mutazioni vengono intercettate.</p>
-          </div>
-
-          <div style="margin-top:clamp(18px,2vw,26px)">
-            <a class="btn btn--primary" href="https://estratto.17labs.it/" rel="noopener">
-              Provalo
-              <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <div class="metrics">
-            <div class="metric"><b>0</b><span>byte inviati: il documento non lascia il computer di chi lo apre</span></div>
-            <div class="metric"><b>113</b><span>verifiche su 9 casi, con le attese calcolate a mano</span></div>
-            <div class="metric"><b>26 KB</b><span>sul filo, esempi compresi, senza nessuna dipendenza</span></div>
-          </div>
-          <ul class="tags"><li>JavaScript</li><li>XML</li><li>FatturaPA</li><li>Parsing</li><li>Validazione</li></ul>
-        </div>
-      </div>
-    </article>
-
-
-    <!-- Referenza a Distinta. Il progetto vive per conto suo. -->
-    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
-      <div class="case__bar">
-        <svg class="ico" aria-hidden="true"><use href="#i-draft"></use></svg>
-        <b>Caso 04</b><span>Progetto personale</span><span>2026</span>
-      </div>
-      <div class="case__body">
-        <div>
-          <h3>Distinta &mdash; configuratore di prodotto su misura</h3>
-          <div class="block">
-            <span class="block__k">Problema</span>
-            <p>&Egrave; la cosa che le PMI manifatturiere chiedono pi&ugrave; spesso e trovano
-               meno. Chi vende serramenti o arredo su misura rif&agrave; a mano lo stesso
-               preventivo ogni giorno, e ogni combinazione impossibile scoperta tardi
-               &egrave; un ordine che torna indietro dall&rsquo;officina.</p>
-          </div>
-          <div class="block">
-            <span class="block__k">Approccio</span>
-            <p>Le incompatibilit&agrave; sono simmetriche: se scegli prima il vetro triplo
-               sparisce il profilo sottile, se scegli prima il profilo sparisce il vetro. Un
-               configuratore che gestisce una direzione sola costringe a tornare indietro e
-               indovinare. E ogni opzione spenta dice il motivo, perch&eacute; un grigio senza
-               spiegazione viene letto come un guasto del sito.</p>
-            <p>Il prodotto non &egrave; nel codice: opzioni, prezzi, regole e vincoli stanno in
-               un file di dati. Il disegno tecnico &egrave; in scala vera &mdash; le unit&agrave;
-               sono millimetri &mdash; e si ridisegna con le quote a ogni modifica.</p>
-          </div>
-          <div class="block">
-            <span class="block__k">Risultato</span>
-            <p>Tutte le 2.560 combinazioni enumerate, e una visita completa dello spazio
-               raggiungibile che dimostra che <em>nessuno, cliccando, pu&ograve; comporre un
-               prodotto che non si fabbrica</em>. Il controllo ha trovato subito un difetto
-               vero: la configurazione predefinita del catalogo violava un vincolo del
-               catalogo stesso.</p>
-          </div>
-          <div style="margin-top:clamp(18px,2vw,26px)">
-            <a class="btn btn--primary" href="https://distinta.17labs.it/" rel="noopener">
-              Provalo <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
-            </a>
-          </div>
-        </div>
-        <div>
-          <div class="metrics">
-            <div class="metric"><b>0</b><span>configurazioni impossibili raggiungibili, su 664 stati e 10.616 mosse</span></div>
-            <div class="metric"><b>2.560</b><span>combinazioni di opzioni, enumerate tutte</span></div>
-            <div class="metric"><b>19 KB</b><span>sul filo, senza nessuna dipendenza</span></div>
-          </div>
-          <ul class="tags"><li>JavaScript</li><li>SVG</li><li>Motore di regole</li><li>Preventivazione</li></ul>
-        </div>
-      </div>
-    </article>
-
     <!-- Referenza a Quadro. -->
-    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
+    <article class="case reveal">
       <div class="case__bar">
         <svg class="ico" aria-hidden="true"><use href="#i-chart"></use></svg>
         <b>Caso 05</b><span>Progetto personale</span><span>2026</span>
@@ -780,6 +534,17 @@
         </div>
       </div>
     </article>
+
+    <div class="altri reveal">
+      <p>Ci sono altri quattro progetti: questo sito, la ricerca per citazione sul GDPR, le
+         fatture elettroniche XML e il configuratore di serramenti. Stessa struttura &mdash;
+         problema, scelte tecniche, numeri misurati.</p>
+      <a class="btn btn--ghost" href="progetti.html">
+        Tutti i progetti
+        <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+      </a>
+    </div>
+
 
     <div class="next reveal">
       <svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg>
@@ -1053,6 +818,7 @@
     <nav class="footer__links" aria-label="Collegamenti secondari">
       <a href="#competenze">Competenze</a>
       <a href="#lavori">Lavori</a>
+      <a href="progetti.html">Progetti</a>
       <a href="#contatti">Contatti</a>
       <a href="privacy.html">Privacy</a>
       <a href="en/" hreflang="en" lang="en">English</a>
