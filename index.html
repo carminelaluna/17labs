@@ -459,7 +459,7 @@
                gia' montata.</p>
             <p>L'accessibilita' l'ho verificata misurando, non a occhio: uno script percorre
                ogni elemento di testo nei due temi e calcola il rapporto di contrasto contro
-               lo sfondo reale, quello che risulta dopo aver risalito gli antenati. 293
+               lo sfondo reale, quello che risulta dopo aver risalito gli antenati. 315
                elementi, nessuno sotto la soglia WCAG AA. Ha trovato un errore che a vista
                non si vedeva: nel menu compatto il pulsante ereditava il colore della lista
                e finiva grigio su ottone, 1.01:1.</p>
@@ -478,7 +478,7 @@
 
         <div>
           <div class="metrics">
-            <div class="metric"><b>293</b><span>elementi di testo verificati contro WCAG AA nei due temi, zero sotto soglia</span></div>
+            <div class="metric"><b>315</b><span>elementi di testo verificati contro WCAG AA nei due temi, zero sotto soglia</span></div>
             <div class="metric"><b>162</b><span>nodi e 480 spigoli calcolati nel browser a ogni fotogramma</span></div>
             <div class="metric"><b>0</b><span>framework, librerie di componenti, passaggi di build</span></div>
             <div class="metric"><b>0</b><span>chiamate a domini esterni per rendere la pagina</span></div>
@@ -566,6 +566,68 @@
             <div class="metric"><b>156 KB</b><span>sul filo, contro i circa 30 MB di un modello a embedding</span></div>
           </div>
           <ul class="tags"><li>JavaScript</li><li>Python</li><li>BM25</li><li>NLP</li><li>Recupero informazioni</li></ul>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- Unica referenza a Estratto. Il progetto vive per conto suo,
+         su estratto.17labs.it: qui c'e' la scheda e il collegamento. -->
+    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
+      <div class="case__bar">
+        <svg class="ico" aria-hidden="true"><use href="#i-ledger"></use></svg>
+        <b>Caso 03</b>
+        <span>Progetto personale</span>
+        <span>2026</span>
+      </div>
+
+      <div class="case__body">
+        <div>
+          <h3>Estratto — fatture elettroniche leggibili nel browser</h3>
+
+          <div class="block">
+            <span class="block__k">Problema</span>
+            <p>Dal 2019 la fattura fra imprese in Italia e' un file XML, e chi la
+               riceve non riesce a leggerla: e' marcatura, non un documento. Per una
+               verifica veloce si finisce a caricarla su un sito qualsiasi — un
+               documento che contiene i dati dei propri clienti.</p>
+          </div>
+
+          <div class="block">
+            <span class="block__k">Approccio</span>
+            <p>Si trascina il file e lo si legge in chiaro, con i codici tradotti e
+               l'esportazione in CSV. Tutto nel browser: nessuna richiesta parte, e non
+               e' una promessa — si verifica aprendo il pannello di rete.</p>
+            <p>Oltre a mostrarla, controlla i conti: lo schema dello Sdi verifica che i
+               campi ci siano, non che il 22 % di 100 faccia 22. Il controllo piu'
+               delicato e' quello sulle rate, perche' con la scissione dei pagamenti e
+               con la ritenuta d'acconto sono legittimamente piu' basse del totale.
+               Segnalarle come anomalie avrebbe reso lo strumento inservibile: la
+               differenza fra «torna», «nota» e «attenzione» e' il prodotto.</p>
+          </div>
+
+          <div class="block">
+            <span class="block__k">Risultato</span>
+            <p>Nove casi di prova con l'esito calcolato a mano, due dei quali rotti di
+               proposito. La suite e' stata provata rompendo il lettore in tre modi
+               diversi: tutte e tre le mutazioni vengono intercettate.</p>
+          </div>
+
+          <div style="margin-top:clamp(18px,2vw,26px)">
+            <a class="btn btn--primary" href="https://estratto.17labs.it/" rel="noopener">
+              Provalo
+              <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="metrics">
+            <div class="metric"><b>0</b><span>byte inviati: il documento non lascia il computer di chi lo apre</span></div>
+            <div class="metric"><b>113</b><span>verifiche su 9 casi, con le attese calcolate a mano</span></div>
+            <div class="metric"><b>26 KB</b><span>sul filo, esempi compresi, senza nessuna dipendenza</span></div>
+          </div>
+          <ul class="tags"><li>JavaScript</li><li>XML</li><li>FatturaPA</li><li>Parsing</li><li>Validazione</li></ul>
         </div>
       </div>
     </article>
