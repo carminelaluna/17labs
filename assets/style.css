@@ -861,60 +861,6 @@ html[data-theme="light"] .i-moon { display: block; }
 }
 .metric span { font-size: 13px; color: var(--text-dim); line-height: 1.45; }
 
-/* modulo interattivo: la stessa tecnica descritta nel caso studio,
-   messa li' come prova invece che come sala giochi */
-.module {
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  overflow: hidden;
-  background: var(--bg);
-  margin-top: var(--s-4);
-}
-.module__bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px;
-  border-bottom: 1px solid var(--line);
-  background: var(--bg-2);
-  font-family: var(--f-mono);
-  font-size: 10.5px;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-}
-.module__bar span:last-child { margin-left: auto; }
-.module__gl {
-  /* largo e basso: e' una prova dentro una scheda, non un'attrazione.
-     Un 16:9 a tutta larghezza si mangerebbe uno schermo intero.
-
-     width e min-width espliciti non sono decorativi: senza una
-     larghezza definita, aspect-ratio ragiona a partire da min-height
-     e allarga il riquadro oltre il contenitore. */
-  width: 100%;
-  min-width: 0;
-  aspect-ratio: 16 / 7;
-  max-height: 420px;
-  min-height: 200px;
-  cursor: grab;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  touch-action: none;
-}
-.module__gl:active { cursor: grabbing; }
-.module__gl canvas { width: 100% !important; height: 100% !important; }
-.module__fallback {
-  max-width: 100%;
-  font-family: var(--f-mono);
-  font-size: 12px;
-  color: var(--text-faint);
-  text-align: center;
-  padding: var(--s-3);
-  line-height: 1.8;
-}
-.module.gl-ok .module__fallback { display: none; }
-
 .next {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -1272,7 +1218,7 @@ html[data-theme="light"] .err { color: #a3241c; }
 }
 
 @media print {
-  .nav, .hero__gl, .hero__veil, .hero__scroll, .gridlines, .module, .readout { display: none !important; }
+  .nav, .hero__gl, .hero__veil, .hero__scroll, .gridlines, .readout { display: none !important; }
   body { background: #fff; color: #000; }
   .section { border-color: #ccc; padding-block: 24px; }
 }

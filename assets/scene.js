@@ -2,7 +2,7 @@
    17Labs — V3 · scene.js
    three.js ospitato in proprio: nessuna chiamata a CDN esterne.
 
-   Due scene, due lavori diversi:
+   Una scena sola: l'intestazione.
 
    HERO — un reticolo geodetico che si monta davanti a chi apre
    la pagina. I nodi partono sparsi e convergono nelle loro
@@ -10,10 +10,6 @@
    il mestiere: prendere pezzi sparsi e farne una struttura.
    Niente bagliori, niente colori acidi: filo sottile, un ottone
    solo, nebbia che spegne la profondita'.
-
-   MODULO — il nucleo interattivo dentro il caso studio. Si
-   trascina per ruotarlo. Serve da prova di quello che il testo
-   accanto sostiene.
 
    Qui, al contrario di Master, si renderizza a piena risoluzione
    e con antialiasing: la resa netta e' parte del registro sobrio.
@@ -306,112 +302,11 @@ function buildHero(host) {
 }
 
 /* ============================================================
-   MODULO — nucleo interattivo dentro il caso studio
-   ============================================================ */
-function buildModule(host) {
-  const renderer = makeRenderer(host);
-  if (!renderer) return null;
-  host.closest('.module').classList.add('gl-ok');
-
-  const scene = new THREE.Scene();
-  const cam = new THREE.PerspectiveCamera(42, 16 / 9, 0.1, 60);
-  cam.position.set(0, 0, 8.2);
-
-  const p0 = palette();
-  scene.fog = new THREE.Fog(p0.bg, 8, 22);
-
-  scene.add(new THREE.AmbientLight(0xffffff, .75));
-  const key = new THREE.DirectionalLight(0xffffff, 1.5);
-  key.position.set(4, 6, 5);
-  scene.add(key);
-  const rim = new THREE.DirectionalLight(0xffffff, .55);
-  rim.position.set(-5, -3, -4);
-  scene.add(rim);
-
-  const group = new THREE.Group();
-  scene.add(group);
-
-  const coreMat = new THREE.MeshPhongMaterial({ flatShading: true, shininess: 6 });
-  const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.7, 1), coreMat);
-  group.add(core);
-
-  const shellMat = new THREE.LineBasicMaterial({ transparent: true, opacity: .42, fog: true });
-  const shell = new THREE.LineSegments(
-    new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(2.5, 1)), shellMat
-  );
-  group.add(shell);
-
-  /* diciassette satelliti. Il numero non e' casuale, ma non lo dice
-     nessuno: chi lo conta ha trovato la battuta da solo. */
-  const bits = [];
-  const bitGeo = new THREE.OctahedronGeometry(.16, 0);
-  for (let i = 0; i < 17; i++) {
-    const m = new THREE.Mesh(bitGeo, new THREE.MeshPhongMaterial({ flatShading: true, shininess: 0 }));
-    m.userData = { a: (i / 17) * Math.PI * 2, r: 3.3, y: Math.sin(i * 1.7) * 1.25 };
-    bits.push(m);
-    group.add(m);
-  }
-
-  function recolor() {
-    const p = palette();
-    scene.fog.color.copy(p.bg);
-    coreMat.color.copy(p.acc);
-    coreMat.wireframe = schematic;
-    shellMat.color.copy(schematic ? p.acc : p.steel);
-    bits.forEach((m, i) => m.material.color.copy(i % 3 === 0 ? p.steel : p.acc));
-  }
-  recolor();
-
-  /* trascinamento con un po' d'inerzia */
-  let vx = .0022, vy = .0055, dragging = false, lx = 0, ly = 0;
-  host.addEventListener('pointerdown', e => {
-    dragging = true; lx = e.clientX; ly = e.clientY;
-    host.setPointerCapture(e.pointerId);
-  });
-  host.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    vy = (e.clientX - lx) * .0045;
-    vx = (e.clientY - ly) * .0045;
-    group.rotation.y += vy * 2.4;
-    group.rotation.x += vx * 2.4;
-    lx = e.clientX; ly = e.clientY;
-  });
-  const stop = () => { dragging = false; };
-  host.addEventListener('pointerup', stop);
-  host.addEventListener('pointercancel', stop);
-  host.addEventListener('lostpointercapture', stop);
-
-  function frame(t, dt) {
-    if (!dragging) {
-      group.rotation.y += vy * dt * 40;
-      group.rotation.x += vx * dt * 40;
-      vy += (.0055 - vy) * .022;   // torna al giro lento a riposo
-      vx += (.0022 - vx) * .022;
-    }
-    shell.rotation.y -= dt * .16;
-    shell.rotation.z += dt * .07;
-    bits.forEach((m, i) => {
-      const u = m.userData;
-      const a = u.a + t * .22;
-      m.position.set(Math.cos(a) * u.r, u.y + Math.sin(t * .8 + i) * .16, Math.sin(a) * u.r);
-      m.rotation.x += dt * .6;
-      m.rotation.y += dt * .45;
-    });
-    renderer.render(scene, cam);
-  }
-
-  return { renderer, cam, host, frame, recolor, layout() {} };
-}
-
-/* ============================================================
    Avvio
    ============================================================ */
 const heroHost = document.getElementById('hero-gl');
-const modHost = document.getElementById('module-gl');
-
 const hero = heroHost ? buildHero(heroHost) : null;
-const mod = modHost ? buildModule(modHost) : null;
-[hero, mod].forEach(s => { if (s) scenes.push(s); });
+if (hero) scenes.push(hero);
 
 if (scenes.length) {
   // si disegna solo quello che si vede: fuori schermo la GPU sta ferma
