@@ -459,7 +459,7 @@
                gia' montata.</p>
             <p>L'accessibilita' l'ho verificata misurando, non a occhio: uno script percorre
                ogni elemento di testo nei due temi e calcola il rapporto di contrasto contro
-               lo sfondo reale, quello che risulta dopo aver risalito gli antenati. 269
+               lo sfondo reale, quello che risulta dopo aver risalito gli antenati. 293
                elementi, nessuno sotto la soglia WCAG AA. Ha trovato un errore che a vista
                non si vedeva: nel menu compatto il pulsante ereditava il colore della lista
                e finiva grigio su ottone, 1.01:1.</p>
@@ -478,7 +478,7 @@
 
         <div>
           <div class="metrics">
-            <div class="metric"><b>269</b><span>elementi di testo verificati contro WCAG AA nei due temi, zero sotto soglia</span></div>
+            <div class="metric"><b>293</b><span>elementi di testo verificati contro WCAG AA nei due temi, zero sotto soglia</span></div>
             <div class="metric"><b>162</b><span>nodi e 480 spigoli calcolati nel browser a ogni fotogramma</span></div>
             <div class="metric"><b>0</b><span>framework, librerie di componenti, passaggi di build</span></div>
             <div class="metric"><b>0</b><span>chiamate a domini esterni per rendere la pagina</span></div>
@@ -500,6 +500,72 @@
             WebGL non disponibile su questo dispositivo.<br>
             Il resto della pagina funziona lo stesso.
           </p>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ============================================================
+         Unica referenza a Norma dentro il sito. Il progetto vive per
+         conto suo, su un dominio suo: qui c'e' solo la scheda e il
+         collegamento in uscita.
+         SEGNAPOSTO: aggiorna l'indirizzo quando lo pubblichi.
+         ============================================================ -->
+    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
+      <div class="case__bar">
+        <svg class="ico" aria-hidden="true"><use href="#i-search"></use></svg>
+        <b>Caso 02</b>
+        <span>Progetto personale</span>
+        <span>2026</span>
+      </div>
+
+      <div class="case__body">
+        <div>
+          <h3>Norma — ricerca per citazione su un corpus giuridico</h3>
+
+          <div class="block">
+            <span class="block__k">Problema</span>
+            <p>Un assistente che risponde sui documenti interni di un'azienda ha un
+               vincolo che gli assistenti generici non hanno: deve <em>citare</em>, non
+               parafrasare. Se non si puo' risalire al paragrafo esatto, la risposta non
+               e' verificabile, e una risposta non verificabile in azienda non si puo'
+               usare.</p>
+          </div>
+
+          <div class="block">
+            <span class="block__k">Approccio</span>
+            <p>Ricerca a citazione esatta sul GDPR, interamente nel browser: nessun
+               server, nessun modello, nessuna chiave. L'unita' di recupero e' il comma,
+               non l'articolo, cosi' la risposta e' "Articolo 33, paragrafo 1" e non due
+               pagine di testo.</p>
+            <p>La scelta di non usare un modello a embedding e' misurata, non assunta:
+               45 domande scritte prima di guardare i risultati, e un'ablazione che
+               spegne una correzione per volta. Il motore lessicale arriva al 56 % dove
+               BM25 nudo si ferma al 18 %, e costa 156 KB invece di 30 MB.</p>
+          </div>
+
+          <div class="block">
+            <span class="block__k">Risultato</span>
+            <p>Uno strumento che si prova in dieci secondi e si verifica riga per riga —
+               e un preventivo quantificato per il passo successivo, invece che
+               immaginato.</p>
+          </div>
+
+          <div style="margin-top:clamp(18px,2vw,26px)">
+            <a class="btn btn--primary" href="https://norma.17labs.it/" rel="noopener">
+              Provalo
+              <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="metrics">
+            <div class="metric"><b>56 %</b><span>delle domande hanno l'articolo giusto al primo posto</span></div>
+            <div class="metric"><b>586</b><span>brani indicizzati: 413 commi e 173 considerando</span></div>
+            <div class="metric"><b>156 KB</b><span>sul filo, contro i circa 30 MB di un modello a embedding</span></div>
+          </div>
+          <ul class="tags"><li>JavaScript</li><li>Python</li><li>BM25</li><li>NLP</li><li>Recupero informazioni</li></ul>
         </div>
       </div>
     </article>

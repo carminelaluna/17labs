@@ -459,7 +459,7 @@
                already assembled.</p>
             <p>Accessibility was verified by measurement, not by eye: a script walks every
                text element in both themes and computes its contrast ratio against the real
-               background — the one you get after climbing back up the ancestors. 270
+               background — the one you get after climbing back up the ancestors. 294
                elements, none below the WCAG AA threshold. It found an error that was
                invisible to the eye: inside the compact menu the button inherited the list
                colour and ended up grey on brass, 1.01:1.</p>
@@ -478,7 +478,7 @@
 
         <div>
           <div class="metrics">
-            <div class="metric"><b>270</b><span>text elements checked against WCAG AA in both themes, none below threshold</span></div>
+            <div class="metric"><b>294</b><span>text elements checked against WCAG AA in both themes, none below threshold</span></div>
             <div class="metric"><b>162</b><span>nodes and 480 edges computed in the browser every frame</span></div>
             <div class="metric"><b>0</b><span>frameworks, component libraries, build steps</span></div>
             <div class="metric"><b>0</b><span>external domains contacted to render the page</span></div>
@@ -500,6 +500,69 @@
             WebGL unavailable on this device.<br>
             The rest of the page works regardless.
           </p>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- ============================================================
+         The only reference to Norma on the site. The project lives on
+         its own, on its own domain: this is the card and the outbound
+         link, nothing else.
+         PLACEHOLDER: update the address once it is published.
+         ============================================================ -->
+    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
+      <div class="case__bar">
+        <svg class="ico" aria-hidden="true"><use href="#i-search"></use></svg>
+        <b>Case 02</b>
+        <span>Personal project</span>
+        <span>2026</span>
+      </div>
+
+      <div class="case__body">
+        <div>
+          <h3>Norma — citation search over a legal corpus</h3>
+
+          <div class="block">
+            <span class="block__k">Problem</span>
+            <p>An assistant answering from a company's internal documents has a
+               constraint generic assistants do not: it has to <em>cite</em>, not
+               paraphrase. If you cannot trace the exact paragraph, the answer is not
+               verifiable — and an answer nobody can verify is one nobody can act on.</p>
+          </div>
+
+          <div class="block">
+            <span class="block__k">Approach</span>
+            <p>Exact-citation search over the GDPR, entirely in the browser: no server,
+               no model, no API key. The retrieval unit is the paragraph rather than the
+               article, so the answer is "Article 33(1)" instead of two pages of text.</p>
+            <p>Not using an embedding model was measured, not assumed: 45 questions
+               written before looking at any results, and an ablation that switches off
+               one correction at a time. The lexical engine reaches 56 % where bare BM25
+               stops at 18 %, and costs 156 KB instead of 30 MB.</p>
+          </div>
+
+          <div class="block">
+            <span class="block__k">Result</span>
+            <p>A tool you can try in ten seconds and check line by line — and a costed
+               estimate for the next step, rather than a guessed one.</p>
+          </div>
+
+          <div style="margin-top:clamp(18px,2vw,26px)">
+            <a class="btn btn--primary" href="https://norma.17labs.it/" rel="noopener">
+              Try it
+              <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="metrics">
+            <div class="metric"><b>56 %</b><span>of questions put the right article first</span></div>
+            <div class="metric"><b>586</b><span>passages indexed: 413 paragraphs and 173 recitals</span></div>
+            <div class="metric"><b>156 KB</b><span>over the wire, against roughly 30 MB for an embedding model</span></div>
+          </div>
+          <ul class="tags"><li>JavaScript</li><li>Python</li><li>BM25</li><li>NLP</li><li>Information retrieval</li></ul>
         </div>
       </div>
     </article>
