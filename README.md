@@ -1,21 +1,25 @@
 # 17Labs — V3
 
 Sito di [17Labs](https://17labs.it) — Carmine La Luna.
-Stessi contenuti di `Master`, altro registro: questo e' il biglietto da visita da
-mandare a un'azienda.
+Stessi contenuti della versione pixel, altro registro: questo e' il biglietto da
+visita da mandare a un'azienda. **E' la versione pubblicata su 17labs.it.**
+
+La versione precedente non e' stata buttata: vive in
+[17labs-pixel](https://github.com/carminelaluna/17labs-pixel), visitabile su
+<https://carminelaluna.github.io/17labs-pixel/>.
 
 Italiano su `/`, inglese su `/en/`.
 
-## Cos'e' cambiato rispetto a Master
+## Cos'e' cambiato rispetto alla versione pixel
 
-Master e' un sito che si diverte: pixel art, sprite a 16 colori, trofei, sala giochi,
+La versione pixel e' un sito che si diverte: sprite a 16 colori, trofei, sala giochi,
 `PRESS START`. Funziona benissimo con chi conosce quell'ambiente, e rischia di lavorare
 contro con chi non lo conosce — un responsabile acquisti che apre una schermata da
 console a 16 bit non pensa "che bravo", pensa "e questo chi e'".
 
 V3 tiene tutto il contenuto e cambia il registro.
 
-| | Master | V3 |
+| | Versione pixel | Questa |
 |---|---|---|
 | Carattere per i titoli | Press Start 2P | Inter 600 |
 | 3D | risoluzione /5, senza antialiasing, bordi duri | piena risoluzione, antialiasing, linee sottili |
@@ -91,19 +95,20 @@ assets/
   three.module.js   libreria, ospitata in proprio
 ```
 
-Rispetto a Master mancano i font Press Start 2P: qui non servono.
+Rispetto alla versione pixel mancano i font Press Start 2P: qui non servono.
 
 ## Da sistemare prima di pubblicare
 
-- **`og.png`** e' ancora quella di Master, con la grafica pixel. Va rifatta con l'immagine
+- **`og.png`** e' ancora quella della versione pixel. Va rifatta con l'immagine
   di V3, 1200×630. Finche' resta cosi', l'anteprima nelle chat e sui social mostra il
   sito vecchio.
 - **La riga sul lavoro dipendente** in "Chi sono" e nelle FAQ: verifica il contratto prima
   di pubblicarla, molti regolano l'attivita' autonoma parallela.
 - **La P. IVA** va nel piè di pagina solo quando esiste davvero. Quando esiste, cambia
   anche `"@type": "Person"` in `"ProfessionalService"` nei dati strutturati.
-- **`CNAME`** contiene `17labs.it`, uguale a Master: solo una delle due cartelle puo'
-  essere pubblicata su quel dominio.
+- **Il ramo `v3`** esiste ancora sul remoto e punta allo stesso commit di `main`:
+  e' rimasto dal periodo in cui questa era la versione in prova. Va cancellato, o
+  qualcuno prima o poi ci spingera' sopra convinto di pubblicare.
 
 ## In locale
 
