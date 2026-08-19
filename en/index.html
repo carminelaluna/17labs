@@ -96,6 +96,7 @@
     <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="6" rx="1"/><rect x="3" y="14.5" width="18" height="6" rx="1"/><path d="M6.5 6.5h.01M6.5 17.5h.01"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 21 21"/></symbol>
     <symbol id="i-draft" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="1"/><path d="M3.5 8.5h17M9 8.5v12"/></symbol>
+    <symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" stroke="none"/></symbol>
     <symbol id="i-code" viewBox="0 0 24 24"><path d="M9 6.5 3.5 12 9 17.5M15 6.5 20.5 12 15 17.5"/></symbol>
     <symbol id="i-live" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.4"/><path d="M7.9 7.9a5.8 5.8 0 0 0 0 8.2M16.1 7.9a5.8 5.8 0 0 1 0 8.2M5 5a9.9 9.9 0 0 0 0 14M19 5a9.9 9.9 0 0 1 0 14"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"/><path d="m3.6 6 8.4 6.4L20.4 6"/></symbol>
@@ -459,7 +460,7 @@
                already assembled.</p>
             <p>Accessibility was verified by measurement, not by eye: a script walks every
                text element in both themes and computes its contrast ratio against the real
-               background — the one you get after climbing back up the ancestors. 360
+               background — the one you get after climbing back up the ancestors. 356
                elements, none below the WCAG AA threshold. It found an error that was
                invisible to the eye: inside the compact menu the button inherited the list
                colour and ended up grey on brass, 1.01:1.</p>
@@ -478,7 +479,7 @@
 
         <div>
           <div class="metrics">
-            <div class="metric"><b>360</b><span>text elements checked against WCAG AA in both themes, none below threshold</span></div>
+            <div class="metric"><b>356</b><span>text elements checked against WCAG AA in both themes, none below threshold</span></div>
             <div class="metric"><b>162</b><span>nodes and 480 edges computed in the browser every frame</span></div>
             <div class="metric"><b>0</b><span>frameworks, component libraries, build steps</span></div>
             <div class="metric"><b>0</b><span>external domains contacted to render the page</span></div>
@@ -710,6 +711,68 @@
             <div class="metric"><b>51</b><span>reconciliation checks passed</span></div>
           </div>
           <ul class="tags"><li>JavaScript</li><li>Python</li><li>TopoJSON</li><li>Open data</li><li>Visualisation</li></ul>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- Reference to Soglia. -->
+    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
+      <div class="case__bar">
+        <svg class="ico" aria-hidden="true"><use href="#i-contrast"></use></svg>
+        <b>Case 06</b><span>Personal project</span><span>2026</span>
+      </div>
+      <div class="case__body">
+        <div>
+          <h3>Soglia &mdash; a WCAG contrast checker</h3>
+          <div class="block">
+            <span class="block__k">Problem</span>
+            <p>A contrast ratio is a single number, and on its own it decides nothing: the same
+               pair of colours passes at 24 px and fails at 16. The tools you find show the
+               number with two fixed ticks beside it, and the real question goes unanswered
+               &mdash; <em>from what size up is this colour fine?</em></p>
+          </div>
+          <div class="block">
+            <span class="block__k">Approach</span>
+            <p>The threshold moves with size and weight, because that is how the standard is
+               written. Transparency is composited before it is measured:
+               <em>rgba(0,0,0,.5)</em> on white is <em>#808080</em> and scores 3.95:1, not
+               21:1 &mdash; a tool that ignores alpha returns a number that exists on no
+               screen.</p>
+            <p>And when it fails, it says which colour to use instead. The fix moves in
+               lightness only, inside OKLCh, so the hue stays put and a corrected red stays red
+               rather than turning pink. Sometimes, though, the right answer is that the
+               background is wrong: on a mid grey no text colour whatsoever reaches 7:1, and
+               saying so is worth more than offering a colour that does not solve it.</p>
+            <p>The real work is not one pair but a whole theme, where the pairs are
+               <em>n&times;n</em>: paste the custom properties of a stylesheet and they all come
+               out at once.</p>
+          </div>
+          <div class="block">
+            <span class="block__k">Result</span>
+            <p>A hundred and eighty-one checks, eight of them against numbers published by other
+               people that I did not compute anywhere myself. The expectations are recomputed by
+               a second implementation written in Python from the specification, not by the
+               engine they are meant to test. And the page&rsquo;s own theme passes its own tool
+               against <strong>AAA</strong>, not AA: the check re-reads the stylesheet from
+               disk, so a colour changed without looking at the contrast makes it fail.</p>
+            <p>Measuring the rendered page, rather than the declared colours alone, it found a
+               defect of its own: on the matrix diagonal a grey dash at 12 px sat at 4.05:1. It
+               was decoration disguised as text, and it is now a hatch.</p>
+          </div>
+          <div style="margin-top:clamp(18px,2vw,26px)">
+            <a class="btn btn--primary" href="https://soglia.17labs.it/" rel="noopener">
+              Try it <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="metrics">
+            <div class="metric"><b>181</b><span>checks passed, eight of them on values published by others</span></div>
+            <div class="metric"><b>2</b><span>independent implementations that have to agree: JavaScript and Python</span></div>
+            <div class="metric"><b>0</b><span>elements below WCAG AA out of 162, in both themes: here the bar is AAA</span></div>
+          </div>
+          <ul class="tags"><li>JavaScript</li><li>Python</li><li>WCAG 2.1</li><li>OKLCh</li><li>Accessibility</li></ul>
         </div>
       </div>
     </article>
