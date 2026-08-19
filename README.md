@@ -106,9 +106,6 @@ Rispetto alla versione pixel mancano i font Press Start 2P: qui non servono.
   di pubblicarla, molti regolano l'attivita' autonoma parallela.
 - **La P. IVA** va nel piè di pagina solo quando esiste davvero. Quando esiste, cambia
   anche `"@type": "Person"` in `"ProfessionalService"` nei dati strutturati.
-- **Il ramo `v3`** esiste ancora sul remoto e punta allo stesso commit di `main`:
-  e' rimasto dal periodo in cui questa era la versione in prova. Va cancellato, o
-  qualcuno prima o poi ci spingera' sopra convinto di pubblicare.
 
 ## In locale
 
