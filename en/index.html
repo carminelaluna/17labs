@@ -459,7 +459,7 @@
                already assembled.</p>
             <p>Accessibility was verified by measurement, not by eye: a script walks every
                text element in both themes and computes its contrast ratio against the real
-               background — the one you get after climbing back up the ancestors. 314
+               background — the one you get after climbing back up the ancestors. 360
                elements, none below the WCAG AA threshold. It found an error that was
                invisible to the eye: inside the compact menu the button inherited the list
                colour and ended up grey on brass, 1.01:1.</p>
@@ -478,7 +478,7 @@
 
         <div>
           <div class="metrics">
-            <div class="metric"><b>314</b><span>text elements checked against WCAG AA in both themes, none below threshold</span></div>
+            <div class="metric"><b>360</b><span>text elements checked against WCAG AA in both themes, none below threshold</span></div>
             <div class="metric"><b>162</b><span>nodes and 480 edges computed in the browser every frame</span></div>
             <div class="metric"><b>0</b><span>frameworks, component libraries, build steps</span></div>
             <div class="metric"><b>0</b><span>external domains contacted to render the page</span></div>
@@ -609,6 +609,107 @@
             <div class="metric"><b>26 KB</b><span>over the wire, samples included, with no dependencies</span></div>
           </div>
           <ul class="tags"><li>JavaScript</li><li>XML</li><li>FatturaPA</li><li>Parsing</li><li>Validation</li></ul>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- Reference to Distinta. The project lives on its own. -->
+    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
+      <div class="case__bar">
+        <svg class="ico" aria-hidden="true"><use href="#i-draft"></use></svg>
+        <b>Case 04</b><span>Personal project</span><span>2026</span>
+      </div>
+      <div class="case__body">
+        <div>
+          <h3>Distinta &mdash; made-to-measure product configurator</h3>
+          <div class="block">
+            <span class="block__k">Problem</span>
+            <p>It is the thing Italian manufacturing SMEs ask for most and find least.
+               Anyone selling made-to-measure windows or furniture rebuilds the same quote by
+               hand every day, and every impossible combination caught late is an order that
+               comes back from the workshop.</p>
+          </div>
+          <div class="block">
+            <span class="block__k">Approach</span>
+            <p>Incompatibilities are symmetric: pick triple glazing first and the thin frame
+               disappears; pick the thin frame first and the glazing does. A configurator that
+               handles one direction only forces you to backtrack and guess. And every disabled
+               option states its reason &mdash; a grey box with no explanation reads as a broken
+               site.</p>
+            <p>The product is not in the code: options, prices, rules and constraints live in a
+               data file. The technical drawing is to true scale &mdash; the units are
+               millimetres &mdash; and redraws with its dimension lines on every change.</p>
+          </div>
+          <div class="block">
+            <span class="block__k">Result</span>
+            <p>All 2,560 combinations enumerated, and a full walk of the reachable space
+               proving that <em>nobody, by clicking, can compose a product that cannot be
+               manufactured</em>. The check immediately found a real defect: the
+               catalogue&rsquo;s own default violated one of the catalogue&rsquo;s
+               constraints.</p>
+          </div>
+          <div style="margin-top:clamp(18px,2vw,26px)">
+            <a class="btn btn--primary" href="https://distinta.17labs.it/" rel="noopener">
+              Try it <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="metrics">
+            <div class="metric"><b>0</b><span>impossible configurations reachable, across 664 states and 10,616 moves</span></div>
+            <div class="metric"><b>2,560</b><span>option combinations, every one enumerated</span></div>
+            <div class="metric"><b>19 KB</b><span>over the wire, with no dependencies</span></div>
+          </div>
+          <ul class="tags"><li>JavaScript</li><li>SVG</li><li>Rule engine</li><li>Quoting</li></ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- Reference to Quadro. -->
+    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
+      <div class="case__bar">
+        <svg class="ico" aria-hidden="true"><use href="#i-chart"></use></svg>
+        <b>Case 05</b><span>Personal project</span><span>2026</span>
+      </div>
+      <div class="case__body">
+        <div>
+          <h3>Quadro &mdash; a dashboard over Italy, on ISTAT data</h3>
+          <div class="block">
+            <span class="block__k">Problem</span>
+            <p>A dashboard fed pre-computed totals can only answer the questions whoever
+               prepared the data had anticipated. The first different question needs a change,
+               a release and a week.</p>
+          </div>
+          <div class="block">
+            <span class="block__k">Approach</span>
+            <p>The browser receives the municipal detail &mdash; 7,896 rows &mdash; and
+               aggregates on the fly. Changing level, indicator or filter is not a request to a
+               server: it is a loop over an array.</p>
+            <p>The map weighs 99 KB because it is TopoJSON: quantised coordinates, points
+               stored as deltas, and borders shared between neighbouring regions rather than
+               duplicated. The same drawing as GeoJSON weighs 2,700.</p>
+          </div>
+          <div class="block">
+            <span class="block__k">Result</span>
+            <p>Fifty-one checks that reconcile the totals by every route and test them against
+               facts that do not come from the data. On the first run Italy&rsquo;s population
+               came out at 118 million: the ISTAT file carries a total row per municipality,
+               and summing it with the detail counts everything twice.</p>
+          </div>
+          <div style="margin-top:clamp(18px,2vw,26px)">
+            <a class="btn btn--primary" href="https://quadro.17labs.it/" rel="noopener">
+              Try it <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="metrics">
+            <div class="metric"><b>7,896</b><span>municipalities aggregated in the browser on every interaction</span></div>
+            <div class="metric"><b>99 KB</b><span>for the vector map, against 2.7 MB in the naive format</span></div>
+            <div class="metric"><b>51</b><span>reconciliation checks passed</span></div>
+          </div>
+          <ul class="tags"><li>JavaScript</li><li>Python</li><li>TopoJSON</li><li>Open data</li><li>Visualisation</li></ul>
         </div>
       </div>
     </article>

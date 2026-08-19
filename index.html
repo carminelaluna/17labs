@@ -459,7 +459,7 @@
                gia' montata.</p>
             <p>L'accessibilita' l'ho verificata misurando, non a occhio: uno script percorre
                ogni elemento di testo nei due temi e calcola il rapporto di contrasto contro
-               lo sfondo reale, quello che risulta dopo aver risalito gli antenati. 313
+               lo sfondo reale, quello che risulta dopo aver risalito gli antenati. 359
                elementi, nessuno sotto la soglia WCAG AA. Ha trovato un errore che a vista
                non si vedeva: nel menu compatto il pulsante ereditava il colore della lista
                e finiva grigio su ottone, 1.01:1.</p>
@@ -478,7 +478,7 @@
 
         <div>
           <div class="metrics">
-            <div class="metric"><b>313</b><span>elementi di testo verificati contro WCAG AA nei due temi, zero sotto soglia</span></div>
+            <div class="metric"><b>359</b><span>elementi di testo verificati contro WCAG AA nei due temi, zero sotto soglia</span></div>
             <div class="metric"><b>162</b><span>nodi e 480 spigoli calcolati nel browser a ogni fotogramma</span></div>
             <div class="metric"><b>0</b><span>framework, librerie di componenti, passaggi di build</span></div>
             <div class="metric"><b>0</b><span>chiamate a domini esterni per rendere la pagina</span></div>
@@ -612,6 +612,107 @@
             <div class="metric"><b>26 KB</b><span>sul filo, esempi compresi, senza nessuna dipendenza</span></div>
           </div>
           <ul class="tags"><li>JavaScript</li><li>XML</li><li>FatturaPA</li><li>Parsing</li><li>Validazione</li></ul>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- Referenza a Distinta. Il progetto vive per conto suo. -->
+    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
+      <div class="case__bar">
+        <svg class="ico" aria-hidden="true"><use href="#i-draft"></use></svg>
+        <b>Caso 04</b><span>Progetto personale</span><span>2026</span>
+      </div>
+      <div class="case__body">
+        <div>
+          <h3>Distinta &mdash; configuratore di prodotto su misura</h3>
+          <div class="block">
+            <span class="block__k">Problema</span>
+            <p>&Egrave; la cosa che le PMI manifatturiere chiedono pi&ugrave; spesso e trovano
+               meno. Chi vende serramenti o arredo su misura rif&agrave; a mano lo stesso
+               preventivo ogni giorno, e ogni combinazione impossibile scoperta tardi
+               &egrave; un ordine che torna indietro dall&rsquo;officina.</p>
+          </div>
+          <div class="block">
+            <span class="block__k">Approccio</span>
+            <p>Le incompatibilit&agrave; sono simmetriche: se scegli prima il vetro triplo
+               sparisce il profilo sottile, se scegli prima il profilo sparisce il vetro. Un
+               configuratore che gestisce una direzione sola costringe a tornare indietro e
+               indovinare. E ogni opzione spenta dice il motivo, perch&eacute; un grigio senza
+               spiegazione viene letto come un guasto del sito.</p>
+            <p>Il prodotto non &egrave; nel codice: opzioni, prezzi, regole e vincoli stanno in
+               un file di dati. Il disegno tecnico &egrave; in scala vera &mdash; le unit&agrave;
+               sono millimetri &mdash; e si ridisegna con le quote a ogni modifica.</p>
+          </div>
+          <div class="block">
+            <span class="block__k">Risultato</span>
+            <p>Tutte le 2.560 combinazioni enumerate, e una visita completa dello spazio
+               raggiungibile che dimostra che <em>nessuno, cliccando, pu&ograve; comporre un
+               prodotto che non si fabbrica</em>. Il controllo ha trovato subito un difetto
+               vero: la configurazione predefinita del catalogo violava un vincolo del
+               catalogo stesso.</p>
+          </div>
+          <div style="margin-top:clamp(18px,2vw,26px)">
+            <a class="btn btn--primary" href="https://distinta.17labs.it/" rel="noopener">
+              Provalo <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="metrics">
+            <div class="metric"><b>0</b><span>configurazioni impossibili raggiungibili, su 664 stati e 10.616 mosse</span></div>
+            <div class="metric"><b>2.560</b><span>combinazioni di opzioni, enumerate tutte</span></div>
+            <div class="metric"><b>19 KB</b><span>sul filo, senza nessuna dipendenza</span></div>
+          </div>
+          <ul class="tags"><li>JavaScript</li><li>SVG</li><li>Motore di regole</li><li>Preventivazione</li></ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- Referenza a Quadro. -->
+    <article class="case reveal" style="margin-top:clamp(20px,2.4vw,32px)">
+      <div class="case__bar">
+        <svg class="ico" aria-hidden="true"><use href="#i-chart"></use></svg>
+        <b>Caso 05</b><span>Progetto personale</span><span>2026</span>
+      </div>
+      <div class="case__body">
+        <div>
+          <h3>Quadro &mdash; cruscotto sull&rsquo;Italia, dati ISTAT</h3>
+          <div class="block">
+            <span class="block__k">Problema</span>
+            <p>Un cruscotto che riceve totali gi&agrave; calcolati sa rispondere soltanto alle
+               domande che chi ha preparato i dati aveva previsto. Alla prima domanda diversa
+               servono una modifica, un rilascio e una settimana.</p>
+          </div>
+          <div class="block">
+            <span class="block__k">Approccio</span>
+            <p>Il browser riceve il dettaglio comunale &mdash; 7.896 righe &mdash; e aggrega al
+               volo. Cambiare livello, indicatore o filtro non &egrave; una richiesta a un
+               server: &egrave; un ciclo su un array.</p>
+            <p>La mappa pesa 99 KB perch&eacute; &egrave; TopoJSON: coordinate quantizzate, punti
+               memorizzati per differenza e confini condivisi fra regioni confinanti invece
+               che duplicati. Lo stesso disegno in GeoJSON ne pesa 2.700.</p>
+          </div>
+          <div class="block">
+            <span class="block__k">Risultato</span>
+            <p>Cinquantuno controlli che riconciliano i totali da ogni strada e li mettono
+               contro fatti che non vengono dai dati. Alla prima esecuzione la popolazione
+               italiana risultava di 118 milioni: il file ISTAT ha una riga di totale per
+               comune, e sommandola col dettaglio si conta tutto due volte.</p>
+          </div>
+          <div style="margin-top:clamp(18px,2vw,26px)">
+            <a class="btn btn--primary" href="https://quadro.17labs.it/" rel="noopener">
+              Provalo <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="metrics">
+            <div class="metric"><b>7.896</b><span>comuni aggregati nel browser a ogni interazione</span></div>
+            <div class="metric"><b>99 KB</b><span>la mappa vettoriale, contro i 2,7 MB del formato ingenuo</span></div>
+            <div class="metric"><b>51</b><span>controlli di riconciliazione superati</span></div>
+          </div>
+          <ul class="tags"><li>JavaScript</li><li>Python</li><li>TopoJSON</li><li>Dati aperti</li><li>Visualizzazione</li></ul>
         </div>
       </div>
     </article>
